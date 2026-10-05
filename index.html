@@ -532,7 +532,7 @@ const DAYS = [
     { drive: '1시간 30분', text: '호키티카', places: [['Hokitika', 'Hokitika']] },
     { drive: '왕복 1시간 10분', text: '호키티카 협곡 (에메랄드빛 강)', places: [['Hokitika Gorge', 'Hokitika Gorge']] },
     { drive: '2시간', text: '프란츠 조셉', places: [['Franz Josef', 'Franz Josef Glacier Village']] },
-    { time: '오후', text: '프란츠 조셉 빙하 계곡 트랙 (왕복 1시간 30분)', places: [['Franz Josef Glacier Valley Walk', 'Franz Josef Glacier Valley Walk']] }
+    { time: '오후', text: '프란츠 조셉 빙하 계곡 트랙 (왕복 1시간 30분) · 🅿️ 빙하 주차장 유료 (NZD 5/시간, 하루 최대 20)', places: [['Franz Josef Glacier Valley Walk', 'Franz Josef Glacier Valley Walk']] }
   ]},
   { date: '2026-10-24', stay: '프란츠 조셉 (Franz Josef) · 연박', stayQuery: 'Franz Josef', cost: '헬리하이크 1인 NZD 795', items: [
     { time: '오전', text: '프란츠 조셉 헬리하이크 (약 4시간, 헬기로 빙하 착륙 후 가이드 워킹)', places: [['Franz Josef Glacier Guides', 'Franz Josef Glacier Guides']] },
@@ -549,7 +549,7 @@ const DAYS = [
   ]},
   { date: '2026-10-26', stay: '마운트쿡 빌리지 (Aoraki/Mount Cook)', stayQuery: 'Aoraki Mount Cook Village', cost: '무료', items: [
     { drive: '2시간 30분', text: '린디스 패스 경유 마운트쿡', places: [['Lindis Pass', 'Lindis Pass'], ['Mount Cook Village', 'Aoraki Mount Cook Village']] },
-    { time: '오후', text: '후커밸리 트랙 (왕복 3시간, 빙하호까지)', places: [['Hooker Valley Track', 'Hooker Valley Track']] },
+    { time: '오후', text: '후커밸리 트랙 (왕복 3시간, 빙하호까지) · 🅿️ 화이트호스힐 주차장 유료 (NZD 5/시간, 하루 최대 25)', places: [['Hooker Valley Track', 'Hooker Valley Track']] },
     { time: '저녁', text: '보름달에 비친 설산 감상' }
   ]},
   { date: '2026-10-27', stay: '테카포 (Lake Tekapo)', stayQuery: 'Lake Tekapo', cost: '온천+별관측 1인 NZD 139', items: [
@@ -559,10 +559,11 @@ const DAYS = [
     { time: '오후', text: '선한목자교회, 마운트 존 전망대', places: [['Church of the Good Shepherd', 'Church of the Good Shepherd Tekapo'], ['Mt John', 'Mt John Observatory']] },
     { time: '밤', text: '테카포 스프링스 온천 + 별 관측 투어', places: [['Tekapo Springs', 'Tekapo Springs']] }
   ]},
-  { date: '2026-10-28', stay: '퀸스타운 (Queenstown)', stayQuery: 'Queenstown', cost: '번지 1인 NZD 320 · 밀포드 1인 NZD 668', items: [
+  { date: '2026-10-28', stay: '퀸스타운 (Queenstown)', stayQuery: 'Queenstown', cost: '번지 1인 NZD 320 · 밀포드 1인 NZD 668 · 곤돌라 1인 NZD 69', items: [
     { drive: '약 3시간', text: '퀸스타운 방향 (린디스 패스, 크롬웰 경유)', places: [['Cromwell', 'Cromwell']] },
     { text: '도중: 카와라우 번지 (43m, 세계 최초 상업 번지)', places: [['Kawarau Bridge Bungy', 'Kawarau Bridge Bungy']] },
-    { time: '오후', text: '밀포드 사운드 플라이-크루즈-플라이 (경비행기 왕복 + 2시간 크루즈)', places: [['Queenstown Airport', 'Queenstown Airport'], ['Milford Sound', 'Milford Sound']] }
+    { time: '오후', text: '밀포드 사운드 플라이-크루즈-플라이 (경비행기 왕복 + 2시간 크루즈)', places: [['Queenstown Airport', 'Queenstown Airport'], ['Milford Sound', 'Milford Sound']] },
+    { time: '저녁', text: '스카이라인 곤돌라 — 퀸스타운 야경 + 산 위 저녁 (곤돌라 21:00까지, 루지는 18:00 마감이라 시간 되면)', places: [['Skyline Queenstown', 'Skyline Queenstown']] }
   ]},
   { date: '2026-10-29', stay: '오클랜드 공항 근처', stayQuery: 'Auckland Airport', cost: '제트보트 1인 NZD 199', items: [
     { time: '오전', text: '샷오버 제트', places: [['Shotover Jet', 'Shotover Jet Queenstown']] },
@@ -597,6 +598,8 @@ const PHOTOS = [
   { day: 7, src: "photos/mtjohn.jpg", q: "Mt John Observatory", w: 800, h: 503, caption: "마운트 존 천문대", credit: "Bernard Spragg", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:Mount_John_University_Observatory_(9618676129).jpg" },
   { day: 8, src: "photos/bungy.jpg", q: "Kawarau Bridge Bungy", w: 425, h: 640, caption: "카와라우 번지 (43m)", credit: "chee.hong", license: "CC BY 2.0", page: "https://commons.wikimedia.org/wiki/File:Kawarau_Bridge_Bungy_Jump1.jpg" },
   { day: 8, src: "photos/milford.jpg", q: "Milford Sound", w: 800, h: 566, caption: "밀포드 사운드 — 마이터 피크", credit: "MurielBendel", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Milford_Sound_Mitre_Peak.JPG" },
+  { day: 8, src: "photos/skyview.jpg", q: "Skyline Queenstown", w: 800, h: 533, caption: "스카이라인 전망대에서 본 퀸스타운 해질녘", credit: "Lawrence Murray", license: "CC BY 2.0", page: "https://commons.wikimedia.org/wiki/File:Queenstown_from_Bob%27s_Peak.jpg" },
+  { day: 8, src: "photos/skyline.jpg", q: "Skyline Queenstown", w: 800, h: 601, caption: "스카이라인 곤돌라", credit: "Skyline Enterprises NZ", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Skyline_Queenstown_Gondola.jpg" },
   { day: 9, src: "photos/shotover.jpg", q: "Shotover Jet", w: 800, h: 450, caption: "샷오버 제트", credit: "Bernard Spragg", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:Thrill_seekers._Shotover_Jet._(18212837748).jpg" },
   { day: 9, src: "photos/glenorchy.jpg", q: "Glenorchy Wharf", w: 800, h: 533, caption: "글레노키 부두", credit: "Pseudopanax", license: "Public domain", page: "https://commons.wikimedia.org/wiki/File:Glenorchy_wharf_and_red_shed_at_Lake_Wakatipu.jpg" }
 ];
@@ -607,6 +610,7 @@ const ACTIVITIES = [
   { id: 'tekapo', name: '테카포 온천 + 별 관측',      day: 7, nzd: 139, people: 2 },
   { id: 'bungy',  name: '카와라우 번지',             day: 8, nzd: 320, people: 2 },
   { id: 'milford',name: '밀포드 플라이-크루즈-플라이', day: 8, nzd: 668, people: 2 },
+  { id: 'skyline',name: '스카이라인 곤돌라',          day: 8, nzd: 69,  people: 2 },
   { id: 'jet',    name: '샷오버 제트',               day: 9, nzd: 199, people: 2 }
 ];
 
@@ -675,7 +679,7 @@ const CHECKLIST = [
     { text: '숙소: 와나카 (10/25)', stay: 'wanaka' },
     { text: '숙소: 퀸스타운 (10/28)', stay: 'queenstown' },
     { text: '숙소: 오클랜드 공항 근처 (10/29)', note: '10/30 11:45 출발이라 국제선 터미널 가까운 곳으로', stay: 'akl' },
-    { text: '렌터카 예약 — 크라이스트처치 공항 픽업(10/22) → 퀸스타운 공항 반납(10/29 16:00)', note: '편도 반납 요금 확인, 풀커버(면책금 0) 보험, 운전자 2인 등록' },
+    { text: '렌터카 예약 — 크라이스트처치 공항 픽업(10/22) → 퀸스타운 공항 반납(10/29 16:00)', note: '편도 반납 요금 확인, 풀커버(면책금 0) 보험, 운전자 2인 등록, 스노 체인 대여 요청' },
     { text: '헬리하이크 예약 (10/24 첫 타임)', note: '날씨 취소가 잦아 첫 타임으로. 취소되면 10/25 아침으로 옮길 수 있는지도 문의', link: ['Franz Josef Glacier Guides', 'https://www.franzjosefglacier.com/'] },
     { text: '밀포드 플라이-크루즈-플라이 예약 (10/28 오후)', note: '날씨로 취소되면 10/29 오전으로 바꿀 수 있는지 확인' },
     { text: '젯스타 "운항 정보 변동" 알림 확인', note: '시간이 바뀌었으면 환승·렌터카 시간 다시 맞추기' },
@@ -686,6 +690,7 @@ const CHECKLIST = [
     { text: '카와라우 번지 예약 (10/28)', link: ['AJ Hackett Bungy', 'https://www.bungy.co.nz/'] },
     { text: '샷오버 제트 예약 (10/29 오전)', note: '16:00 렌터카 반납 전에 글레노키까지 다녀올 수 있는 시간으로', link: ['Shotover Jet', 'https://www.shotoverjet.com/'] },
     { text: '테카포 온천 + 별 관측 예약 (10/27)', link: ['Tekapo Springs', 'https://www.tekaposprings.co.nz/'] },
+    { text: '스카이라인 곤돌라 예약 (10/28 저녁, 선택)', note: '밀포드에서 돌아온 뒤 저녁에. 산 위 뷔페(Stratosfare) 저녁 포함 상품도 있음', link: ['Skyline Queenstown', 'https://queenstown.skyline.co.nz/'] },
     { text: '국제운전면허증 발급 — 운전할 사람 모두', note: '운전면허시험장은 당일 발급. 여권·면허증·사진 지참', link: ['안전운전 통합민원', 'https://www.safedriving.or.kr/'] },
     { text: '여행자 보험 가입 — 2인', note: '번지·헬기·제트보트 같은 레저 활동이 보장되는지 확인' },
     { text: '해외 결제 카드 준비 (트래블 카드 등)', note: '뉴질랜드는 대부분 카드 결제. 비상용 카드 1장 더' },
@@ -693,6 +698,8 @@ const CHECKLIST = [
   ]},
   { title: '출발 전 주', due: '2026-10-19', items: [
     { text: '숙소·렌터카·액티비티 예약 확인서 모아두기 (캡처/PDF)', note: '오프라인에서도 볼 수 있게 사진첩에 저장' },
+    { text: '렌터카에 스노 체인 실리는지 확인', note: '10월 말에도 아서스·해스트·린디스 패스에 늦은 눈이 올 수 있음. 픽업할 때 끼우는 법도 물어보기' },
+    { text: '국립공원 유료 주차 결제 방법 확인', note: '프란츠 조셉 빙하 주차장(하루 최대 NZD 20), 후커밸리 화이트호스힐(최대 25). 시간당 NZD 5, 짧은 무료 시간 있음. 렌터카 번호판 사진 찍어두기', link: ['DOC 유료 주차 안내', 'https://www.doc.govt.nz/paid-parking'] },
     { text: '구글 지도 오프라인 지도 다운로드 (남섬 전체)', note: '서해안·해스트 패스·마운트쿡은 통신이 거의 안 됨' },
     { text: '이 페이지 홈 화면에 추가 + 한 번 열어두기' },
     { text: '소액 뉴질랜드 달러 현금 (선택)', note: '대부분 카드 가능. 소액만' },
@@ -725,6 +732,8 @@ const NOTES = [
   '뉴질랜드는 서머타임 적용 중으로 <b>한국보다 4시간 빠름</b>. 일몰 약 20시 이후',
   '10월 말은 초봄: 아침 영하 근처, 낮 15도 안팎. 레이어링 + 방수 재킷 필수',
   '좌측통행, 남섬 시골길은 자갈이 많으니 풀커버 보험',
+  '10월 말은 눈 시즌이 끝나가는 때지만 아서스·해스트·린디스 패스에 늦은 눈이 올 수 있음. <b>스노 체인</b>을 싣고 다니고, 출발 전날 NZTA 도로 정보 확인',
+  '2025년 12월부터 <b>국립공원 유료 주차</b>: 프란츠 조셉 빙하 주차장(NZD 5/시간, 하루 최대 20), 후커밸리 화이트호스힐(NZD 5/시간, 하루 최대 25). 폭스·매서슨 호수·타스만은 해당 없음',
   '오클랜드 도착 후 대한항공 짐을 찾아 국내선 터미널로 직접 이동해 다시 부쳐야 함',
   '보름달이 뉴질랜드 시간 10/26 오후라 여행 후반 은하수 관측은 달빛 때문에 어려울 수 있음. 별 관측 투어는 흐리면 실내 VR로 진행',
   '헬리하이크는 4시간 연속 맑은 날씨가 필요해 취소가 잦음'
@@ -763,11 +772,12 @@ const MAP_POINTS = {
   zqn:       ['퀸스타운 공항', -45.0211, 168.7392, 'air'],
   milford:   ['밀포드 사운드', -44.6414, 167.8974, 'sight'],
   shotover:  ['샷오버 제트', -44.9970, 168.6750, 'sight'],
-  glenorchy: ['글레노키', -44.8505, 168.3884, 'sight']
+  glenorchy: ['글레노키', -44.8505, 168.3884, 'sight'],
+  skyline:   ['스카이라인 곤돌라', -45.0277, 168.6510, 'sight']
 };
 
 /* 옆 장소와 이름이 겹치는 곳은 이름을 왼쪽에 표시 */
-const MAP_LABEL_LEFT = ['fox', 'tree', 'punchbowl', 'fjvalley', 'matheson', 'hooker', 'mtjohn', 'shotover'];
+const MAP_LABEL_LEFT = ['skyline', 'fox', 'tree', 'punchbowl', 'fjvalley', 'matheson', 'hooker', 'mtjohn', 'shotover'];
 
 /* 일차별 경로 — drive: 차량(장소 키 또는 [위도, 경도] 경유점), fly: 항공(점선). nav: 구글 지도 길찾기용 장소 순서 */
 const MAP_ROUTE = [
@@ -790,7 +800,7 @@ const MAP_ROUTE = [
     drive: ['cook', 'tasman', 'cook', [-43.88, 170.12], [-44.05, 170.16], 'pukaki', [-44.12, 170.30], 'tekapo', 'church', 'tekapo', 'mtjohn'],
     nav: ['cook', 'tasman', 'pukaki', 'tekapo'] },
   { day: 8, color: '#db2777', fly: [['zqn', 'milford', 'zqn']],
-    drive: ['tekapo', [-44.12, 170.30], [-44.19, 170.15], [-44.26, 170.10], [-44.49, 169.97], 'lindis', [-44.70, 169.55], [-44.84, 169.41], [-44.96, 169.25], 'cromwell', [-45.01, 169.03], 'bungy', [-45.02, 168.78], 'queenstown'],
+    drive: ['tekapo', [-44.12, 170.30], [-44.19, 170.15], [-44.26, 170.10], [-44.49, 169.97], 'lindis', [-44.70, 169.55], [-44.84, 169.41], [-44.96, 169.25], 'cromwell', [-45.01, 169.03], 'bungy', [-45.02, 168.78], 'queenstown', 'skyline'],
     nav: ['tekapo', 'lindis', 'cromwell', 'bungy', 'queenstown'] },
   { day: 9, color: '#7c3aed', fly: [['zqn', [-40.6, 172.4]]],
     drive: ['queenstown', 'shotover', 'queenstown', [-45.03, 168.55], [-44.95, 168.43], 'glenorchy', [-44.95, 168.43], [-45.03, 168.55], 'queenstown', 'zqn'],

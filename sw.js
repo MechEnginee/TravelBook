@@ -1,5 +1,5 @@
 // 오프라인용 서비스 워커: 페이지와 사진을 미리 저장해 두고, 인터넷이 안 될 때 저장본을 보여줌
-const CACHE = 'nz-trip-v1';
+const CACHE = 'nz-trip-v2';
 const FILES = [
   "./",
   "index.html",
@@ -22,6 +22,8 @@ const FILES = [
   "photos/church.jpg",
   "photos/mtjohn.jpg",
   "photos/bungy.jpg",
+  "photos/skyview.jpg",
+  "photos/skyline.jpg",
   "photos/milford.jpg",
   "photos/shotover.jpg",
   "photos/glenorchy.jpg"
