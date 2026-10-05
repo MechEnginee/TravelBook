@@ -315,7 +315,8 @@
   .h-price { flex-basis: 100%; padding-left: 28px; font-weight: 700; color: var(--forest); font-variant-numeric: tabular-nums; }
   .h-krw { margin-left: 8px; font-size: 14px; font-weight: 600; color: var(--muted); white-space: nowrap; }
   .h-why { font-size: 14px; color: var(--muted); margin: 2px 0 0 28px; }
-  .h-links { display: flex; gap: 14px; flex-wrap: wrap; margin: 4px 0 0 28px; font-size: 14px; font-weight: 600; }
+  .h-dates { font-size: 13px; color: var(--muted); margin: 6px 0 0 28px; }
+  .h-links { display: flex; gap: 0 16px; flex-wrap: wrap; margin: 4px 0 0 28px; font-size: 14px; font-weight: 600; }
   .h-links a { min-height: 32px; display: inline-flex; align-items: center; }
   .check-group h3 {
     display: flex; align-items: center; flex-wrap: wrap; gap: 6px 8px; margin: 0; padding: 14px 16px 8px;
@@ -1102,7 +1103,7 @@ function showHotel(key) {
     H.options.map((h, i) =>
       '<div class="mi-hotel' + (i === pick ? ' picked' : '') + '"><div><b>' + (i === 0 ? '⭐ ' : '') + esc(h.name) + '</b>' + (i === pick ? ' <span class="badge">선택</span>' : '') + '</div>' +
       '<div class="mi-price">NZD ' + h.price[0] + '~' + h.price[1] + ' <span>≈ ' + man(h.price[0] * rate) + '~' + man(h.price[1] * rate) + '원</span></div>' +
-      '<div class="h-links" style="margin-left:0"><a href="' + bookingUrl(h, hk) + '" target="_blank" rel="noopener">예약 검색</a><a href="' + mapUrl(h.q || h.name) + '" target="_blank" rel="noopener">📍 지도</a></div></div>').join('') +
+      '<div class="h-links" style="margin-left:0"><a href="' + bookingUrl(h, hk) + '" target="_blank" rel="noopener">Booking.com</a><a href="' + hotelsComUrl(h, hk) + '" target="_blank" rel="noopener">Hotels.com</a><a href="' + mapUrl(h.q || h.name) + '" target="_blank" rel="noopener">📍 지도</a></div></div>').join('') +
     '<p class="muted small" style="margin:8px 0 0">숙소 선택은 체크리스트의 "추천 숙소 보기"에서 바꿀 수 있어요.</p>';
   highlight(key);
 }
@@ -1192,6 +1193,16 @@ function checkKey(it) { return it.text; }
 function isChecked(it) { const v = state.checks[checkKey(it)]; return v === undefined ? !!it.done : v; }
 function hotelNights(key) { return HOTELS[key].nights || 1; }
 function hotelPick(key) { const v = state.hotels[key]; return v >= 0 && v < HOTELS[key].options.length ? v : 0; }
+function stayDates(key) {
+  const d = HOTELS[key].night;
+  return [d, new Date(ymdToUTC(d) + hotelNights(key) * 864e5).toISOString().slice(0, 10)];
+}
+// Hotels.com 한국 사이트 — 원화로 가격 표시
+function hotelsComUrl(h, key) {
+  const [d, out] = stayDates(key);
+  return 'https://kr.hotels.com/Hotel-Search?destination=' + encodeURIComponent(h.q || h.name) +
+    '&startDate=' + d + '&endDate=' + out + '&adults=' + TRIP.people + '&rooms=1';
+}
 function bookingUrl(h, key) {
   const d = HOTELS[key].night, out = new Date(ymdToUTC(d) + hotelNights(key) * 864e5).toISOString().slice(0, 10);
   return 'https://www.booking.com/searchresults.html?ss=' + encodeURIComponent(h.q || h.name) +
@@ -1207,7 +1218,9 @@ function hotelPanel(key) {
         '<span class="h-price">NZD ' + h.price[0] + '~' + h.price[1] +
         '<span class="h-krw" data-lo="' + h.price[0] + '" data-hi="' + h.price[1] + '"></span></span></label>' +
         '<div class="h-why">' + esc(h.why) + '</div>' +
-        '<div class="h-links"><a href="' + bookingUrl(h, key) + '" target="_blank" rel="noopener">예약 검색 (' + labelDate(H.night) + ' ' + hotelNights(key) + '박)</a>' +
+        '<div class="h-dates">예약 검색 · ' + labelDate(H.night) + ' 체크인 ' + hotelNights(key) + '박</div>' +
+        '<div class="h-links"><a href="' + bookingUrl(h, key) + '" target="_blank" rel="noopener">Booking.com</a>' +
+        '<a href="' + hotelsComUrl(h, key) + '" target="_blank" rel="noopener">Hotels.com</a>' +
         '<a href="' + mapUrl(h.q || h.name) + '" target="_blank" rel="noopener">📍 지도</a></div></div>').join('') +
     '</details>';
 }
