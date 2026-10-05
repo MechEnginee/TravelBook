@@ -235,6 +235,20 @@
   /* ---------- Checklist ---------- */
   .progress { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; margin: 0 16px 4px; }
   .progress > div { height: 100%; background: var(--lake); width: 0; transition: width .2s; }
+  .hotel-sum { margin: 0 16px 12px; padding: 12px 14px; border-radius: 12px; background: var(--lake-soft); display: flex; flex-direction: column; gap: 4px; }
+  .hotel-sum #hotel-total { font-size: 17px; color: var(--lake); font-variant-numeric: tabular-nums; }
+  .hotel-sum .btn { align-self: flex-start; margin-top: 4px; }
+  .hotels { margin: -4px 16px 12px 52px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); }
+  .hotels summary { min-height: 44px; display: flex; align-items: center; padding: 0 12px; cursor: pointer; font-size: 15px; font-weight: 700; color: var(--glacier); }
+  .h-tip { margin: 0 12px 8px; font-size: 14px; color: var(--muted); }
+  .hotel { padding: 10px 12px; border-top: 1px solid var(--line); }
+  .h-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; cursor: pointer; min-height: 32px; }
+  .h-head input { width: 20px; height: 20px; margin: 0; accent-color: var(--lake); }
+  .h-name { font-weight: 700; flex: 1 1 auto; min-width: 0; }
+  .h-price { font-weight: 700; color: var(--forest); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .h-why { font-size: 14px; color: var(--muted); margin: 2px 0 0 28px; }
+  .h-links { display: flex; gap: 14px; flex-wrap: wrap; margin: 4px 0 0 28px; font-size: 14px; font-weight: 600; }
+  .h-links a { min-height: 32px; display: inline-flex; align-items: center; }
   .check-group h3 {
     display: flex; align-items: center; flex-wrap: wrap; gap: 6px 8px; margin: 0; padding: 14px 16px 8px;
     font-size: 16px; border-top: 1px solid var(--line); background: var(--surface-2);
@@ -286,6 +300,7 @@
     .card { break-inside: avoid; box-shadow: none; }
     .day.today { border: 1px solid var(--line); }
     .print-only { display: inline !important; }
+    #hotel-apply, .h-head input { display: none !important; }
     .photos { overflow: visible; flex-wrap: wrap; margin: 0 0 10px; padding: 0; }
     .photo { width: calc(33% - 7px) !important; }
     .photo img { height: 110px; }
@@ -353,6 +368,12 @@
     <h2>✅ 준비 체크리스트 <span class="count" id="check-count"></span></h2>
     <div class="card" style="padding-top:12px;overflow:hidden">
       <div class="progress" style="margin-bottom:12px"><div id="check-bar"></div></div>
+      <div class="hotel-sum">
+        <div>🏨 고른 숙소 8박 예상 <span class="muted small">(2인 1실)</span></div>
+        <div id="hotel-total"></div>
+        <div class="muted small">가격은 추정치입니다. 예약할 때 실제 가격을 꼭 확인하세요. 각 숙소 항목의 "추천 숙소 보기"에서 고르면 합계가 바뀝니다.</div>
+        <button type="button" class="btn" id="hotel-apply">비용 탭 숙소비에 반영</button>
+      </div>
       <div id="check-list"></div>
     </div>
   </section>
@@ -517,8 +538,53 @@ const EXTRAS = [
   { id: 'fuel',  name: '주유비', value: 0 }
 ];
 
+/* 숙소 추천 — 동선 기준. price: 2인 1실 1박 예상가 [최저, 최고] NZD (2026년 10월 말 기준 추정, 예약 시 꼭 확인)
+   첫 번째 옵션이 추천(⭐). 화면에서 고른 숙소로 예상 합계를 계산 */
+const HOTELS = {
+  arthurs: { night: '2026-10-22', area: "아서스 패스", tip: '캐슬힐 보고 저녁 도착 → 다음 날 아침 데빌스 펀치볼 트랙. 마을 안에 묵으면 트랙 입구까지 걸어서 감', options: [
+    { name: "Arthur's Pass Alpine Motel", price: [140, 180], why: '마을 중심, 펀치볼 트랙 입구 도보권. 주방 있는 모텔 (마을에 식당이 거의 없음)' },
+    { name: 'Mountain House Cottages', q: "Mountain House Arthur's Pass", price: [120, 220], why: '마을 안 독채 코티지/객실. 가격 저렴, 선택지 많음' },
+    { name: "Wilderness Lodge Arthur's Pass", price: [900, 1100], why: '고급 로지, 석식·조식·가이드 산책 포함. 마을 동쪽 차로 약 15분 (캐슬힐 쪽)' }
+  ]},
+  franz: { night: '2026-10-23', area: '프란츠 조셉', tip: '다음 날 아침 헬리하이크 출발 사무소가 마을 중심 큰길에 있음 → 마을 안이나 가까운 곳', options: [
+    { name: 'Rainforest Retreat', q: 'Rainforest Retreat Franz Josef', price: [180, 300], why: '마을 중심, 헬리하이크 사무소까지 도보. 숲속 트리하우스·모텔 객실' },
+    { name: 'Glenfern Villas', q: 'Glenfern Villas Franz Josef', price: [280, 330], why: '마을 북쪽 3km 별채형 빌라, 평점 높고 조용함. 아침에 차로 5분' },
+    { name: 'Te Waonui Forest Retreat', q: 'Te Waonui Forest Retreat', price: [550, 800], why: '프란츠 조셉 최고급 호텔, 마을 중심. 석식 포함 패키지 있음' }
+  ]},
+  fox: { night: '2026-10-24', area: '폭스 글레이셔', tip: '일몰은 매서슨 호수(마을에서 6km) → 다음 날 아침 해스트 방향 출발', options: [
+    { name: 'Te Weheka Boutique Hotel', q: 'Distinction Fox Glacier Te Weheka Boutique Hotel', price: [250, 350], why: '마을 중심 부티크 호텔, 조식 평이 좋음. 호수까지 차로 7분' },
+    { name: 'Lake Matheson Motel', q: 'Lake Matheson Motel Fox Glacier', price: [160, 220], why: '매서슨 호수 쪽 조용한 모텔, 일몰·일출 보기 편함. 주방 있음' },
+    { name: 'Fox Glacier Lodge', q: 'Fox Glacier Lodge', price: [180, 250], why: '마을 중심 작은 로지, 친절한 주인. 가성비' }
+  ]},
+  wanaka: { night: '2026-10-25', area: '와나카', tip: '와나카 트리 일몰 → 시내 호숫가에 묵으면 트리까지 걸어서 15분', options: [
+    { name: 'Lakeside Wanaka', q: 'Lakeside Serviced Apartments Wanaka', price: [300, 450], why: '시내 호숫가 아파트형, 호수 전망 발코니. 와나카 트리 도보 15분' },
+    { name: 'Edgewater Lake Wanaka', q: 'Edgewater Lake Wanaka', price: [300, 500], why: '와나카 유일한 호숫가 리조트, 시내에서 2km. 와나카 트리 차로 5분' },
+    { name: 'Wanaka Hotel', q: 'Wanaka Hotel Ardmore Street', price: [170, 250], why: '시내 중심 깔끔한 호텔, 식당 가기 편함. 가성비' }
+  ]},
+  cook: { night: '2026-10-26', area: '마운트쿡 빌리지', tip: '숙소가 몇 곳뿐이라 가장 먼저 마감. 후커밸리 트랙 주차장(화이트호스힐)까지 차로 5분, 다음 날 일출 타스만 전망대 차로 15분', options: [
+    { name: 'The Hermitage Hotel', q: 'The Hermitage Hotel Mount Cook', price: [350, 600], why: '마운트쿡 정면 뷰 객실(Mt Cook view)이 핵심. 보름달 설산 감상에 최적. 객실 등급별 가격 차이 큼' },
+    { name: 'Aoraki Court Motel', q: 'Aoraki Court Motel', price: [250, 380], why: '신축급 모텔, 주방 있음. 산 전망 객실 있음' },
+    { name: 'Mt Cook Lodge & Motels', q: 'Mt Cook Lodge and Motels', price: [200, 300], why: '마을 안 가성비 숙소. 식당 있음' }
+  ]},
+  tekapo: { night: '2026-10-27', area: '테카포', tip: '밤에 테카포 스프링스 온천+별 관측 → 온천 근처나 호수 서쪽이 이동 편함', options: [
+    { name: 'Peppers Bluewater Resort', q: 'Peppers Bluewater Resort Lake Tekapo', price: [220, 350], why: '호숫가 리조트, 테카포 스프링스까지 차로 3분. 호수 전망 객실 추천' },
+    { name: 'The Godley Hotel', q: 'The Godley Hotel Lake Tekapo', price: [180, 280], why: '시내 호숫가, 선한목자교회 도보 10분. 식당 가기 편함' },
+    { name: 'Lake Tekapo Village Motel', q: 'Lake Tekapo Village Motel', price: [180, 260], why: '시내 중심 모텔, 주방 있음. 가성비' }
+  ]},
+  queenstown: { night: '2026-10-28', area: '퀸스타운', tip: '다음 날 아침 샷오버 제트(아서스 포인트, 시내에서 10분) → 글레노키 → 16:00 공항 반납. 시내 호숫가가 무난. 주차 포함 여부 꼭 확인', options: [
+    { name: 'Novotel Queenstown Lakeside', price: [300, 500], why: '시내 한가운데 호숫가, 식당·상점 도보. 유료 주차' },
+    { name: 'Rydges Lakeland Queenstown', q: 'Rydges Lakeland Resort Queenstown', price: [250, 400], why: '호숫가, 시내 도보 5분. 호수 전망 객실 가성비 좋음' },
+    { name: 'Hotel St Moritz', q: 'Hotel St Moritz Queenstown', price: [350, 550], why: '언덕 위 고급 호텔, 호수 전망. 시내 도보 5분' }
+  ]},
+  akl: { night: '2026-10-29', area: '오클랜드 공항', tip: 'JQ298 국내선 19:20 도착 → 다음 날 KE412 11:45 국제선 출발. 국제선 터미널 가까운 곳이 제일 편함', options: [
+    { name: 'Novotel Auckland Airport', price: [300, 450], why: '국제선 터미널 바로 앞(도보 1분). 국내선에서 무료 셔틀·도보 10분. 아침이 제일 편함' },
+    { name: 'Holiday Inn Auckland Airport', price: [250, 350], why: '공항 안 신축 호텔, 국제선 터미널 도보 약 10분' },
+    { name: 'Jet Park Airport Hotel', q: 'Jet Park Airport Hotel Auckland', price: [180, 250], why: '공항 무료 셔틀 운행, 가성비' }
+  ]}
+};
+
 /* 준비 체크리스트 — 기한(due) 순서대로 묶음.
-   item: { text, note?(설명), link?([표시명, 주소]), done?(처음부터 완료 상태) } */
+   item: { text, note?(설명), link?([표시명, 주소]), done?(처음부터 완료 상태), stay?(HOTELS 키 — 추천 숙소 표시) } */
 const CHECKLIST = [
   { title: '완료', due: null, items: [
     { text: '대한항공 왕복 발권 (KE411 / KE412, 마일리지)', done: true },
@@ -526,14 +592,14 @@ const CHECKLIST = [
   ]},
   { title: '지금 바로 · 가장 급함', due: '2026-10-08', items: [
     { text: 'NZeTA (전자여행허가) + IVL 신청 — 2인 각각', note: '승인까지 최대 72시간. 대행 사이트 말고 공식 앱/사이트에서', link: ['공식 신청', 'https://www.immigration.govt.nz/new-zealand-visas/visas/visa/nzeta'] },
-    { text: '숙소: 마운트쿡 빌리지 (10/26)', note: '숙소가 몇 곳 없어 가장 먼저 마감' },
-    { text: '숙소: 프란츠 조셉 (10/23)' },
-    { text: '숙소: 폭스 글레이셔 (10/24)' },
-    { text: '숙소: 테카포 (10/27)' },
-    { text: '숙소: 아서스 패스 (10/22)', note: '마을이 작아 선택지가 적음' },
-    { text: '숙소: 와나카 (10/25)' },
-    { text: '숙소: 퀸스타운 (10/28)' },
-    { text: '숙소: 오클랜드 공항 근처 (10/29)', note: '10/30 11:45 출발이라 공항 셔틀 있는 곳으로' },
+    { text: '숙소: 마운트쿡 빌리지 (10/26)', note: '숙소가 몇 곳 없어 가장 먼저 마감', stay: 'cook' },
+    { text: '숙소: 프란츠 조셉 (10/23)', stay: 'franz' },
+    { text: '숙소: 폭스 글레이셔 (10/24)', stay: 'fox' },
+    { text: '숙소: 테카포 (10/27)', stay: 'tekapo' },
+    { text: '숙소: 아서스 패스 (10/22)', note: '마을이 작아 선택지가 적음', stay: 'arthurs' },
+    { text: '숙소: 와나카 (10/25)', stay: 'wanaka' },
+    { text: '숙소: 퀸스타운 (10/28)', stay: 'queenstown' },
+    { text: '숙소: 오클랜드 공항 근처 (10/29)', note: '10/30 11:45 출발이라 국제선 터미널 가까운 곳으로', stay: 'akl' },
     { text: '렌터카 예약 — 크라이스트처치 공항 픽업(10/22) → 퀸스타운 공항 반납(10/29 16:00)', note: '편도 반납 요금 확인, 풀커버(면책금 0) 보험, 운전자 2인 등록' },
     { text: '헬리하이크 예약 (10/24 첫 타임)', note: '날씨 취소가 잦아 첫 타임으로. 취소되면 10/25 아침으로 옮길 수 있는지도 문의', link: ['Franz Josef Glacier Guides', 'https://www.franzjosefglacier.com/'] },
     { text: '밀포드 플라이-크루즈-플라이 예약 (10/28 오후)', note: '날씨로 취소되면 10/29 오전으로 바꿀 수 있는지 확인' },
@@ -602,7 +668,7 @@ const mapUrl = (q) => 'https://www.google.com/maps/search/?api=1&query=' + encod
 function loadState() {
   try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch (e) { return {}; }
 }
-const state = Object.assign({ checks: {}, people: {}, extras: {}, rate: null }, loadState());
+const state = Object.assign({ checks: {}, people: {}, extras: {}, rate: null, hotels: {} }, loadState());
 function saveState() {
   try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) { /* 저장 불가해도 화면은 정상 */ }
 }
@@ -760,7 +826,7 @@ function renderCosts() {
   document.querySelectorAll('.seg button').forEach((b) => b.addEventListener('click', () => {
     state.people[b.dataset.act] = Number(b.dataset.p); saveState(); updateCosts();
   }));
-  $('rate').addEventListener('input', () => { state.rate = parseFloat($('rate').value) || null; saveState(); updateCosts(); });
+  $('rate').addEventListener('input', () => { state.rate = parseFloat($('rate').value) || null; saveState(); updateCosts(); if ($('hotel-total')) updateHotelTotal(); });
   document.querySelectorAll('[data-ex]').forEach((inp) => {
     inp.addEventListener('input', () => {
       const n = parseInt(inp.value.replace(/[^\d]/g, ''), 10) || 0;
@@ -794,6 +860,35 @@ function updateCosts() {
 /* ---------- Checklist ---------- */
 function checkKey(it) { return it.text; }
 function isChecked(it) { const v = state.checks[checkKey(it)]; return v === undefined ? !!it.done : v; }
+function hotelPick(key) { const v = state.hotels[key]; return v >= 0 && v < HOTELS[key].options.length ? v : 0; }
+function bookingUrl(h, key) {
+  const d = HOTELS[key].night, out = new Date(ymdToUTC(d) + 864e5).toISOString().slice(0, 10);
+  return 'https://www.booking.com/searchresults.html?ss=' + encodeURIComponent(h.q || h.name) +
+    '&checkin=' + d + '&checkout=' + out + '&group_adults=' + TRIP.people + '&no_rooms=1';
+}
+function hotelPanel(key) {
+  const H = HOTELS[key], pick = hotelPick(key);
+  return '<details class="hotels"><summary>🏨 추천 숙소 ' + H.options.length + '곳 · 1박 예상가 보기</summary>' +
+    '<p class="h-tip">🧭 ' + esc(H.tip) + '</p>' +
+    H.options.map((h, i) =>
+      '<div class="hotel"><label class="h-head"><input type="radio" name="hotel-' + key + '" value="' + i + '" data-hotel' + (i === pick ? ' checked' : '') + '>' +
+        '<span class="h-name">' + (i === 0 ? '⭐ ' : '') + esc(h.name) + '</span>' +
+        '<span class="h-price">NZD ' + h.price[0] + '~' + h.price[1] + '</span></label>' +
+        '<div class="h-why">' + esc(h.why) + '</div>' +
+        '<div class="h-links"><a href="' + bookingUrl(h, key) + '" target="_blank" rel="noopener">예약 검색 (' + labelDate(H.night) + ' 1박)</a>' +
+        '<a href="' + mapUrl(h.q || h.name) + '" target="_blank" rel="noopener">📍 지도</a></div></div>').join('') +
+    '</details>';
+}
+function hotelTotal() {
+  return Object.keys(HOTELS).reduce((t, k) => {
+    const p = HOTELS[k].options[hotelPick(k)].price; return [t[0] + p[0], t[1] + p[1]];
+  }, [0, 0]);
+}
+function updateHotelTotal() {
+  const t = hotelTotal(), rate = getRate();
+  $('hotel-total').innerHTML = '<b>NZD ' + fmt(t[0]) + '~' + fmt(t[1]) + '</b> · ₩' +
+    fmt(Math.round(t[0] * rate / 1e4) * 1e4) + '~' + fmt(Math.round(t[1] * rate / 1e4) * 1e4);
+}
 function renderChecklist() {
   const today = ymdIn('Asia/Seoul', getNow());
   $('check-list').innerHTML = CHECKLIST.map((g, gi) => {
@@ -809,10 +904,20 @@ function renderChecklist() {
         '<span class="mark"></span><span class="c-body"><span class="c-text">' + esc(it.text) + '</span>' +
         (it.note ? '<span class="c-note">' + esc(it.note) + '</span>' : '') +
         (it.link ? '<a class="c-link" href="' + esc(it.link[1]) + '" target="_blank" rel="noopener">🔗 ' + esc(it.link[0]) + '</a>' : '') +
-        '</span></label>').join('') + '</div>';
+        '</span></label>' + (it.stay ? hotelPanel(it.stay) : '')).join('') + '</div>';
   }).join('');
+  document.querySelectorAll('[data-hotel]').forEach((r) => r.addEventListener('change', () => {
+    state.hotels[r.name.slice(6)] = Number(r.value); saveState(); updateHotelTotal();
+  }));
+  $('hotel-apply').addEventListener('click', () => {
+    const t = hotelTotal(), krw = Math.round((t[0] + t[1]) / 2 * getRate() / 1000) * 1000;
+    state.extras.hotel = krw; saveState();
+    $('ex-hotel').value = fmt(krw); updateCosts();
+    $('hotel-apply').textContent = '비용에 반영됨 ✓';
+  });
+  updateHotelTotal();
   const all = CHECKLIST.flatMap((g) => g.items);
-  document.querySelectorAll('#check-list input').forEach((cb, i) => {
+  document.querySelectorAll('#check-list input[type=checkbox]').forEach((cb, i) => {
     cb.checked = isChecked(all[i]);
     cb.addEventListener('change', () => {
       state.checks[cb.dataset.key] = cb.checked;
@@ -822,7 +927,7 @@ function renderChecklist() {
   updateChecklist();
 }
 function updateChecklist() {
-  const boxes = document.querySelectorAll('#check-list input');
+  const boxes = document.querySelectorAll('#check-list input[type=checkbox]');
   const per = {};
   let done = 0;
   boxes.forEach((cb) => {
@@ -875,6 +980,9 @@ if (st.phase === 'during') {
   // 여행 중에는 열자마자 오늘 일정으로
   setTimeout(() => { const el = $('day-' + st.day); if (el && !location.hash) el.scrollIntoView({ block: 'start' }); }, 50);
 }
+// 인쇄할 때 추천 숙소 목록도 펼침
+window.addEventListener('beforeprint', () => document.querySelectorAll('details.hotels').forEach((d) => { d.dataset.wasOpen = d.open; d.open = true; }));
+window.addEventListener('afterprint', () => document.querySelectorAll('details.hotels').forEach((d) => { d.open = d.dataset.wasOpen === 'true'; }));
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
   // 한 번 열어두면 사진까지 저장되어 오프라인에서도 열림
   window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
