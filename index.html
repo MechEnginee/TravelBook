@@ -245,7 +245,8 @@
   .h-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; cursor: pointer; min-height: 32px; }
   .h-head input { width: 20px; height: 20px; margin: 0; accent-color: var(--lake); }
   .h-name { font-weight: 700; flex: 1 1 auto; min-width: 0; }
-  .h-price { font-weight: 700; color: var(--forest); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .h-price { flex-basis: 100%; padding-left: 28px; font-weight: 700; color: var(--forest); font-variant-numeric: tabular-nums; }
+  .h-krw { margin-left: 8px; font-size: 14px; font-weight: 600; color: var(--muted); white-space: nowrap; }
   .h-why { font-size: 14px; color: var(--muted); margin: 2px 0 0 28px; }
   .h-links { display: flex; gap: 14px; flex-wrap: wrap; margin: 4px 0 0 28px; font-size: 14px; font-weight: 600; }
   .h-links a { min-height: 32px; display: inline-flex; align-items: center; }
@@ -873,7 +874,8 @@ function hotelPanel(key) {
     H.options.map((h, i) =>
       '<div class="hotel"><label class="h-head"><input type="radio" name="hotel-' + key + '" value="' + i + '" data-hotel' + (i === pick ? ' checked' : '') + '>' +
         '<span class="h-name">' + (i === 0 ? '⭐ ' : '') + esc(h.name) + '</span>' +
-        '<span class="h-price">NZD ' + h.price[0] + '~' + h.price[1] + '</span></label>' +
+        '<span class="h-price">NZD ' + h.price[0] + '~' + h.price[1] +
+        '<span class="h-krw" data-lo="' + h.price[0] + '" data-hi="' + h.price[1] + '"></span></span></label>' +
         '<div class="h-why">' + esc(h.why) + '</div>' +
         '<div class="h-links"><a href="' + bookingUrl(h, key) + '" target="_blank" rel="noopener">예약 검색 (' + labelDate(H.night) + ' 1박)</a>' +
         '<a href="' + mapUrl(h.q || h.name) + '" target="_blank" rel="noopener">📍 지도</a></div></div>').join('') +
@@ -884,8 +886,12 @@ function hotelTotal() {
     const p = HOTELS[k].options[hotelPick(k)].price; return [t[0] + p[0], t[1] + p[1]];
   }, [0, 0]);
 }
+function man(n) { return (Math.round(n / 1e3) / 10).toLocaleString('ko-KR') + '만'; } // 원 → 'N.N만'
 function updateHotelTotal() {
   const t = hotelTotal(), rate = getRate();
+  document.querySelectorAll('.h-krw').forEach((el) => {
+    el.textContent = '≈ ' + man(el.dataset.lo * rate) + '~' + man(el.dataset.hi * rate) + '원';
+  });
   $('hotel-total').innerHTML = '<b>NZD ' + fmt(t[0]) + '~' + fmt(t[1]) + '</b> · ₩' +
     fmt(Math.round(t[0] * rate / 1e4) * 1e4) + '~' + fmt(Math.round(t[1] * rate / 1e4) * 1e4);
 }
