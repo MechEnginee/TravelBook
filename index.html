@@ -157,6 +157,11 @@
   }
   .photo figcaption { display: flex; flex-direction: column; padding: 6px 2px 0; }
   .p-cap { font-size: 14px; font-weight: 600; }
+  .p-map { position: relative; display: block; }
+  .p-pin {
+    position: absolute; right: 8px; bottom: 8px; padding: 4px 10px; border-radius: 14px;
+    background: rgba(0, 0, 0, .55); color: #fff; font-size: 13px; font-weight: 700;
+  }
   .p-credit { font-size: 11px; color: var(--muted); text-decoration: none; min-height: 24px; }
   .timeline { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line); margin-left: 6px; }
   .timeline li { position: relative; padding: 4px 0 12px 18px; }
@@ -442,7 +447,7 @@
     <div class="card" style="padding-top:12px;overflow:hidden">
       <div class="progress" style="margin-bottom:12px"><div id="check-bar"></div></div>
       <div class="hotel-sum">
-        <div>🏨 고른 숙소 8박 예상 <span class="muted small">(2인 1실)</span></div>
+        <div>🏨 고른 숙소 <span id="hotel-nights">8</span>박 예상 <span class="muted small">(2인 1실)</span></div>
         <div id="hotel-total"></div>
         <div class="muted small">가격은 추정치입니다. 예약할 때 실제 가격을 꼭 확인하세요. 각 숙소 항목의 "추천 숙소 보기"에서 고르면 합계가 바뀝니다.</div>
         <button type="button" class="btn" id="hotel-apply">비용 탭 숙소비에 반영</button>
@@ -528,14 +533,15 @@ const DAYS = [
     { drive: '2시간', text: '프란츠 조셉', places: [['Franz Josef', 'Franz Josef Glacier Village']] },
     { time: '오후', text: '프란츠 조셉 빙하 계곡 트랙 (왕복 1시간 30분)', places: [['Franz Josef Glacier Valley Walk', 'Franz Josef Glacier Valley Walk']] }
   ]},
-  { date: '2026-10-24', stay: '폭스 글레이셔 (Fox Glacier)', stayQuery: 'Fox Glacier', cost: '헬리하이크 1인 NZD 795', items: [
+  { date: '2026-10-24', stay: '프란츠 조셉 (Franz Josef) · 연박', stayQuery: 'Franz Josef', cost: '헬리하이크 1인 NZD 795', items: [
     { time: '오전', text: '프란츠 조셉 헬리하이크 (약 4시간, 헬기로 빙하 착륙 후 가이드 워킹)', places: [['Franz Josef Glacier Guides', 'Franz Josef Glacier Guides']] },
     { drive: '30분', text: '폭스 글레이셔', places: [['Fox Glacier', 'Fox Glacier Village']] },
     { time: '오후', text: '폭스 빙하 전망 트랙', places: [['Fox Glacier Lookout', 'Fox Glacier South Side Walkway']] },
-    { time: '일몰', text: '매서슨 호수 — 마운트쿡이 비치는 거울 호수 (둘레길 1시간 30분)', places: [['Lake Matheson', 'Lake Matheson']] }
+    { time: '일몰', text: '매서슨 호수 — 마운트쿡이 비치는 거울 호수 (둘레길 1시간 30분)', places: [['Lake Matheson', 'Lake Matheson']] },
+    { drive: '40분', text: '프란츠 조셉 숙소로 복귀 (밤길 커브 많음, 천천히)', places: [['Franz Josef', 'Franz Josef']] }
   ]},
   { date: '2026-10-25', stay: '와나카 (Wanaka)', stayQuery: 'Wanaka', cost: '무료', items: [
-    { drive: '2시간', text: '해스트', places: [['Haast', 'Haast']] },
+    { drive: '2시간 30분', text: '프란츠 조셉 출발 → 폭스 글레이셔 경유 → 해스트', places: [['Haast', 'Haast']] },
     { text: '해스트 패스: 썬더크릭 폭포, 팬테일 폭포, 블루풀스 (왕복 1시간)', places: [['Thunder Creek Falls', 'Thunder Creek Falls'], ['Fantail Falls', 'Fantail Falls'], ['Blue Pools', 'Blue Pools Walk Haast Pass']] },
     { drive: '1시간 30분', text: '와나카', places: [['Wanaka', 'Wanaka']] },
     { time: '일몰', text: '와나카 트리', places: [['That Wanaka Tree', 'That Wanaka Tree']] }
@@ -568,30 +574,30 @@ const DAYS = [
   ]}
 ];
 
-/* 일차별 사진 — Wikimedia Commons 자유 라이선스 사진 (크기만 줄임). 일차(day)에 맞춰 카드 안에 표시 */
+/* 일차별 사진 — Wikimedia Commons 자유 라이선스 사진 (크기만 줄임). 일차(day)에 맞춰 카드 안에 표시, q: 사진을 누르면 여는 구글 지도 검색어 */
 const PHOTOS = [
-  { day: 2, src: "photos/castle.jpg", w: 800, h: 450, caption: "캐슬힐 거석 바위군", credit: "Bernard Spragg", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:Castle_Hill_Canterbury_NZ.jpg" },
-  { day: 3, src: "photos/punchbowl.jpg", w: 480, h: 640, caption: "데빌스 펀치볼 폭포", credit: "Pavel Špindler", license: "CC BY 3.0", page: "https://commons.wikimedia.org/wiki/File:Devils_Punchbowl_Falls_I_-_Arthurs_Pass_N.P._-_panoramio.jpg" },
-  { day: 3, src: "photos/hokitika.jpg", w: 800, h: 533, caption: "호키티카 협곡 출렁다리", credit: "Steve Gardner", license: "CC BY 2.0", page: "https://commons.wikimedia.org/wiki/File:Hokitika_Gorge_-_24034534819.png" },
-  { day: 3, src: "photos/franz.jpg", w: 800, h: 560, caption: "프란츠 조셉 빙하 계곡 트랙", credit: "Krzysztof Golik", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Franz_Josef_Glacier_14.jpg" },
-  { day: 4, src: "photos/helihike.jpg", w: 800, h: 541, caption: "헬리하이크 — 빙하 위 얼음 동굴 (사진은 폭스 빙하 투어)", credit: "Fox Glacier Guiding", license: "CC BY 4.0", page: "https://commons.wikimedia.org/wiki/File:FGG_Fox-glacier-heli-hike-group-helicopter_04.jpg" },
-  { day: 4, src: "photos/foxglacier.jpg", w: 800, h: 553, caption: "폭스 빙하", credit: "Krzysztof Golik", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Fox_Glacier_in_Westland_National_Park_01.jpg" },
-  { day: 4, src: "photos/matheson.jpg", w: 800, h: 533, caption: "매서슨 호수에 비친 마운트쿡·타스만", credit: "Pseudopanax", license: "Public domain", page: "https://commons.wikimedia.org/wiki/File:Lake_Matheson_reflection_of_Mount_Tasman_and_Aoraki_Mount_Cook.jpg" },
-  { day: 5, src: "photos/thunder.jpg", w: 800, h: 533, caption: "썬더크릭 폭포", credit: "itravelNZ® - New Zealand in your pocket™", license: "CC BY 2.0", page: "https://commons.wikimedia.org/wiki/File:Thunder_Creek_Falls_Flickr_01.jpg" },
-  { day: 5, src: "photos/fantail.jpg", w: 800, h: 533, caption: "팬테일 폭포", credit: "itravelNZ® - New Zealand in your pocket™", license: "CC BY 2.0", page: "https://commons.wikimedia.org/wiki/File:Fantail_Falls_01.jpg" },
-  { day: 5, src: "photos/bluepools.jpg", w: 800, h: 600, caption: "블루풀스 (마카로라 강)", credit: "Mike Dickison", license: "CC BY 4.0", page: "https://commons.wikimedia.org/wiki/File:Blue_Pool_Track_MRD_05.jpg" },
-  { day: 5, src: "photos/wanakatree.jpg", w: 800, h: 533, caption: "와나카 트리", credit: "Keerti Siag photography", license: "CC BY-SA 2.0", page: "https://commons.wikimedia.org/wiki/File:Lake_Wanaka_Tree.jpg" },
-  { day: 6, src: "photos/lindis.jpg", w: 800, h: 533, caption: "린디스 패스", credit: "Charlie Mitchell", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Lindis_Pass,_Otago,_New_Zealand.jpg" },
-  { day: 6, src: "photos/hooker.jpg", w: 800, h: 541, caption: "후커밸리 트랙 출렁다리", credit: "Jan Helebrant", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:NZ_Hooker_Valley_track.jpg" },
-  { day: 6, src: "photos/hookerlake.jpg", w: 800, h: 532, caption: "후커 빙하호와 마운트쿡", credit: "Pseudopanax", license: "CC BY 3.0", page: "https://commons.wikimedia.org/wiki/File:Icebergs_in_Hooker_Glacier_Lake_in_front_of_Aoraki_Mount_Cook.jpg" },
-  { day: 7, src: "photos/tasman.jpg", w: 800, h: 614, caption: "타스만 빙하호", credit: "Krzysztof Golik", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Tasman_Lake_and_Tasman_Glacier.jpg" },
-  { day: 7, src: "photos/pukaki.jpg", w: 800, h: 448, caption: "푸카키 호수와 마운트쿡", credit: "Krzysztof Golik", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Lake_Pukaki_%26_Aoraki_Mount_Cook_01.jpg" },
-  { day: 7, src: "photos/church.jpg", w: 800, h: 600, caption: "선한목자교회", credit: "Jillianalma", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Church_of_the_Good_Shepherd,_Lake_Tekapo,_New_Zealand.jpg" },
-  { day: 7, src: "photos/mtjohn.jpg", w: 800, h: 503, caption: "마운트 존 천문대", credit: "Bernard Spragg", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:Mount_John_University_Observatory_(9618676129).jpg" },
-  { day: 8, src: "photos/bungy.jpg", w: 425, h: 640, caption: "카와라우 번지 (43m)", credit: "chee.hong", license: "CC BY 2.0", page: "https://commons.wikimedia.org/wiki/File:Kawarau_Bridge_Bungy_Jump1.jpg" },
-  { day: 8, src: "photos/milford.jpg", w: 800, h: 566, caption: "밀포드 사운드 — 마이터 피크", credit: "MurielBendel", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Milford_Sound_Mitre_Peak.JPG" },
-  { day: 9, src: "photos/shotover.jpg", w: 800, h: 450, caption: "샷오버 제트", credit: "Bernard Spragg", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:Thrill_seekers._Shotover_Jet._(18212837748).jpg" },
-  { day: 9, src: "photos/glenorchy.jpg", w: 800, h: 533, caption: "글레노키 부두", credit: "Pseudopanax", license: "Public domain", page: "https://commons.wikimedia.org/wiki/File:Glenorchy_wharf_and_red_shed_at_Lake_Wakatipu.jpg" }
+  { day: 2, src: "photos/castle.jpg", q: "Castle Hill Conservation Area", w: 800, h: 450, caption: "캐슬힐 거석 바위군", credit: "Bernard Spragg", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:Castle_Hill_Canterbury_NZ.jpg" },
+  { day: 3, src: "photos/punchbowl.jpg", q: "Devils Punchbowl Falls", w: 480, h: 640, caption: "데빌스 펀치볼 폭포", credit: "Pavel Špindler", license: "CC BY 3.0", page: "https://commons.wikimedia.org/wiki/File:Devils_Punchbowl_Falls_I_-_Arthurs_Pass_N.P._-_panoramio.jpg" },
+  { day: 3, src: "photos/hokitika.jpg", q: "Hokitika Gorge", w: 800, h: 533, caption: "호키티카 협곡 출렁다리", credit: "Steve Gardner", license: "CC BY 2.0", page: "https://commons.wikimedia.org/wiki/File:Hokitika_Gorge_-_24034534819.png" },
+  { day: 3, src: "photos/franz.jpg", q: "Franz Josef Glacier Valley Walk", w: 800, h: 560, caption: "프란츠 조셉 빙하 계곡 트랙", credit: "Krzysztof Golik", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Franz_Josef_Glacier_14.jpg" },
+  { day: 4, src: "photos/helihike.jpg", q: "Franz Josef Glacier Guides", w: 800, h: 541, caption: "헬리하이크 — 빙하 위 얼음 동굴 (사진은 폭스 빙하 투어)", credit: "Fox Glacier Guiding", license: "CC BY 4.0", page: "https://commons.wikimedia.org/wiki/File:FGG_Fox-glacier-heli-hike-group-helicopter_04.jpg" },
+  { day: 4, src: "photos/foxglacier.jpg", q: "Fox Glacier South Side Walkway", w: 800, h: 553, caption: "폭스 빙하", credit: "Krzysztof Golik", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Fox_Glacier_in_Westland_National_Park_01.jpg" },
+  { day: 4, src: "photos/matheson.jpg", q: "Lake Matheson", w: 800, h: 533, caption: "매서슨 호수에 비친 마운트쿡·타스만", credit: "Pseudopanax", license: "Public domain", page: "https://commons.wikimedia.org/wiki/File:Lake_Matheson_reflection_of_Mount_Tasman_and_Aoraki_Mount_Cook.jpg" },
+  { day: 5, src: "photos/thunder.jpg", q: "Thunder Creek Falls", w: 800, h: 533, caption: "썬더크릭 폭포", credit: "itravelNZ® - New Zealand in your pocket™", license: "CC BY 2.0", page: "https://commons.wikimedia.org/wiki/File:Thunder_Creek_Falls_Flickr_01.jpg" },
+  { day: 5, src: "photos/fantail.jpg", q: "Fantail Falls", w: 800, h: 533, caption: "팬테일 폭포", credit: "itravelNZ® - New Zealand in your pocket™", license: "CC BY 2.0", page: "https://commons.wikimedia.org/wiki/File:Fantail_Falls_01.jpg" },
+  { day: 5, src: "photos/bluepools.jpg", q: "Blue Pools Walk", w: 800, h: 600, caption: "블루풀스 (마카로라 강)", credit: "Mike Dickison", license: "CC BY 4.0", page: "https://commons.wikimedia.org/wiki/File:Blue_Pool_Track_MRD_05.jpg" },
+  { day: 5, src: "photos/wanakatree.jpg", q: "That Wanaka Tree", w: 800, h: 533, caption: "와나카 트리", credit: "Keerti Siag photography", license: "CC BY-SA 2.0", page: "https://commons.wikimedia.org/wiki/File:Lake_Wanaka_Tree.jpg" },
+  { day: 6, src: "photos/lindis.jpg", q: "Lindis Pass", w: 800, h: 533, caption: "린디스 패스", credit: "Charlie Mitchell", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Lindis_Pass,_Otago,_New_Zealand.jpg" },
+  { day: 6, src: "photos/hooker.jpg", q: "Hooker Valley Track", w: 800, h: 541, caption: "후커밸리 트랙 출렁다리", credit: "Jan Helebrant", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:NZ_Hooker_Valley_track.jpg" },
+  { day: 6, src: "photos/hookerlake.jpg", q: "Hooker Lake", w: 800, h: 532, caption: "후커 빙하호와 마운트쿡", credit: "Pseudopanax", license: "CC BY 3.0", page: "https://commons.wikimedia.org/wiki/File:Icebergs_in_Hooker_Glacier_Lake_in_front_of_Aoraki_Mount_Cook.jpg" },
+  { day: 7, src: "photos/tasman.jpg", q: "Tasman Glacier View Track", w: 800, h: 614, caption: "타스만 빙하호", credit: "Krzysztof Golik", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Tasman_Lake_and_Tasman_Glacier.jpg" },
+  { day: 7, src: "photos/pukaki.jpg", q: "Lake Pukaki Visitor Centre", w: 800, h: 448, caption: "푸카키 호수와 마운트쿡", credit: "Krzysztof Golik", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Lake_Pukaki_%26_Aoraki_Mount_Cook_01.jpg" },
+  { day: 7, src: "photos/church.jpg", q: "Church of the Good Shepherd Lake Tekapo", w: 800, h: 600, caption: "선한목자교회", credit: "Jillianalma", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Church_of_the_Good_Shepherd,_Lake_Tekapo,_New_Zealand.jpg" },
+  { day: 7, src: "photos/mtjohn.jpg", q: "Mt John Observatory", w: 800, h: 503, caption: "마운트 존 천문대", credit: "Bernard Spragg", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:Mount_John_University_Observatory_(9618676129).jpg" },
+  { day: 8, src: "photos/bungy.jpg", q: "Kawarau Bridge Bungy", w: 425, h: 640, caption: "카와라우 번지 (43m)", credit: "chee.hong", license: "CC BY 2.0", page: "https://commons.wikimedia.org/wiki/File:Kawarau_Bridge_Bungy_Jump1.jpg" },
+  { day: 8, src: "photos/milford.jpg", q: "Milford Sound", w: 800, h: 566, caption: "밀포드 사운드 — 마이터 피크", credit: "MurielBendel", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Milford_Sound_Mitre_Peak.JPG" },
+  { day: 9, src: "photos/shotover.jpg", q: "Shotover Jet", w: 800, h: 450, caption: "샷오버 제트", credit: "Bernard Spragg", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:Thrill_seekers._Shotover_Jet._(18212837748).jpg" },
+  { day: 9, src: "photos/glenorchy.jpg", q: "Glenorchy Wharf", w: 800, h: 533, caption: "글레노키 부두", credit: "Pseudopanax", license: "Public domain", page: "https://commons.wikimedia.org/wiki/File:Glenorchy_wharf_and_red_shed_at_Lake_Wakatipu.jpg" }
 ];
 
 /* 액티비티 비용 — people: 기본 인원 (화면에서 1/2명 토글 가능) */
@@ -620,15 +626,10 @@ const HOTELS = {
     { name: 'Mountain House Cottages', q: "Mountain House Arthur's Pass", price: [120, 220], why: '마을 안 독채 코티지/객실. 가격 저렴, 선택지 많음' },
     { name: "Wilderness Lodge Arthur's Pass", price: [900, 1100], why: '고급 로지, 석식·조식·가이드 산책 포함. 마을 동쪽 차로 약 15분 (캐슬힐 쪽)' }
   ]},
-  franz: { night: '2026-10-23', area: '프란츠 조셉', tip: '다음 날 아침 헬리하이크 출발 사무소가 마을 중심 큰길에 있음 → 마을 안이나 가까운 곳', options: [
+  franz: { night: '2026-10-23', nights: 2, area: '프란츠 조셉', tip: '2박 연박 — 짐은 한 번만 풀기. 헬리하이크 출발 사무소가 마을 중심 큰길에 있고, 날씨로 취소되면 다음 날 아침 같은 숙소에서 재시도. 폭스·매서슨 호수는 차로 30~40분', options: [
     { name: 'Rainforest Retreat', q: 'Rainforest Retreat Franz Josef', price: [180, 300], why: '마을 중심, 헬리하이크 사무소까지 도보. 숲속 트리하우스·모텔 객실' },
     { name: 'Glenfern Villas', q: 'Glenfern Villas Franz Josef', price: [280, 330], why: '마을 북쪽 3km 별채형 빌라, 평점 높고 조용함. 아침에 차로 5분' },
     { name: 'Te Waonui Forest Retreat', q: 'Te Waonui Forest Retreat', price: [550, 800], why: '프란츠 조셉 최고급 호텔, 마을 중심. 석식 포함 패키지 있음' }
-  ]},
-  fox: { night: '2026-10-24', area: '폭스 글레이셔', tip: '일몰은 매서슨 호수(마을에서 6km) → 다음 날 아침 해스트 방향 출발', options: [
-    { name: 'Te Weheka Boutique Hotel', q: 'Distinction Fox Glacier Te Weheka Boutique Hotel', price: [250, 350], why: '마을 중심 부티크 호텔, 조식 평이 좋음. 호수까지 차로 7분' },
-    { name: 'Lake Matheson Motel', q: 'Lake Matheson Motel Fox Glacier', price: [160, 220], why: '매서슨 호수 쪽 조용한 모텔, 일몰·일출 보기 편함. 주방 있음' },
-    { name: 'Fox Glacier Lodge', q: 'Fox Glacier Lodge', price: [180, 250], why: '마을 중심 작은 로지, 친절한 주인. 가성비' }
   ]},
   wanaka: { night: '2026-10-25', area: '와나카', tip: '와나카 트리 일몰 → 시내 호숫가에 묵으면 트리까지 걸어서 15분', options: [
     { name: 'Lakeside Wanaka', q: 'Lakeside Serviced Apartments Wanaka', price: [300, 450], why: '시내 호숫가 아파트형, 호수 전망 발코니. 와나카 트리 도보 15분' },
@@ -667,8 +668,7 @@ const CHECKLIST = [
   { title: '지금 바로 · 가장 급함', due: '2026-10-08', items: [
     { text: 'NZeTA (전자여행허가) + IVL 신청 — 2인 각각', note: '승인까지 최대 72시간. 대행 사이트 말고 공식 앱/사이트에서', link: ['공식 신청', 'https://www.immigration.govt.nz/new-zealand-visas/visas/visa/nzeta'] },
     { text: '숙소: 마운트쿡 빌리지 (10/26)', note: '숙소가 몇 곳 없어 가장 먼저 마감', stay: 'cook' },
-    { text: '숙소: 프란츠 조셉 (10/23)', stay: 'franz' },
-    { text: '숙소: 폭스 글레이셔 (10/24)', stay: 'fox' },
+    { text: '숙소: 프란츠 조셉 (10/23~24, 2박)', note: '연박이라 짐을 한 번만 풀고, 헬리하이크 취소 시 다음 날 아침 재시도 가능', stay: 'franz' },
     { text: '숙소: 테카포 (10/27)', stay: 'tekapo' },
     { text: '숙소: 아서스 패스 (10/22)', note: '마을이 작아 선택지가 적음', stay: 'arthurs' },
     { text: '숙소: 와나카 (10/25)', stay: 'wanaka' },
@@ -714,7 +714,7 @@ const CHECKLIST = [
 ];
 
 const PLAN_B = [
-  { title: '헬리하이크 취소 (4일차)', text: '5일차 아침 폭스 빙하 헬리하이크로 재시도, 와나카 도착을 늦춤' },
+  { title: '헬리하이크 취소 (4일차)', text: '5일차 아침 프란츠 조셉에서 재시도 (같은 숙소라 짐 그대로), 와나카 도착을 늦춤' },
   { title: '밀포드 비행 취소 (8일차)', text: '9일차 오전으로 이동, 대신 글레노키 생략' },
   { title: 'KE411 지연', text: '오클랜드 환승 여유 3시간 40분. 별도 발권이라 젯스타 놓치면 보상 없음 → 지연 시 젯스타에 즉시 연락' },
   { title: '밀포드 로드/산악도로 통제', text: '출발 전날 NZTA 도로 정보 확인' }
@@ -739,7 +739,7 @@ const MAP_POINTS = {
   gorge:     ['호키티카 협곡', -42.9566, 171.1003, 'sight'],
   franz:     ['프란츠 조셉', -43.3889, 170.1833, 'stay', 'franz'],
   fjvalley:  ['프란츠 조셉 빙하 계곡', -43.4180, 170.1780, 'sight'],
-  fox:       ['폭스 글레이셔', -43.4640, 170.0170, 'stay', 'fox'],
+  fox:       ['폭스 글레이셔', -43.4640, 170.0170, 'sight'],
   foxview:   ['폭스 빙하 전망', -43.4930, 170.0560, 'sight'],
   matheson:  ['매서슨 호수', -43.4436, 169.9640, 'sight'],
   haast:     ['해스트', -43.8800, 169.0430, 'sight'],
@@ -777,11 +777,11 @@ const MAP_ROUTE = [
     drive: ['arthurs', 'punchbowl', 'arthurs', [-42.83, 171.56], [-42.74, 171.47], [-42.63, 171.18], 'hokitika', [-42.83, 171.04], 'gorge', [-42.83, 171.04], [-42.90, 170.82], [-43.15, 170.56], [-43.26, 170.36], [-43.33, 170.24], 'franz', 'fjvalley'],
     nav: ['arthurs', 'hokitika', 'gorge', 'franz'] },
   { day: 4, color: '#0d9488',
-    drive: ['franz', [-43.43, 170.12], 'fox', 'foxview', 'fox', 'matheson'],
-    nav: ['franz', 'fox', 'matheson'] },
+    drive: ['franz', [-43.43, 170.12], 'fox', 'foxview', 'fox', 'matheson', 'fox', [-43.43, 170.12], 'franz'],
+    nav: ['franz', 'fox', 'matheson', 'franz'] },
   { day: 5, color: '#16a34a',
-    drive: ['fox', [-43.59, 169.60], [-43.72, 169.41], [-43.71, 169.22], 'haast', [-43.93, 169.22], [-43.98, 169.30], 'thunder', 'fantail', [-44.11, 169.35], 'bluepools', [-44.23, 169.23], [-44.36, 169.24], [-44.50, 169.27], [-44.62, 169.25], [-44.68, 169.19], 'wanaka', 'tree'],
-    nav: ['fox', 'haast', 'thunder', 'fantail', 'bluepools', 'wanaka'] },
+    drive: ['franz', [-43.43, 170.12], 'fox', [-43.59, 169.60], [-43.72, 169.41], [-43.71, 169.22], 'haast', [-43.93, 169.22], [-43.98, 169.30], 'thunder', 'fantail', [-44.11, 169.35], 'bluepools', [-44.23, 169.23], [-44.36, 169.24], [-44.50, 169.27], [-44.62, 169.25], [-44.68, 169.19], 'wanaka', 'tree'],
+    nav: ['franz', 'haast', 'thunder', 'fantail', 'bluepools', 'wanaka'] },
   { day: 6, color: '#ca8a04',
     drive: ['wanaka', [-44.73, 169.28], [-44.84, 169.41], [-44.70, 169.55], 'lindis', [-44.49, 169.97], [-44.26, 170.10], [-44.18, 170.14], [-44.05, 170.16], [-43.88, 170.12], 'cook', 'hooker'],
     nav: ['wanaka', 'lindis', 'cook'] },
@@ -804,7 +804,9 @@ const WEEK = ['일', '월', '화', '수', '목', '금', '토'];
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const fmt = (n) => Math.round(n).toLocaleString('ko-KR');
-const mapUrl = (q) => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
+// 지명만 쓰면 다른 나라의 같은 이름으로 가는 경우가 있어서(예: Franz Josef) 뉴질랜드를 붙여 검색
+const mapUrl = (q) => 'https://www.google.com/maps/search/?api=1&query=' +
+  encodeURIComponent(/New Zealand|Incheon|^-?\d/.test(q) ? q : q + ', New Zealand');
 
 function loadState() {
   try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch (e) { return {}; }
@@ -879,7 +881,9 @@ function photoStrip(n) {
   const list = PHOTOS.filter((p) => p.day === n);
   if (!list.length) return '';
   return '<div class="photos">' + list.map((p) =>
-    '<figure class="photo"><img src="' + esc(p.src) + '" width="' + p.w + '" height="' + p.h + '" alt="' + esc(p.caption) + '" loading="lazy" decoding="async" onerror="this.closest(\'figure\').remove()">' +
+    '<figure class="photo"><a class="p-map" href="' + mapUrl(p.q) + '" target="_blank" rel="noopener" aria-label="' + esc(p.caption) + ' 지도에서 보기">' +
+    '<img src="' + esc(p.src) + '" width="' + p.w + '" height="' + p.h + '" alt="' + esc(p.caption) + '" loading="lazy" decoding="async" onerror="this.closest(\'figure\').remove()">' +
+    '<span class="p-pin">📍 지도</span></a>' +
     '<figcaption><span class="p-cap">' + esc(p.caption) + '</span>' +
     '<a class="p-credit" href="' + esc(p.page) + '" target="_blank" rel="noopener">📷 ' + esc(p.credit) + ' · ' + esc(p.license) + '</a></figcaption></figure>').join('') +
     '</div>';
@@ -953,10 +957,10 @@ function renderMap() {
     const d = daysAt(k), c = (MAP_ROUTE.find((r) => r.day === d[0]) || {}).color || '#64748b';
     let body;
     if (type === 'stay') {
-      const n = DAYS.findIndex((dd) => dd.date === HOTELS[hotel].night) + 1;
+      const n = DAYS.findIndex((dd) => dd.date === HOTELS[hotel].night) + 1, nn = hotelNights(hotel);
       body = '<circle r="11" class="m-stay" style="fill:' + c + '"/><text class="m-num" dy="4">' + n + '</text>' +
         '<g class="m-hotel" data-key="' + k + '" transform="translate(14,-16)"><rect x="-10" y="-10" width="20" height="20" rx="6"/><text dy="5">🏨</text></g>' +
-        (MAP_LABEL_LEFT.includes(k) ? '<text class="m-label m-label-stay" x="-15" dy="5" text-anchor="end">' : '<text class="m-label m-label-stay" x="16" dy="16">') + esc(name) + '</text>';
+        (MAP_LABEL_LEFT.includes(k) ? '<text class="m-label m-label-stay" x="-15" dy="5" text-anchor="end">' : '<text class="m-label m-label-stay" x="16" dy="16">') + esc(name) + (nn > 1 ? ' · ' + nn + '박' : '') + '</text>';
     } else if (type === 'air') {
       body = '<circle r="8" class="m-air"/><text dy="4" class="m-airicon">✈</text><text class="m-label m-label-sight" x="11" dy="4">' + esc(name) + '</text>';
     } else {
@@ -1058,7 +1062,9 @@ function selectDay(day) {
   else {
     const r = MAP_ROUTE.find((x) => x.day === day), xs = [], ys = [];
     r.drive.concat(...(r.fly || [])).forEach((p) => { if (typeof p !== 'string' && (p[0] > -41)) return; const [x, y] = ptXY(p); xs.push(x); ys.push(y); });
-    setView(bbox(xs, ys, 14));
+    const bb = bbox(xs, ys, 14);
+    bb.w *= 1.3; // 장소 이름이 오른쪽에 붙으므로 오른쪽 여백을 더 줌
+    setView(bb);
   }
   showDayInfo(day);
 }
@@ -1090,8 +1096,8 @@ function showPoint(key) {
 
 function showHotel(key) {
   const [name, , , , hk] = MAP_POINTS[key], H = HOTELS[hk], pick = hotelPick(hk), rate = getRate();
-  const n = DAYS.findIndex((dd) => dd.date === H.night) + 1;
-  $('map-info').innerHTML = '<div class="mi-title">🏨 ' + esc(name) + ' · ' + n + '일차 밤 (' + labelDate(H.night) + ')</div>' +
+  const n = DAYS.findIndex((dd) => dd.date === H.night) + 1, nn = hotelNights(hk);
+  $('map-info').innerHTML = '<div class="mi-title">🏨 ' + esc(name) + ' · ' + (nn > 1 ? n + '~' + (n + nn - 1) + '일차 ' + nn + '박' : n + '일차 밤') + ' (' + labelDate(H.night) + ')</div>' +
     '<p class="muted small">🧭 ' + esc(H.tip) + '</p>' +
     H.options.map((h, i) =>
       '<div class="mi-hotel' + (i === pick ? ' picked' : '') + '"><div><b>' + (i === 0 ? '⭐ ' : '') + esc(h.name) + '</b>' + (i === pick ? ' <span class="badge">선택</span>' : '') + '</div>' +
@@ -1184,15 +1190,16 @@ function updateCosts() {
 /* ---------- Checklist ---------- */
 function checkKey(it) { return it.text; }
 function isChecked(it) { const v = state.checks[checkKey(it)]; return v === undefined ? !!it.done : v; }
+function hotelNights(key) { return HOTELS[key].nights || 1; }
 function hotelPick(key) { const v = state.hotels[key]; return v >= 0 && v < HOTELS[key].options.length ? v : 0; }
 function bookingUrl(h, key) {
-  const d = HOTELS[key].night, out = new Date(ymdToUTC(d) + 864e5).toISOString().slice(0, 10);
+  const d = HOTELS[key].night, out = new Date(ymdToUTC(d) + hotelNights(key) * 864e5).toISOString().slice(0, 10);
   return 'https://www.booking.com/searchresults.html?ss=' + encodeURIComponent(h.q || h.name) +
     '&checkin=' + d + '&checkout=' + out + '&group_adults=' + TRIP.people + '&no_rooms=1';
 }
 function hotelPanel(key) {
   const H = HOTELS[key], pick = hotelPick(key);
-  return '<details class="hotels"><summary>🏨 추천 숙소 ' + H.options.length + '곳 · 1박 예상가 보기</summary>' +
+  return '<details class="hotels"><summary>🏨 추천 숙소 ' + H.options.length + '곳 · 1박 예상가 보기' + (hotelNights(key) > 1 ? ' (' + hotelNights(key) + '박)' : '') + '</summary>' +
     '<p class="h-tip">🧭 ' + esc(H.tip) + '</p>' +
     H.options.map((h, i) =>
       '<div class="hotel"><label class="h-head"><input type="radio" name="hotel-' + key + '" value="' + i + '" data-hotel' + (i === pick ? ' checked' : '') + '>' +
@@ -1200,18 +1207,19 @@ function hotelPanel(key) {
         '<span class="h-price">NZD ' + h.price[0] + '~' + h.price[1] +
         '<span class="h-krw" data-lo="' + h.price[0] + '" data-hi="' + h.price[1] + '"></span></span></label>' +
         '<div class="h-why">' + esc(h.why) + '</div>' +
-        '<div class="h-links"><a href="' + bookingUrl(h, key) + '" target="_blank" rel="noopener">예약 검색 (' + labelDate(H.night) + ' 1박)</a>' +
+        '<div class="h-links"><a href="' + bookingUrl(h, key) + '" target="_blank" rel="noopener">예약 검색 (' + labelDate(H.night) + ' ' + hotelNights(key) + '박)</a>' +
         '<a href="' + mapUrl(h.q || h.name) + '" target="_blank" rel="noopener">📍 지도</a></div></div>').join('') +
     '</details>';
 }
 function hotelTotal() {
   return Object.keys(HOTELS).reduce((t, k) => {
-    const p = HOTELS[k].options[hotelPick(k)].price; return [t[0] + p[0], t[1] + p[1]];
+    const p = HOTELS[k].options[hotelPick(k)].price, n = hotelNights(k); return [t[0] + p[0] * n, t[1] + p[1] * n];
   }, [0, 0]);
 }
 function man(n) { return (Math.round(n / 1e3) / 10).toLocaleString('ko-KR') + '만'; } // 원 → 'N.N만'
 function updateHotelTotal() {
   const t = hotelTotal(), rate = getRate();
+  $('hotel-nights').textContent = Object.keys(HOTELS).reduce((n, k) => n + hotelNights(k), 0);
   document.querySelectorAll('.h-krw').forEach((el) => {
     el.textContent = '≈ ' + man(el.dataset.lo * rate) + '~' + man(el.dataset.hi * rate) + '원';
   });
