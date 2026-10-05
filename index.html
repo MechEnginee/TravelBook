@@ -558,8 +558,8 @@ const DAYS = [
     { drive: '2시간 30분', text: '08:00 프란츠 조셉 출발 → 폭스 글레이셔 경유 → 해스트', places: [['Haast', 'Haast']] },
     { text: '해스트 패스: 썬더크릭 폭포, 팬테일 폭포, 블루풀스 (왕복 1시간)', places: [['Thunder Creek Falls', 'Thunder Creek Falls'], ['Fantail Falls', 'Fantail Falls'], ['Blue Pools', 'Blue Pools Walk Haast Pass']] },
     { drive: '1시간 30분', text: '와나카', places: [['Wanaka', 'Wanaka']] },
-    { checkin: true, time: '~15:30', text: '숙소 도착 · 체크인 (호숫가 산책, 이른 저녁)' },
-    { time: '일몰', text: '와나카 트리 (일몰 약 20:30)', places: [['That Wanaka Tree', 'That Wanaka Tree']] }
+    { checkin: true, time: '~15:30', text: 'Edgewater Lake Wanaka 도착 · 체크인 (호숫가 리조트 — 산책, 이른 저녁)', places: [['Edgewater', 'Edgewater Lake Wanaka']] },
+    { time: '일몰', text: '와나카 트리 (일몰 약 20:30, 숙소에서 차로 5분)', places: [['That Wanaka Tree', 'That Wanaka Tree']] }
   ]},
   { date: '2026-10-26', stay: '마운트쿡 빌리지 (Aoraki/Mount Cook)', stayQuery: 'Aoraki Mount Cook Village', cost: '무료', items: [
     { drive: '2시간 30분', text: '09:00 와나카 출발 → 린디스 패스 경유 마운트쿡 (트위젤에서 장보기 — 마을에 마트 없음)', places: [['Lindis Pass', 'Lindis Pass'], ['Mount Cook Village', 'Aoraki Mount Cook Village']] },
@@ -635,7 +635,7 @@ const ACTIVITIES = [
 /* 기타 경비 (2인 총액, 원) — value는 기본값 */
 const EXTRAS = [
   { id: 'jq',    name: '젯스타 국내선 (발권 완료)', value: 816400 },
-  { id: 'hotelBooked', name: '숙소 예약 완료 (Aspen Court 2박 + Aoraki Alpine Lodge 1박)', value: 941838 },
+  { id: 'hotelBooked', name: '숙소 예약 완료 (Aspen Court 2박 + Edgewater 1박 + Aoraki Alpine Lodge 1박)', value: 1219655 },
   { id: 'hotel', name: '숙소 (남은 곳)', value: 0 },
   { id: 'car',   name: '렌터카', value: 0 },
   { id: 'food',  name: '식비', value: 0 },
@@ -655,7 +655,7 @@ const HOTELS = {
     { name: 'Glenfern Villas', q: 'Glenfern Villas Franz Josef', price: [280, 330], why: '마을 북쪽 3km 별채형 빌라, 평점 높고 조용함. 아침에 차로 5분' },
     { name: 'Te Waonui Forest Retreat', q: 'Te Waonui Forest Retreat', price: [550, 800], why: '프란츠 조셉 최고급 호텔, 마을 중심. 석식 포함 패키지 있음' }
   ]},
-  wanaka: { night: '2026-10-25', area: '와나카', tip: '와나카 트리 일몰 → 시내 호숫가에 묵으면 트리까지 걸어서 15분', options: [
+  wanaka: { night: '2026-10-25', booked: { name: 'Edgewater Lake Wanaka', nights: 1, krw: 277817 }, area: '와나카', tip: '와나카 트리 일몰 → 시내 호숫가에 묵으면 트리까지 걸어서 15분', options: [
     { name: 'Lakeside Wanaka', q: 'Lakeside Serviced Apartments Wanaka', price: [300, 450], why: '시내 호숫가 아파트형, 호수 전망 발코니. 와나카 트리 도보 15분' },
     { name: 'Edgewater Lake Wanaka', q: 'Edgewater Lake Wanaka', price: [300, 500], why: '와나카 유일한 호숫가 리조트, 시내에서 2km. 와나카 트리 차로 5분' },
     { name: 'Wanaka Hotel', q: 'Wanaka Hotel Ardmore Street', price: [170, 250], why: '시내 중심 깔끔한 호텔, 식당 가기 편함. 가성비' }
@@ -689,13 +689,13 @@ const CHECKLIST = [
     { text: '대한항공 왕복 발권 (KE411 / KE412, 마일리지)', done: true },
     { text: '젯스타 국내선 2구간 발권 (JQ233 / JQ298)', done: true },
     { text: '숙소: 프란츠 조셉 — Aspen Court Franz Josef (10/23~24, 2박) ₩535,142', done: true, stay: 'franz' },
+    { text: '숙소: 와나카 10/25 — Edgewater Lake Wanaka (1박) ₩277,817', done: true, stay: 'wanaka' },
     { text: '숙소: 마운트쿡 10/26 — Aoraki Alpine Lodge (1박) ₩406,696', done: true, stay: 'cook' }
   ]},
   { title: '지금 바로 · 가장 급함', due: '2026-10-08', items: [
     { text: 'NZeTA (전자여행허가) + IVL 신청 — 2인 각각', note: '승인까지 최대 72시간. 대행 사이트 말고 공식 앱/사이트에서', link: ['공식 신청', 'https://www.immigration.govt.nz/new-zealand-visas/visas/visa/nzeta'] },
     { text: '숙소: 테카포 (10/27)', stay: 'tekapo' },
     { text: '숙소: 아서스 패스 (10/22)', note: '마을이 작아 선택지가 적음', stay: 'arthurs' },
-    { text: '숙소: 와나카 (10/25)', stay: 'wanaka' },
     { text: '숙소: 퀸스타운 (10/28)', stay: 'queenstown' },
     { text: '숙소: 오클랜드 공항 근처 (10/29)', note: '10/30 11:45 출발이라 국제선 터미널 가까운 곳으로', stay: 'akl' },
     { text: '렌터카 예약 — 크라이스트처치 공항 픽업(10/22) → 퀸스타운 공항 반납(10/29 16:00)', note: '편도 반납 요금 확인, 풀커버(면책금 0) 보험, 운전자 2인 등록, 스노 체인 대여 요청' },
