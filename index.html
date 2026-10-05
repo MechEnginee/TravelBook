@@ -223,10 +223,21 @@
   /* ---------- Checklist ---------- */
   .progress { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; margin: 0 16px 4px; }
   .progress > div { height: 100%; background: var(--lake); width: 0; transition: width .2s; }
-  .check { display: flex; align-items: center; gap: 12px; padding: 10px 16px; min-height: 52px; border-top: 1px solid var(--line); cursor: pointer; }
-  .check:first-of-type { border-top: 0; }
-  .check input { width: 24px; height: 24px; flex: 0 0 auto; accent-color: var(--lake); margin: 0; }
-  .check.done span { text-decoration: line-through; color: var(--muted); }
+  .check-group h3 {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 6px 8px; margin: 0; padding: 14px 16px 8px;
+    font-size: 16px; border-top: 1px solid var(--line); background: var(--surface-2);
+  }
+  .g-count { margin-left: auto; font-size: 14px; font-weight: 600; color: var(--muted); }
+  .due { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 10px; background: var(--glacier-soft); color: var(--glacier); }
+  .due.soon { background: var(--warn-soft); color: var(--warn); }
+  .due.over { background: #c0392b; color: #fff; }
+  .check { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; min-height: 52px; border-top: 1px solid var(--line); cursor: pointer; }
+  .check input { width: 24px; height: 24px; flex: 0 0 auto; accent-color: var(--lake); margin: 1px 0 0; }
+  .c-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .c-note { font-size: 14px; color: var(--muted); }
+  .c-link { display: inline-flex; align-items: center; min-height: 32px; font-size: 14px; font-weight: 600; align-self: flex-start; }
+  .check.done .c-text { text-decoration: line-through; color: var(--muted); }
+  .check.done .c-note, .check.done .c-link { display: none; }
   .check .mark { display: none; }
 
   /* ---------- Plan B / Notes ---------- */
@@ -324,9 +335,9 @@
   </section>
 
   <section id="checklist">
-    <h2>✅ 예약 체크리스트 <span class="count" id="check-count"></span></h2>
-    <div class="card" style="padding-top:12px">
-      <div class="progress"><div id="check-bar"></div></div>
+    <h2>✅ 준비 체크리스트 <span class="count" id="check-count"></span></h2>
+    <div class="card" style="padding-top:12px;overflow:hidden">
+      <div class="progress" style="margin-bottom:12px"><div id="check-bar"></div></div>
       <div id="check-list"></div>
     </div>
   </section>
@@ -465,26 +476,60 @@ const EXTRAS = [
   { id: 'fuel',  name: '주유비', value: 0 }
 ];
 
+/* 준비 체크리스트 — 기한(due) 순서대로 묶음.
+   item: { text, note?(설명), link?([표시명, 주소]), done?(처음부터 완료 상태) } */
 const CHECKLIST = [
-  '젯스타 "운항 정보 변동" 알림 내용 확인',
-  '젯스타 위탁 수하물 포함 여부 확인 (없으면 추가 구매)',
-  '렌터카 예약 (크라이스트처치 픽업 → 퀸스타운 반납 편도, 풀커버 보험)',
-  '숙소: 마운트쿡 빌리지 (가장 먼저 마감)',
-  '숙소: 프란츠 조셉',
-  '숙소: 폭스 글레이셔',
-  '숙소: 테카포',
-  '숙소: 아서스 패스',
-  '숙소: 와나카',
-  '숙소: 퀸스타운',
-  '숙소: 오클랜드 공항 근처 (10/29)',
-  '헬리하이크 예약 (10/24 첫 타임)',
-  '밀포드 플라이-크루즈-플라이 예약 (10/28 오후)',
-  '카와라우 번지 예약 (10/28)',
-  '샷오버 제트 예약 (10/29 오전)',
-  '테카포 온천 + 별 관측 예약 (10/27)',
-  'NZeTA (뉴질랜드 전자여행허가) + IVL 발급',
-  '국제운전면허증 발급',
-  '여행자 보험'
+  { title: '완료', due: null, items: [
+    { text: '대한항공 왕복 발권 (KE411 / KE412, 마일리지)', done: true },
+    { text: '젯스타 국내선 2구간 발권 (JQ233 / JQ298)', done: true }
+  ]},
+  { title: '지금 바로 · 가장 급함', due: '2026-10-08', items: [
+    { text: 'NZeTA (전자여행허가) + IVL 신청 — 2인 각각', note: '승인까지 최대 72시간. 대행 사이트 말고 공식 앱/사이트에서', link: ['공식 신청', 'https://www.immigration.govt.nz/new-zealand-visas/visas/visa/nzeta'] },
+    { text: '숙소: 마운트쿡 빌리지 (10/26)', note: '숙소가 몇 곳 없어 가장 먼저 마감' },
+    { text: '숙소: 프란츠 조셉 (10/23)' },
+    { text: '숙소: 폭스 글레이셔 (10/24)' },
+    { text: '숙소: 테카포 (10/27)' },
+    { text: '숙소: 아서스 패스 (10/22)', note: '마을이 작아 선택지가 적음' },
+    { text: '숙소: 와나카 (10/25)' },
+    { text: '숙소: 퀸스타운 (10/28)' },
+    { text: '숙소: 오클랜드 공항 근처 (10/29)', note: '10/30 11:45 출발이라 공항 셔틀 있는 곳으로' },
+    { text: '렌터카 예약 — 크라이스트처치 공항 픽업(10/22) → 퀸스타운 공항 반납(10/29 16:00)', note: '편도 반납 요금 확인, 풀커버(면책금 0) 보험, 운전자 2인 등록' },
+    { text: '헬리하이크 예약 (10/24 첫 타임)', note: '날씨 취소가 잦아 첫 타임으로. 취소되면 10/25 아침으로 옮길 수 있는지도 문의', link: ['Franz Josef Glacier Guides', 'https://www.franzjosefglacier.com/'] },
+    { text: '밀포드 플라이-크루즈-플라이 예약 (10/28 오후)', note: '날씨로 취소되면 10/29 오전으로 바꿀 수 있는지 확인' },
+    { text: '젯스타 "운항 정보 변동" 알림 확인', note: '시간이 바뀌었으면 환승·렌터카 시간 다시 맞추기' },
+    { text: '대한항공 좌석 확인 — 두 사람 나란히 앉는지', note: '지금 적힌 좌석: 가는 편 44H, 오는 편 34B' }
+  ]},
+  { title: '이번 주 안에', due: '2026-10-12', items: [
+    { text: '젯스타 위탁 수하물 포함 여부 확인 (없으면 추가 구매)', note: '공항에서 사면 훨씬 비쌈. 기내 수하물 무게 제한도 확인' },
+    { text: '카와라우 번지 예약 (10/28)', link: ['AJ Hackett Bungy', 'https://www.bungy.co.nz/'] },
+    { text: '샷오버 제트 예약 (10/29 오전)', note: '16:00 렌터카 반납 전에 글레노키까지 다녀올 수 있는 시간으로', link: ['Shotover Jet', 'https://www.shotoverjet.com/'] },
+    { text: '테카포 온천 + 별 관측 예약 (10/27)', link: ['Tekapo Springs', 'https://www.tekaposprings.co.nz/'] },
+    { text: '국제운전면허증 발급 — 운전할 사람 모두', note: '운전면허시험장은 당일 발급. 여권·면허증·사진 지참', link: ['안전운전 통합민원', 'https://www.safedriving.or.kr/'] },
+    { text: '여행자 보험 가입 — 2인', note: '번지·헬기·제트보트 같은 레저 활동이 보장되는지 확인' },
+    { text: '해외 결제 카드 준비 (트래블 카드 등)', note: '뉴질랜드는 대부분 카드 결제. 비상용 카드 1장 더' },
+    { text: '데이터: eSIM 또는 로밍 신청', note: '산간 지역은 원래 안 터지니 오프라인 준비도 같이' }
+  ]},
+  { title: '출발 전 주', due: '2026-10-19', items: [
+    { text: '숙소·렌터카·액티비티 예약 확인서 모아두기 (캡처/PDF)', note: '오프라인에서도 볼 수 있게 사진첩에 저장' },
+    { text: '구글 지도 오프라인 지도 다운로드 (남섬 전체)', note: '서해안·해스트 패스·마운트쿡은 통신이 거의 안 됨' },
+    { text: '이 페이지 홈 화면에 추가 + 한 번 열어두기' },
+    { text: '소액 뉴질랜드 달러 현금 (선택)', note: '대부분 카드 가능. 소액만' },
+    { text: '짐: 방수 재킷, 경량 패딩, 레이어링 옷, 등산화, 장갑·모자', note: '아침 영하 근처, 낮 15도 안팎' },
+    { text: '짐: 선크림·선글라스 (자외선 매우 강함), 멀티 어댑터 (I 타입), 보조배터리' },
+    { text: '등산화 흙 털어서 깨끗하게', note: '뉴질랜드 검역이 엄격함. 흙 묻은 신발은 검역 대상' }
+  ]},
+  { title: '출발 전날 ~ 당일', due: '2026-10-21', items: [
+    { text: 'NZTD (뉴질랜드 입국 신고서) 온라인 작성 — 2인', note: '출발 24시간 전부터 작성 가능, 무료', link: ['공식 사이트', 'https://www.travellerdeclaration.govt.nz/'] },
+    { text: '대한항공 온라인 체크인' },
+    { text: '여권 (유효기간 6개월 이상), 한국 면허증 + 국제운전면허증 챙기기' },
+    { text: '가져가는 음식은 입국 때 모두 신고', note: '신고 안 하면 벌금. 육류·과일·꿀 등은 대부분 반입 불가' },
+    { text: '인천 T2 15:00 전후 도착 (18:00 출발)' }
+  ]},
+  { title: '여행 중 매일', due: null, items: [
+    { text: '다음 날 날씨 확인 (헬기·경비행기 일정 있는 날은 특히)' },
+    { text: '이동 전 도로 정보 확인', link: ['NZTA 도로 정보', 'https://www.journeys.nzta.govt.nz/'] },
+    { text: '외진 구간 들어가기 전 주유 (해스트 패스, 린디스 패스)', note: '남섬 산간은 주유소 간격이 김' }
+  ]}
 ];
 
 const PLAN_B = [
@@ -696,13 +741,30 @@ function updateCosts() {
 }
 
 /* ---------- Checklist ---------- */
+function checkKey(it) { return it.text; }
+function isChecked(it) { const v = state.checks[checkKey(it)]; return v === undefined ? !!it.done : v; }
 function renderChecklist() {
-  $('check-list').innerHTML = CHECKLIST.map((t, i) =>
-    '<label class="check"><input type="checkbox" data-key="' + esc(t) + '"><span class="mark"></span><span>' + esc(t) + '</span></label>').join('');
-  document.querySelectorAll('#check-list input').forEach((cb) => {
-    cb.checked = !!state.checks[cb.dataset.key];
+  const today = ymdIn('Asia/Seoul', getNow());
+  $('check-list').innerHTML = CHECKLIST.map((g, gi) => {
+    let dueTag = '';
+    if (g.due) {
+      const left = daysBetween(today, g.due);
+      dueTag = '<span class="due' + (left < 0 ? ' over' : left <= 3 ? ' soon' : '') + '">~' + labelDate(g.due) +
+        (left < 0 ? ' 지남' : left === 0 ? ' 오늘까지' : ' · ' + left + '일 남음') + '</span>';
+    }
+    return '<div class="check-group"><h3>' + esc(g.title) + dueTag + '<span class="g-count" id="gc-' + gi + '"></span></h3>' +
+      g.items.map((it) =>
+        '<label class="check"><input type="checkbox" data-key="' + esc(checkKey(it)) + '" data-g="' + gi + '">' +
+        '<span class="mark"></span><span class="c-body"><span class="c-text">' + esc(it.text) + '</span>' +
+        (it.note ? '<span class="c-note">' + esc(it.note) + '</span>' : '') +
+        (it.link ? '<a class="c-link" href="' + esc(it.link[1]) + '" target="_blank" rel="noopener">🔗 ' + esc(it.link[0]) + '</a>' : '') +
+        '</span></label>').join('') + '</div>';
+  }).join('');
+  const all = CHECKLIST.flatMap((g) => g.items);
+  document.querySelectorAll('#check-list input').forEach((cb, i) => {
+    cb.checked = isChecked(all[i]);
     cb.addEventListener('change', () => {
-      if (cb.checked) state.checks[cb.dataset.key] = true; else delete state.checks[cb.dataset.key];
+      state.checks[cb.dataset.key] = cb.checked;
       saveState(); updateChecklist();
     });
   });
@@ -710,12 +772,17 @@ function renderChecklist() {
 }
 function updateChecklist() {
   const boxes = document.querySelectorAll('#check-list input');
+  const per = {};
   let done = 0;
   boxes.forEach((cb) => {
-    cb.parentElement.classList.toggle('done', cb.checked);
-    cb.parentElement.querySelector('.mark').textContent = cb.checked ? '[x]' : '[ ]';
-    if (cb.checked) done++;
+    const g = cb.dataset.g, row = cb.closest('.check');
+    per[g] = per[g] || [0, 0];
+    per[g][1]++;
+    row.classList.toggle('done', cb.checked);
+    row.querySelector('.mark').textContent = cb.checked ? '[x]' : '[ ]';
+    if (cb.checked) { done++; per[g][0]++; }
   });
+  Object.keys(per).forEach((g) => { $('gc-' + g).textContent = per[g][0] + '/' + per[g][1]; });
   $('check-count').textContent = done + ' / ' + boxes.length;
   $('check-bar').style.width = (boxes.length ? done / boxes.length * 100 : 0) + '%';
 }
