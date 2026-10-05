@@ -564,20 +564,19 @@ const DAYS = [
   { date: '2026-10-26', stay: '마운트쿡 빌리지 (Aoraki/Mount Cook)', stayQuery: 'Aoraki Mount Cook Village', cost: '무료', items: [
     { drive: '2시간 30분', text: '09:00 와나카 출발 → 린디스 패스 경유 마운트쿡 (트위젤에서 장보기 — 마을에 마트 없음)', places: [['Lindis Pass', 'Lindis Pass'], ['Mount Cook Village', 'Aoraki Mount Cook Village']] },
     { time: '12:00', text: '후커밸리 트랙 (왕복 3시간, 빙하호까지) · 🅿️ 화이트호스힐 주차장 유료 (NZD 5/시간, 하루 최대 25)', places: [['Hooker Valley Track', 'Hooker Valley Track']] },
-    { checkin: true, time: '~15:30', text: 'Aoraki Alpine Lodge 도착 · 체크인 (마운트쿡이 구름에 가리면 다음 날 다시 도전)', places: [['Aoraki Alpine Lodge', 'Aoraki Alpine Lodge']] },
+    { checkin: true, time: '~15:30', text: 'Aoraki Alpine Lodge 도착 · 체크인 (마운트쿡이 구름에 가리면 다음 날 일출 때 다시 보기)', places: [['Aoraki Alpine Lodge', 'Aoraki Alpine Lodge']] },
     { time: '저녁', text: '보름달에 비친 설산 감상' }
   ]},
-  { date: '2026-10-27', stay: '마운트쿡 빌리지 · 연박', stayQuery: 'Aoraki Mount Cook Village', cost: '온천 1인 NZD 약 42', items: [
+  { date: '2026-10-27', stay: '테카포 (Lake Tekapo)', stayQuery: 'Lake Tekapo', cost: '온천+별관측 1인 NZD 139', items: [
     { time: '06:30', text: '일출: 타스만 빙하 전망대 (왕복 40분, 마을에서 차로 15분)', places: [['Tasman Glacier View', 'Tasman Glacier View Track']] },
-    { drive: '45분', text: '09:30 출발 → 푸카키 호수 (연어샵)', places: [['Lake Pukaki', 'Mt Cook Alpine Salmon Shop Lake Pukaki']] },
+    { drive: '45분', text: '09:30 체크아웃 → 푸카키 호수 (연어샵)', places: [['Lake Pukaki', 'Mt Cook Alpine Salmon Shop Lake Pukaki']] },
     { drive: '45분', text: '테카포 (점심)', places: [['Lake Tekapo', 'Lake Tekapo']] },
     { time: '오후', text: '선한목자교회, 마운트 존 전망대', places: [['Church of the Good Shepherd', 'Church of the Good Shepherd Tekapo'], ['Mt John', 'Mt John Observatory']] },
-    { time: '15:00', text: '테카포 스프링스 온천 (낮 시간 — 밤길 운전을 피하려고 별 관측 투어는 뺌)', places: [['Tekapo Springs', 'Tekapo Springs']] },
-    { drive: '1시간 15분', text: '17:15 테카포 출발 → 마운트쿡 숙소로 복귀 (해 지기 전, 일몰 약 20:20)', places: [['Mount Cook Village', 'Aoraki Mount Cook Village']] },
-    { checkin: true, time: '~18:30', text: '숙소 도착 (2박째 숙소 예약 필요 — Aoraki Alpine Lodge 연장이면 방 그대로) · 날씨 좋으면 키아 포인트 일몰 산책 (왕복 1시간)', places: [['Kea Point', 'Kea Point Track']] }
+    { checkin: true, time: '~15:30', text: '테카포 숙소 도착 · 체크인 (저녁 전 휴식)' },
+    { time: '밤', text: '테카포 스프링스 온천 + 별 관측 투어', places: [['Tekapo Springs', 'Tekapo Springs']] }
   ]},
   { date: '2026-10-28', stay: '퀸스타운 (Queenstown)', stayQuery: 'Queenstown', cost: '번지 1인 NZD 320 · 밀포드 1인 NZD 668 · 곤돌라 1인 NZD 69', items: [
-    { drive: '약 3시간 20분', text: '07:00 마운트쿡 출발 → 트위젤, 린디스 패스, 크롬웰 경유', places: [['Cromwell', 'Cromwell']] },
+    { drive: '약 3시간', text: '07:30 테카포 출발 → 린디스 패스, 크롬웰 경유', places: [['Cromwell', 'Cromwell']] },
     { time: '10:30', text: '도중: 카와라우 번지 (43m, 세계 최초 상업 번지)', places: [['Kawarau Bridge Bungy', 'Kawarau Bridge Bungy']] },
     { time: '오후', text: '밀포드 사운드 플라이-크루즈-플라이 (경비행기 왕복 + 2시간 크루즈)', places: [['Queenstown Airport', 'Queenstown Airport'], ['Milford Sound', 'Milford Sound']] },
     { checkin: true, time: '~17:00', text: '숙소 도착 · 체크인 (밀포드 시간에 따라 바뀜)' },
@@ -626,7 +625,7 @@ const PHOTOS = [
 /* 액티비티 비용 — people: 기본 인원 (화면에서 1/2명 토글 가능) */
 const ACTIVITIES = [
   { id: 'heli',   name: '프란츠 조셉 헬리하이크',     day: 4, nzd: 795, people: 2 },
-  { id: 'tekapo', name: '테카포 스프링스 온천',       day: 7, nzd: 42,  people: 2 },
+  { id: 'tekapo', name: '테카포 온천 + 별 관측',      day: 7, nzd: 139, people: 2 },
   { id: 'bungy',  name: '카와라우 번지',             day: 8, nzd: 320, people: 2 },
   { id: 'milford',name: '밀포드 플라이-크루즈-플라이', day: 8, nzd: 668, people: 2 },
   { id: 'skyline',name: '스카이라인 곤돌라',          day: 8, nzd: 69,  people: 2 },
@@ -661,11 +660,15 @@ const HOTELS = {
     { name: 'Edgewater Lake Wanaka', q: 'Edgewater Lake Wanaka', price: [300, 500], why: '와나카 유일한 호숫가 리조트, 시내에서 2km. 와나카 트리 차로 5분' },
     { name: 'Wanaka Hotel', q: 'Wanaka Hotel Ardmore Street', price: [170, 250], why: '시내 중심 깔끔한 호텔, 식당 가기 편함. 가성비' }
   ]},
-  cook: { night: '2026-10-26', nights: 2, booked: { name: 'Aoraki Alpine Lodge', nights: 1, krw: 406696 }, area: '마운트쿡 빌리지', tip: '2박 연박 — 숙소가 몇 곳뿐이라 가장 먼저 마감. 후커밸리 주차장(화이트호스힐) 차로 5분, 타스만 전망대 15분, 테카포 1시간 15분. 마을에 마트가 없어 주방 있는 숙소면 트위젤에서 장보기', options: [
-    { name: 'Aoraki Alpine Lodge (1박 연장)', q: 'Aoraki Alpine Lodge', price: [500, 560], why: '지금 예약한 숙소에 1박 연장 — 방을 안 옮겨도 됨. 가격은 첫날 결제액(₩406,696) 기준 추정, 숙소에 직접 문의하면 더 쌀 수도 있음' },
+  cook: { night: '2026-10-26', booked: { name: 'Aoraki Alpine Lodge', nights: 1, krw: 406696 }, area: '마운트쿡 빌리지', tip: '숙소가 몇 곳뿐이라 가장 먼저 마감. 후커밸리 트랙 주차장(화이트호스힐)까지 차로 5분, 다음 날 일출 타스만 전망대 차로 15분', options: [
     { name: 'The Hermitage Hotel', q: 'The Hermitage Hotel Mount Cook', price: [350, 600], why: '마운트쿡 정면 뷰 객실(Mt Cook view)이 핵심. 보름달 설산 감상에 최적. 객실 등급별 가격 차이 큼' },
     { name: 'Aoraki Court Motel', q: 'Aoraki Court Motel', price: [250, 380], why: '신축급 모텔, 주방 있음. 산 전망 객실 있음' },
     { name: 'Mt Cook Lodge & Motels', q: 'Mt Cook Lodge and Motels', price: [200, 300], why: '마을 안 가성비 숙소. 식당 있음' }
+  ]},
+  tekapo: { night: '2026-10-27', area: '테카포', tip: '밤에 테카포 스프링스 온천+별 관측 → 온천 근처나 호수 서쪽이 이동 편함', options: [
+    { name: 'Peppers Bluewater Resort', q: 'Peppers Bluewater Resort Lake Tekapo', price: [220, 350], why: '호숫가 리조트, 테카포 스프링스까지 차로 3분. 호수 전망 객실 추천' },
+    { name: 'The Godley Hotel', q: 'The Godley Hotel Lake Tekapo', price: [180, 280], why: '시내 호숫가, 선한목자교회 도보 10분. 식당 가기 편함' },
+    { name: 'Lake Tekapo Village Motel', q: 'Lake Tekapo Village Motel', price: [180, 260], why: '시내 중심 모텔, 주방 있음. 가성비' }
   ]},
   queenstown: { night: '2026-10-28', area: '퀸스타운', tip: '다음 날 아침 샷오버 제트(아서스 포인트, 시내에서 10분) → 글레노키 → 16:00 공항 반납. 시내 호숫가가 무난. 주차 포함 여부 꼭 확인', options: [
     { name: 'Novotel Queenstown Lakeside', price: [300, 500], why: '시내 한가운데 호숫가, 식당·상점 도보. 유료 주차' },
@@ -686,11 +689,11 @@ const CHECKLIST = [
     { text: '대한항공 왕복 발권 (KE411 / KE412, 마일리지)', done: true },
     { text: '젯스타 국내선 2구간 발권 (JQ233 / JQ298)', done: true },
     { text: '숙소: 프란츠 조셉 — Aspen Court Franz Josef (10/23~24, 2박) ₩535,142', done: true, stay: 'franz' },
-    { text: '숙소: 마운트쿡 10/26 — Aoraki Alpine Lodge (1박) ₩406,696', done: true }
+    { text: '숙소: 마운트쿡 10/26 — Aoraki Alpine Lodge (1박) ₩406,696', done: true, stay: 'cook' }
   ]},
   { title: '지금 바로 · 가장 급함', due: '2026-10-08', items: [
     { text: 'NZeTA (전자여행허가) + IVL 신청 — 2인 각각', note: '승인까지 최대 72시간. 대행 사이트 말고 공식 앱/사이트에서', link: ['공식 신청', 'https://www.immigration.govt.nz/new-zealand-visas/visas/visa/nzeta'] },
-    { text: '숙소: 마운트쿡 10/27 (2박째) — 아직 예약 안 됨', note: 'Aoraki Alpine Lodge에 같은 방 1박 연장을 먼저 문의 (짐 안 옮겨도 됨). 안 되면 아래 추천 숙소. 마운트쿡은 가장 먼저 마감', stay: 'cook' },
+    { text: '숙소: 테카포 (10/27)', stay: 'tekapo' },
     { text: '숙소: 아서스 패스 (10/22)', note: '마을이 작아 선택지가 적음', stay: 'arthurs' },
     { text: '숙소: 와나카 (10/25)', stay: 'wanaka' },
     { text: '숙소: 퀸스타운 (10/28)', stay: 'queenstown' },
@@ -705,7 +708,7 @@ const CHECKLIST = [
     { text: '젯스타 위탁 수하물 포함 여부 확인 (없으면 추가 구매)', note: '공항에서 사면 훨씬 비쌈. 기내 수하물 무게 제한도 확인' },
     { text: '카와라우 번지 예약 (10/28)', link: ['AJ Hackett Bungy', 'https://www.bungy.co.nz/'] },
     { text: '샷오버 제트 예약 (10/29 오전)', note: '16:00 렌터카 반납 전에 글레노키까지 다녀올 수 있는 시간으로', link: ['Shotover Jet', 'https://www.shotoverjet.com/'] },
-    { text: '테카포 스프링스 온천 예약 (10/27 15:00 전후, 온천만)', note: '평일 입장료가 더 쌈 (10/27은 화요일). 수건 대여 여부 확인', link: ['Tekapo Springs', 'https://www.tekaposprings.co.nz/'] },
+    { text: '테카포 온천 + 별 관측 예약 (10/27)', link: ['Tekapo Springs', 'https://www.tekaposprings.co.nz/'] },
     { text: '스카이라인 곤돌라 예약 (10/28 저녁, 선택)', note: '밀포드에서 돌아온 뒤 저녁에. 산 위 뷔페(Stratosfare) 저녁 포함 상품도 있음', link: ['Skyline Queenstown', 'https://queenstown.skyline.co.nz/'] },
     { text: '국제운전면허증 발급 — 운전할 사람 모두', note: '운전면허시험장은 당일 발급. 여권·면허증·사진 지참', link: ['안전운전 통합민원', 'https://www.safedriving.or.kr/'] },
     { text: '여행자 보험 가입 — 2인', note: '번지·헬기·제트보트 같은 레저 활동이 보장되는지 확인' },
@@ -751,7 +754,7 @@ const NOTES = [
   '10월 말은 눈 시즌이 끝나가는 때지만 아서스·해스트·린디스 패스에 늦은 눈이 올 수 있음. <b>스노 체인</b>을 싣고 다니고, 출발 전날 NZTA 도로 정보 확인',
   '2025년 12월부터 <b>국립공원 유료 주차</b>: 프란츠 조셉 빙하 주차장(NZD 5/시간, 하루 최대 20), 후커밸리 화이트호스힐(NZD 5/시간, 하루 최대 25). 폭스·매서슨 호수·타스만은 해당 없음',
   '오클랜드 도착 후 대한항공 짐을 찾아 국내선 터미널로 직접 이동해 다시 부쳐야 함',
-  '보름달이 뉴질랜드 시간 10/26 오후라 여행 후반 은하수 관측은 달빛 때문에 어려움 → 별 관측 투어 대신 테카포 온천만 낮에. 밤에는 마운트쿡 숙소에서 달빛 설산 감상',
+  '보름달이 뉴질랜드 시간 10/26 오후라 여행 후반 은하수 관측은 달빛 때문에 어려울 수 있음. 별 관측 투어는 흐리면 실내 VR로 진행',
   '헬리하이크는 4시간 연속 맑은 날씨가 필요해 취소가 잦음'
 ];
 
@@ -776,11 +779,10 @@ const MAP_POINTS = {
   tree:      ['와나카 트리', -44.6990, 169.1170, 'sight'],
   lindis:    ['린디스 패스', -44.5850, 169.6600, 'sight'],
   cook:      ['마운트쿡 빌리지', -43.7344, 170.0960, 'stay', 'cook'],
-  kea:       ['키아 포인트', -43.7090, 170.0790, 'sight'],
   hooker:    ['후커밸리 트랙 (빙하호)', -43.6840, 170.1000, 'sight'],
   tasman:    ['타스만 빙하 전망대', -43.7040, 170.1610, 'sight'],
   pukaki:    ['푸카키 호수 (연어샵)', -44.1866, 170.1505, 'sight'],
-  tekapo:    ['테카포', -44.0047, 170.4771, 'sight'],
+  tekapo:    ['테카포', -44.0047, 170.4771, 'stay', 'tekapo'],
   church:    ['선한목자교회', -44.0045, 170.4860, 'sight'],
   mtjohn:    ['마운트 존 전망대', -43.9857, 170.4648, 'sight'],
   cromwell:  ['크롬웰', -45.0386, 169.1990, 'sight'],
@@ -794,7 +796,7 @@ const MAP_POINTS = {
 };
 
 /* 옆 장소와 이름이 겹치는 곳은 이름을 왼쪽에 표시 */
-const MAP_LABEL_LEFT = ['kea', 'skyline', 'fox', 'tree', 'punchbowl', 'fjvalley', 'matheson', 'hooker', 'mtjohn', 'shotover'];
+const MAP_LABEL_LEFT = ['skyline', 'fox', 'tree', 'punchbowl', 'fjvalley', 'matheson', 'hooker', 'mtjohn', 'shotover'];
 
 /* 일차별 경로 — drive: 차량(장소 키 또는 [위도, 경도] 경유점), fly: 항공(점선). nav: 구글 지도 길찾기용 장소 순서 */
 const MAP_ROUTE = [
@@ -814,11 +816,11 @@ const MAP_ROUTE = [
     drive: ['wanaka', [-44.73, 169.28], [-44.84, 169.41], [-44.70, 169.55], 'lindis', [-44.49, 169.97], [-44.26, 170.10], [-44.18, 170.14], [-44.05, 170.16], [-43.88, 170.12], 'cook', 'hooker'],
     nav: ['wanaka', 'lindis', 'cook'] },
   { day: 7, color: '#ea580c',
-    drive: ['cook', 'tasman', 'cook', [-43.88, 170.12], [-44.05, 170.16], 'pukaki', [-44.12, 170.30], 'tekapo', 'church', 'tekapo', 'mtjohn', 'tekapo', [-44.12, 170.30], 'pukaki', [-44.05, 170.16], [-43.88, 170.12], 'cook', 'kea'],
-    nav: ['cook', 'pukaki', 'tekapo', 'cook'] },
+    drive: ['cook', 'tasman', 'cook', [-43.88, 170.12], [-44.05, 170.16], 'pukaki', [-44.12, 170.30], 'tekapo', 'church', 'tekapo', 'mtjohn'],
+    nav: ['cook', 'tasman', 'pukaki', 'tekapo'] },
   { day: 8, color: '#db2777', fly: [['zqn', 'milford', 'zqn']],
-    drive: ['cook', [-43.88, 170.12], [-44.05, 170.16], [-44.18, 170.14], [-44.26, 170.10], [-44.49, 169.97], 'lindis', [-44.70, 169.55], [-44.84, 169.41], [-44.96, 169.25], 'cromwell', [-45.01, 169.03], 'bungy', [-45.02, 168.78], 'queenstown', 'skyline'],
-    nav: ['cook', 'lindis', 'cromwell', 'bungy', 'queenstown'] },
+    drive: ['tekapo', [-44.12, 170.30], [-44.19, 170.15], [-44.26, 170.10], [-44.49, 169.97], 'lindis', [-44.70, 169.55], [-44.84, 169.41], [-44.96, 169.25], 'cromwell', [-45.01, 169.03], 'bungy', [-45.02, 168.78], 'queenstown', 'skyline'],
+    nav: ['tekapo', 'lindis', 'cromwell', 'bungy', 'queenstown'] },
   { day: 9, color: '#7c3aed', fly: [['zqn', [-40.6, 172.4]]],
     drive: ['queenstown', 'shotover', 'queenstown', [-45.03, 168.55], [-44.95, 168.43], 'glenorchy', [-44.95, 168.43], [-45.03, 168.55], 'queenstown', 'zqn'],
     nav: ['queenstown', 'shotover', 'glenorchy', 'zqn'] }
