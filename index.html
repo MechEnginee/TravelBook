@@ -189,6 +189,7 @@
     margin-top: 4px; padding: 10px 12px; border-radius: 12px; background: var(--surface-2); font-size: 15px;
   }
   .day-cost b { color: var(--forest); }
+  .day-cost b.todo { color: var(--warn); }
   .toolbar { display: flex; gap: 8px; margin-bottom: 12px; }
   .btn {
     min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--line);
@@ -308,9 +309,11 @@
   .progress { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; margin: 0 16px 4px; }
   .progress > div { height: 100%; background: var(--lake); width: 0; transition: width .2s; }
   .hotel-sum { margin: 0 16px 12px; padding: 12px 14px; border-radius: 12px; background: var(--lake-soft); display: flex; flex-direction: column; gap: 4px; }
-  .hotel-sum #hotel-total { font-size: 17px; color: var(--lake); font-variant-numeric: tabular-nums; }
+  .hotel-sum #hotel-total { font-size: 16px; color: var(--lake); font-variant-numeric: tabular-nums; }
   .hotel-sum .btn { align-self: flex-start; margin-top: 4px; }
   .hotels { margin: -4px 16px 12px 52px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); }
+  .booked-card { padding: 10px 12px; line-height: 1.5; }
+  .hotels.booked-only { background: var(--forest-soft); border-color: transparent; }
   .hotels summary { min-height: 44px; display: flex; align-items: center; padding: 0 12px; cursor: pointer; font-size: 15px; font-weight: 700; color: var(--glacier); }
   .h-tip { margin: 0 12px 8px; font-size: 14px; color: var(--muted); }
   .hotel { padding: 10px 12px; border-top: 1px solid var(--line); }
@@ -453,10 +456,11 @@
     <div class="card" style="padding-top:12px;overflow:hidden">
       <div class="progress" style="margin-bottom:12px"><div id="check-bar"></div></div>
       <div class="hotel-sum">
-        <div>🏨 고른 숙소 <span id="hotel-nights">8</span>박 예상 <span class="muted small">(2인 1실)</span></div>
-        <div id="hotel-total"></div>
-        <div class="muted small">가격은 추정치입니다. 예약할 때 실제 가격을 꼭 확인하세요. 각 숙소 항목의 "추천 숙소 보기"에서 고르면 합계가 바뀝니다.</div>
-        <button type="button" class="btn" id="hotel-apply">비용 탭 숙소비에 반영</button>
+        <div>🏨 숙소 <span id="hotel-nights">8</span>박 <span class="muted small">(2인 1실)</span></div>
+        <div>✅ 예약 완료 <b id="hotel-booked"></b></div>
+        <div>남은 <span id="hotel-open"></span> 예상: <span id="hotel-total"></span></div>
+        <div class="muted small">남은 숙소 가격은 추정치입니다. 각 숙소 항목의 "추천 숙소 보기"에서 고르면 합계가 바뀝니다. 예약 완료 금액은 비용 탭에 이미 들어가 있어요.</div>
+        <button type="button" class="btn" id="hotel-apply">남은 숙소 예상을 비용 탭에 반영</button>
       </div>
       <div id="check-list"></div>
     </div>
@@ -539,7 +543,7 @@ const DAYS = [
     { drive: '1시간 30분', text: '호키티카 (점심)', places: [['Hokitika', 'Hokitika']] },
     { drive: '왕복 1시간 10분', text: '호키티카 협곡 (에메랄드빛 강)', places: [['Hokitika Gorge', 'Hokitika Gorge']] },
     { drive: '2시간', text: '프란츠 조셉', places: [['Franz Josef', 'Franz Josef Glacier Village']] },
-    { checkin: true, time: '~15:30', text: '숙소 도착 · 체크인 (2박 — 짐 한 번만 풀기)' },
+    { checkin: true, time: '~15:30', text: 'Aspen Court Franz Josef 도착 · 체크인 (2박 — 짐 한 번만 풀기)', places: [['Aspen Court', 'Aspen Court Franz Josef']] },
     { time: '16:00', text: '프란츠 조셉 빙하 계곡 트랙 (왕복 1시간 30분) · 🅿️ 빙하 주차장 유료 (NZD 5/시간, 하루 최대 20)', places: [['Franz Josef Glacier Valley Walk', 'Franz Josef Glacier Valley Walk']] }
   ]},
   { date: '2026-10-24', stay: '프란츠 조셉 (Franz Josef) · 연박', stayQuery: 'Franz Josef', cost: '헬리하이크 1인 NZD 795', items: [
@@ -548,7 +552,7 @@ const DAYS = [
     { time: '오후', text: '폭스 빙하 전망 트랙', places: [['Fox Glacier Lookout', 'Fox Glacier South Side Walkway']] },
     { time: '18:45', text: '매서슨 호수 — 마운트쿡이 비치는 거울 호수 (둘레길 1시간 30분, 일몰 약 20:25)', places: [['Lake Matheson', 'Lake Matheson']] },
     { drive: '40분', text: '프란츠 조셉 숙소로 복귀 (밤길 커브 많음, 천천히)', places: [['Franz Josef', 'Franz Josef']] },
-    { checkin: true, time: '~21:00', text: '숙소 도착 (연박이라 체크인 없음)' }
+    { checkin: true, time: '~21:00', text: 'Aspen Court 도착 (연박이라 체크인 없음)' }
   ]},
   { date: '2026-10-25', stay: '와나카 (Wanaka)', stayQuery: 'Wanaka', cost: '무료', items: [
     { drive: '2시간 30분', text: '08:00 프란츠 조셉 출발 → 폭스 글레이셔 경유 → 해스트', places: [['Haast', 'Haast']] },
@@ -560,7 +564,7 @@ const DAYS = [
   { date: '2026-10-26', stay: '마운트쿡 빌리지 (Aoraki/Mount Cook)', stayQuery: 'Aoraki Mount Cook Village', cost: '무료', items: [
     { drive: '2시간 30분', text: '09:00 와나카 출발 → 린디스 패스 경유 마운트쿡 (트위젤에서 장보기 — 마을에 마트 없음)', places: [['Lindis Pass', 'Lindis Pass'], ['Mount Cook Village', 'Aoraki Mount Cook Village']] },
     { time: '12:00', text: '후커밸리 트랙 (왕복 3시간, 빙하호까지) · 🅿️ 화이트호스힐 주차장 유료 (NZD 5/시간, 하루 최대 25)', places: [['Hooker Valley Track', 'Hooker Valley Track']] },
-    { checkin: true, time: '~15:30', text: '숙소 도착 · 체크인 (2박 — 마운트쿡이 구름에 가리면 다음 날 다시 도전)' },
+    { checkin: true, time: '~15:30', text: 'Aoraki Alpine Lodge 도착 · 체크인 (마운트쿡이 구름에 가리면 다음 날 다시 도전)', places: [['Aoraki Alpine Lodge', 'Aoraki Alpine Lodge']] },
     { time: '저녁', text: '보름달에 비친 설산 감상' }
   ]},
   { date: '2026-10-27', stay: '마운트쿡 빌리지 · 연박', stayQuery: 'Aoraki Mount Cook Village', cost: '온천 1인 NZD 약 42', items: [
@@ -570,7 +574,7 @@ const DAYS = [
     { time: '오후', text: '선한목자교회, 마운트 존 전망대', places: [['Church of the Good Shepherd', 'Church of the Good Shepherd Tekapo'], ['Mt John', 'Mt John Observatory']] },
     { time: '15:00', text: '테카포 스프링스 온천 (낮 시간 — 밤길 운전을 피하려고 별 관측 투어는 뺌)', places: [['Tekapo Springs', 'Tekapo Springs']] },
     { drive: '1시간 15분', text: '17:15 테카포 출발 → 마운트쿡 숙소로 복귀 (해 지기 전, 일몰 약 20:20)', places: [['Mount Cook Village', 'Aoraki Mount Cook Village']] },
-    { checkin: true, time: '~18:30', text: '숙소 도착 (연박) · 날씨 좋으면 키아 포인트 일몰 산책 (왕복 1시간)', places: [['Kea Point', 'Kea Point Track']] }
+    { checkin: true, time: '~18:30', text: '숙소 도착 (2박째 숙소 예약 필요 — Aoraki Alpine Lodge 연장이면 방 그대로) · 날씨 좋으면 키아 포인트 일몰 산책 (왕복 1시간)', places: [['Kea Point', 'Kea Point Track']] }
   ]},
   { date: '2026-10-28', stay: '퀸스타운 (Queenstown)', stayQuery: 'Queenstown', cost: '번지 1인 NZD 320 · 밀포드 1인 NZD 668 · 곤돌라 1인 NZD 69', items: [
     { drive: '약 3시간 20분', text: '07:00 마운트쿡 출발 → 트위젤, 린디스 패스, 크롬웰 경유', places: [['Cromwell', 'Cromwell']] },
@@ -632,13 +636,14 @@ const ACTIVITIES = [
 /* 기타 경비 (2인 총액, 원) — value는 기본값 */
 const EXTRAS = [
   { id: 'jq',    name: '젯스타 국내선 (발권 완료)', value: 816400 },
-  { id: 'hotel', name: '숙소', value: 0 },
+  { id: 'hotelBooked', name: '숙소 예약 완료 (Aspen Court 2박 + Aoraki Alpine Lodge 1박)', value: 941838 },
+  { id: 'hotel', name: '숙소 (남은 곳)', value: 0 },
   { id: 'car',   name: '렌터카', value: 0 },
   { id: 'food',  name: '식비', value: 0 },
   { id: 'fuel',  name: '주유비', value: 0 }
 ];
 
-/* 숙소 추천 — 동선 기준. price: 2인 1실 1박 예상가 [최저, 최고] NZD (2026년 10월 말 기준 추정, 예약 시 꼭 확인)
+/* 숙소 추천 — 동선 기준. booked: 예약 완료한 숙소 { name, nights(앞에서부터 몇 박), krw(실제 결제 금액) }. price: 2인 1실 1박 예상가 [최저, 최고] NZD (2026년 10월 말 기준 추정, 예약 시 꼭 확인)
    첫 번째 옵션이 추천(⭐). 화면에서 고른 숙소로 예상 합계를 계산 */
 const HOTELS = {
   arthurs: { night: '2026-10-22', area: "아서스 패스", tip: '캐슬힐 보고 저녁 도착 → 다음 날 아침 데빌스 펀치볼 트랙. 마을 안에 묵으면 트랙 입구까지 걸어서 감', options: [
@@ -646,7 +651,7 @@ const HOTELS = {
     { name: 'Mountain House Cottages', q: "Mountain House Arthur's Pass", price: [120, 220], why: '마을 안 독채 코티지/객실. 가격 저렴, 선택지 많음' },
     { name: "Wilderness Lodge Arthur's Pass", price: [900, 1100], why: '고급 로지, 석식·조식·가이드 산책 포함. 마을 동쪽 차로 약 15분 (캐슬힐 쪽)' }
   ]},
-  franz: { night: '2026-10-23', nights: 2, area: '프란츠 조셉', tip: '2박 연박 — 짐은 한 번만 풀기. 헬리하이크 출발 사무소가 마을 중심 큰길에 있고, 날씨로 취소되면 다음 날 아침 같은 숙소에서 재시도. 폭스·매서슨 호수는 차로 30~40분', options: [
+  franz: { night: '2026-10-23', nights: 2, booked: { name: 'Aspen Court Franz Josef', nights: 2, krw: 535142 }, area: '프란츠 조셉', tip: '2박 연박 — 짐은 한 번만 풀기. 헬리하이크 출발 사무소가 마을 중심 큰길에 있고, 날씨로 취소되면 다음 날 아침 같은 숙소에서 재시도. 폭스·매서슨 호수는 차로 30~40분', options: [
     { name: 'Rainforest Retreat', q: 'Rainforest Retreat Franz Josef', price: [180, 300], why: '마을 중심, 헬리하이크 사무소까지 도보. 숲속 트리하우스·모텔 객실' },
     { name: 'Glenfern Villas', q: 'Glenfern Villas Franz Josef', price: [280, 330], why: '마을 북쪽 3km 별채형 빌라, 평점 높고 조용함. 아침에 차로 5분' },
     { name: 'Te Waonui Forest Retreat', q: 'Te Waonui Forest Retreat', price: [550, 800], why: '프란츠 조셉 최고급 호텔, 마을 중심. 석식 포함 패키지 있음' }
@@ -656,7 +661,8 @@ const HOTELS = {
     { name: 'Edgewater Lake Wanaka', q: 'Edgewater Lake Wanaka', price: [300, 500], why: '와나카 유일한 호숫가 리조트, 시내에서 2km. 와나카 트리 차로 5분' },
     { name: 'Wanaka Hotel', q: 'Wanaka Hotel Ardmore Street', price: [170, 250], why: '시내 중심 깔끔한 호텔, 식당 가기 편함. 가성비' }
   ]},
-  cook: { night: '2026-10-26', nights: 2, area: '마운트쿡 빌리지', tip: '2박 연박 — 숙소가 몇 곳뿐이라 가장 먼저 마감. 후커밸리 주차장(화이트호스힐) 차로 5분, 타스만 전망대 15분, 테카포 1시간 15분. 마을에 마트가 없어 주방 있는 숙소면 트위젤에서 장보기', options: [
+  cook: { night: '2026-10-26', nights: 2, booked: { name: 'Aoraki Alpine Lodge', nights: 1, krw: 406696 }, area: '마운트쿡 빌리지', tip: '2박 연박 — 숙소가 몇 곳뿐이라 가장 먼저 마감. 후커밸리 주차장(화이트호스힐) 차로 5분, 타스만 전망대 15분, 테카포 1시간 15분. 마을에 마트가 없어 주방 있는 숙소면 트위젤에서 장보기', options: [
+    { name: 'Aoraki Alpine Lodge (1박 연장)', q: 'Aoraki Alpine Lodge', price: [500, 560], why: '지금 예약한 숙소에 1박 연장 — 방을 안 옮겨도 됨. 가격은 첫날 결제액(₩406,696) 기준 추정, 숙소에 직접 문의하면 더 쌀 수도 있음' },
     { name: 'The Hermitage Hotel', q: 'The Hermitage Hotel Mount Cook', price: [350, 600], why: '마운트쿡 정면 뷰 객실(Mt Cook view)이 핵심. 보름달 설산 감상에 최적. 객실 등급별 가격 차이 큼' },
     { name: 'Aoraki Court Motel', q: 'Aoraki Court Motel', price: [250, 380], why: '신축급 모텔, 주방 있음. 산 전망 객실 있음' },
     { name: 'Mt Cook Lodge & Motels', q: 'Mt Cook Lodge and Motels', price: [200, 300], why: '마을 안 가성비 숙소. 식당 있음' }
@@ -678,12 +684,13 @@ const HOTELS = {
 const CHECKLIST = [
   { title: '완료', due: null, items: [
     { text: '대한항공 왕복 발권 (KE411 / KE412, 마일리지)', done: true },
-    { text: '젯스타 국내선 2구간 발권 (JQ233 / JQ298)', done: true }
+    { text: '젯스타 국내선 2구간 발권 (JQ233 / JQ298)', done: true },
+    { text: '숙소: 프란츠 조셉 — Aspen Court Franz Josef (10/23~24, 2박) ₩535,142', done: true, stay: 'franz' },
+    { text: '숙소: 마운트쿡 10/26 — Aoraki Alpine Lodge (1박) ₩406,696', done: true }
   ]},
   { title: '지금 바로 · 가장 급함', due: '2026-10-08', items: [
     { text: 'NZeTA (전자여행허가) + IVL 신청 — 2인 각각', note: '승인까지 최대 72시간. 대행 사이트 말고 공식 앱/사이트에서', link: ['공식 신청', 'https://www.immigration.govt.nz/new-zealand-visas/visas/visa/nzeta'] },
-    { text: '숙소: 마운트쿡 빌리지 (10/26~27, 2박)', note: '숙소가 몇 곳 없어 가장 먼저 마감. 마운트쿡이 보이는 객실로', stay: 'cook' },
-    { text: '숙소: 프란츠 조셉 (10/23~24, 2박)', note: '연박이라 짐을 한 번만 풀고, 헬리하이크 취소 시 다음 날 아침 재시도 가능', stay: 'franz' },
+    { text: '숙소: 마운트쿡 10/27 (2박째) — 아직 예약 안 됨', note: 'Aoraki Alpine Lodge에 같은 방 1박 연장을 먼저 문의 (짐 안 옮겨도 됨). 안 되면 아래 추천 숙소. 마운트쿡은 가장 먼저 마감', stay: 'cook' },
     { text: '숙소: 아서스 패스 (10/22)', note: '마을이 작아 선택지가 적음', stay: 'arthurs' },
     { text: '숙소: 와나카 (10/25)', stay: 'wanaka' },
     { text: '숙소: 퀸스타운 (10/28)', stay: 'queenstown' },
@@ -910,6 +917,13 @@ function photoStrip(n) {
     '</div>';
 }
 
+function hotelLine(date) {
+  const st = stayOn(date);
+  if (!st) return '';
+  return '<br>🏨 숙소: ' + (st.booked
+    ? '<a href="' + mapUrl(st.name) + '" target="_blank" rel="noopener">' + esc(st.name) + '</a> <b class="ok">✅ 예약 완료</b>'
+    : '<b class="todo">아직 예약 안 함</b>');
+}
 function renderDays(todayIdx) {
   $('day-list').innerHTML = DAYS.map((d, i) => {
     const n = i + 1, isToday = n === todayIdx;
@@ -933,7 +947,7 @@ function renderDays(todayIdx) {
       '</button>' +
       '<div class="day-body" id="day-body-' + n + '">' + photoStrip(n) +
         '<ul class="timeline">' + items + '</ul>' +
-        '<div class="day-cost">🛏️ 체류: ' + stay + (d.cost ? '<br>💰 비용: <b>' + esc(d.cost) + '</b>' : '') + '</div>' +
+        '<div class="day-cost">🛏️ 체류: ' + stay + hotelLine(d.date) + (d.cost ? '<br>💰 비용: <b>' + esc(d.cost) + '</b>' : '') + '</div>' +
       '</div></article>';
   }).join('');
 
@@ -1120,11 +1134,13 @@ function showHotel(key) {
   const n = DAYS.findIndex((dd) => dd.date === H.night) + 1, nn = hotelNights(hk);
   $('map-info').innerHTML = '<div class="mi-title">🏨 ' + esc(name) + ' · ' + (nn > 1 ? n + '~' + (n + nn - 1) + '일차 ' + nn + '박' : n + '일차 밤') + ' (' + labelDate(H.night) + ')</div>' +
     '<p class="muted small">🧭 ' + esc(H.tip) + '</p>' +
+    (H.booked ? '<div class="hotels booked-only" style="margin:0 0 8px">' + bookedCard(hk) + '</div>' : '') +
+    (H.booked && !openNights(hk) ? '' : (H.booked ? '<div class="small"><b>남은 ' + openNights(hk) + '박 (' + labelDate(stayDates(hk)[0]) + ') 추천</b></div>' : '') +
     H.options.map((h, i) =>
       '<div class="mi-hotel' + (i === pick ? ' picked' : '') + '"><div><b>' + (i === 0 ? '⭐ ' : '') + esc(h.name) + '</b>' + (i === pick ? ' <span class="badge">선택</span>' : '') + '</div>' +
       '<div class="mi-price">NZD ' + h.price[0] + '~' + h.price[1] + ' <span>≈ ' + man(h.price[0] * rate) + '~' + man(h.price[1] * rate) + '원</span></div>' +
       '<div class="h-links" style="margin-left:0"><a href="' + bookingUrl(h, hk) + '" target="_blank" rel="noopener">Booking.com</a><a href="' + hotelsComUrl(h, hk) + '" target="_blank" rel="noopener">Hotels.com</a><a href="' + mapUrl(h.q || h.name) + '" target="_blank" rel="noopener">📍 지도</a></div></div>').join('') +
-    '<p class="muted small" style="margin:8px 0 0">숙소 선택은 체크리스트의 "추천 숙소 보기"에서 바꿀 수 있어요.</p>';
+    '<p class="muted small" style="margin:8px 0 0">숙소 선택은 체크리스트의 "추천 숙소 보기"에서 바꿀 수 있어요.</p>');
   highlight(key);
 }
 function highlight(key) {
@@ -1212,10 +1228,27 @@ function updateCosts() {
 function checkKey(it) { return it.text; }
 function isChecked(it) { const v = state.checks[checkKey(it)]; return v === undefined ? !!it.done : v; }
 function hotelNights(key) { return HOTELS[key].nights || 1; }
+function bookedNights(key) { return HOTELS[key].booked ? HOTELS[key].booked.nights : 0; }
+function openNights(key) { return hotelNights(key) - bookedNights(key); }
+function bookedKrw() { return Object.keys(HOTELS).reduce((t, k) => t + (HOTELS[k].booked ? HOTELS[k].booked.krw : 0), 0); }
+function addDays(d, n) { return new Date(ymdToUTC(d) + n * 864e5).toISOString().slice(0, 10); }
+// 날짜(YYYY-MM-DD)에 묵는 숙소 — { key, name(예약했으면), booked }
+function stayOn(date) {
+  for (const k of Object.keys(HOTELS)) {
+    const i = daysBetween(HOTELS[k].night, date);
+    if (i >= 0 && i < hotelNights(k)) return { key: k, booked: i < bookedNights(k), name: i < bookedNights(k) ? HOTELS[k].booked.name : null };
+  }
+  return null;
+}
+function bookedCard(key) {
+  const H = HOTELS[key], b = H.booked;
+  return '<div class="booked-card">✅ <b>' + esc(b.name) + '</b> 예약 완료<br><span class="muted small">' + labelDate(H.night) + ' 체크인 · ' + b.nights + '박 · ₩' + fmt(b.krw) +
+    (b.nights > 1 ? ' (1박 약 ₩' + fmt(b.krw / b.nights) + ')' : '') + '</span> <a class="small" href="' + mapUrl(b.name) + '" target="_blank" rel="noopener">📍 지도</a></div>';
+}
 function hotelPick(key) { const v = state.hotels[key]; return v >= 0 && v < HOTELS[key].options.length ? v : 0; }
 function stayDates(key) {
-  const d = HOTELS[key].night;
-  return [d, new Date(ymdToUTC(d) + hotelNights(key) * 864e5).toISOString().slice(0, 10)];
+  const d = addDays(HOTELS[key].night, bookedNights(key));
+  return [d, addDays(d, openNights(key))];
 }
 // Hotels.com 한국 사이트 — 원화로 가격 표시
 function hotelsComUrl(h, key) {
@@ -1224,13 +1257,15 @@ function hotelsComUrl(h, key) {
     '&startDate=' + d + '&endDate=' + out + '&adults=' + TRIP.people + '&rooms=1';
 }
 function bookingUrl(h, key) {
-  const d = HOTELS[key].night, out = new Date(ymdToUTC(d) + hotelNights(key) * 864e5).toISOString().slice(0, 10);
+  const [d, out] = stayDates(key);
   return 'https://www.booking.com/searchresults.html?ss=' + encodeURIComponent(h.q || h.name) +
     '&checkin=' + d + '&checkout=' + out + '&group_adults=' + TRIP.people + '&no_rooms=1';
 }
 function hotelPanel(key) {
-  const H = HOTELS[key], pick = hotelPick(key);
-  return '<details class="hotels"><summary>🏨 추천 숙소 ' + H.options.length + '곳 · 1박 예상가 보기' + (hotelNights(key) > 1 ? ' (' + hotelNights(key) + '박)' : '') + '</summary>' +
+  const H = HOTELS[key], pick = hotelPick(key), open = openNights(key), from = stayDates(key)[0];
+  if (H.booked && !open) return '<div class="hotels booked-only">' + bookedCard(key) + '</div>';
+  return (H.booked ? '<div class="hotels booked-only">' + bookedCard(key) + '</div>' : '') +
+    '<details class="hotels"><summary>🏨 ' + (H.booked ? '남은 ' + open + '박(' + labelDate(from) + ') ' : '') + '추천 숙소 ' + H.options.length + '곳 · 1박 예상가 보기' + (!H.booked && open > 1 ? ' (' + open + '박)' : '') + '</summary>' +
     '<p class="h-tip">🧭 ' + esc(H.tip) + '</p>' +
     H.options.map((h, i) =>
       '<div class="hotel"><label class="h-head"><input type="radio" name="hotel-' + key + '" value="' + i + '" data-hotel' + (i === pick ? ' checked' : '') + '>' +
@@ -1238,7 +1273,7 @@ function hotelPanel(key) {
         '<span class="h-price">NZD ' + h.price[0] + '~' + h.price[1] +
         '<span class="h-krw" data-lo="' + h.price[0] + '" data-hi="' + h.price[1] + '"></span></span></label>' +
         '<div class="h-why">' + esc(h.why) + '</div>' +
-        '<div class="h-dates">예약 검색 · ' + labelDate(H.night) + ' 체크인 ' + hotelNights(key) + '박</div>' +
+        '<div class="h-dates">예약 검색 · ' + labelDate(from) + ' 체크인 ' + open + '박</div>' +
         '<div class="h-links"><a href="' + bookingUrl(h, key) + '" target="_blank" rel="noopener">Booking.com</a>' +
         '<a href="' + hotelsComUrl(h, key) + '" target="_blank" rel="noopener">Hotels.com</a>' +
         '<a href="' + mapUrl(h.q || h.name) + '" target="_blank" rel="noopener">📍 지도</a></div></div>').join('') +
@@ -1246,13 +1281,16 @@ function hotelPanel(key) {
 }
 function hotelTotal() {
   return Object.keys(HOTELS).reduce((t, k) => {
-    const p = HOTELS[k].options[hotelPick(k)].price, n = hotelNights(k); return [t[0] + p[0] * n, t[1] + p[1] * n];
+    const p = HOTELS[k].options[hotelPick(k)].price, n = openNights(k); return [t[0] + p[0] * n, t[1] + p[1] * n];
   }, [0, 0]);
 }
 function man(n) { return (Math.round(n / 1e3) / 10).toLocaleString('ko-KR') + '만'; } // 원 → 'N.N만'
 function updateHotelTotal() {
   const t = hotelTotal(), rate = getRate();
-  $('hotel-nights').textContent = Object.keys(HOTELS).reduce((n, k) => n + hotelNights(k), 0);
+  const keys = Object.keys(HOTELS), all = keys.reduce((n, k) => n + hotelNights(k), 0), bk = keys.reduce((n, k) => n + bookedNights(k), 0);
+  $('hotel-nights').textContent = all;
+  $('hotel-booked').textContent = bk + '박 ₩' + fmt(bookedKrw());
+  $('hotel-open').textContent = (all - bk) + '박';
   document.querySelectorAll('.h-krw').forEach((el) => {
     el.textContent = '≈ ' + man(el.dataset.lo * rate) + '~' + man(el.dataset.hi * rate) + '원';
   });
