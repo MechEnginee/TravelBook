@@ -138,6 +138,18 @@
   }
   @media (prefers-color-scheme: dark) { .badge { color: #06221f; } }
 
+  .photos {
+    display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    margin: 0 -16px 14px; padding: 0 16px 6px; scrollbar-width: thin;
+  }
+  .photo { flex: 0 0 auto; width: min(82%, 340px); margin: 0; scroll-snap-align: start; }
+  .photo:only-child { width: 100%; }
+  .photo img {
+    display: block; width: 100%; height: 200px; object-fit: cover; border-radius: 12px; background: var(--surface-2);
+  }
+  .photo figcaption { display: flex; flex-direction: column; padding: 6px 2px 0; }
+  .p-cap { font-size: 14px; font-weight: 600; }
+  .p-credit { font-size: 11px; color: var(--muted); text-decoration: none; min-height: 24px; }
   .timeline { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line); margin-left: 6px; }
   .timeline li { position: relative; padding: 4px 0 12px 18px; }
   .timeline li::before {
@@ -274,6 +286,9 @@
     .card { break-inside: avoid; box-shadow: none; }
     .day.today { border: 1px solid var(--line); }
     .print-only { display: inline !important; }
+    .photos { overflow: visible; flex-wrap: wrap; margin: 0 0 10px; padding: 0; }
+    .photo { width: calc(33% - 7px) !important; }
+    .photo img { height: 110px; }
     .check .mark { display: inline; font-family: monospace; }
     a { color: #000; text-decoration: none; }
     .place { background: none; padding: 0 8px 0 0; min-height: 0; color: #000; }
@@ -458,6 +473,32 @@ const DAYS = [
   ]}
 ];
 
+/* 일차별 사진 — Wikimedia Commons 자유 라이선스 사진 (크기만 줄임). 일차(day)에 맞춰 카드 안에 표시 */
+const PHOTOS = [
+  { day: 2, src: "photos/castle.jpg", w: 800, h: 450, caption: "캐슬힐 거석 바위군", credit: "Bernard Spragg", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:Castle_Hill_Canterbury_NZ.jpg" },
+  { day: 3, src: "photos/punchbowl.jpg", w: 480, h: 640, caption: "데빌스 펀치볼 폭포", credit: "Pavel Špindler", license: "CC BY 3.0", page: "https://commons.wikimedia.org/wiki/File:Devils_Punchbowl_Falls_I_-_Arthurs_Pass_N.P._-_panoramio.jpg" },
+  { day: 3, src: "photos/hokitika.jpg", w: 800, h: 533, caption: "호키티카 협곡 출렁다리", credit: "Steve Gardner", license: "CC BY 2.0", page: "https://commons.wikimedia.org/wiki/File:Hokitika_Gorge_-_24034534819.png" },
+  { day: 3, src: "photos/franz.jpg", w: 800, h: 560, caption: "프란츠 조셉 빙하 계곡 트랙", credit: "Krzysztof Golik", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Franz_Josef_Glacier_14.jpg" },
+  { day: 4, src: "photos/helihike.jpg", w: 800, h: 541, caption: "헬리하이크 — 빙하 위 얼음 동굴 (사진은 폭스 빙하 투어)", credit: "Fox Glacier Guiding", license: "CC BY 4.0", page: "https://commons.wikimedia.org/wiki/File:FGG_Fox-glacier-heli-hike-group-helicopter_04.jpg" },
+  { day: 4, src: "photos/foxglacier.jpg", w: 800, h: 553, caption: "폭스 빙하", credit: "Krzysztof Golik", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Fox_Glacier_in_Westland_National_Park_01.jpg" },
+  { day: 4, src: "photos/matheson.jpg", w: 800, h: 533, caption: "매서슨 호수에 비친 마운트쿡·타스만", credit: "Pseudopanax", license: "Public domain", page: "https://commons.wikimedia.org/wiki/File:Lake_Matheson_reflection_of_Mount_Tasman_and_Aoraki_Mount_Cook.jpg" },
+  { day: 5, src: "photos/thunder.jpg", w: 800, h: 533, caption: "썬더크릭 폭포", credit: "itravelNZ® - New Zealand in your pocket™", license: "CC BY 2.0", page: "https://commons.wikimedia.org/wiki/File:Thunder_Creek_Falls_Flickr_01.jpg" },
+  { day: 5, src: "photos/fantail.jpg", w: 800, h: 533, caption: "팬테일 폭포", credit: "itravelNZ® - New Zealand in your pocket™", license: "CC BY 2.0", page: "https://commons.wikimedia.org/wiki/File:Fantail_Falls_01.jpg" },
+  { day: 5, src: "photos/bluepools.jpg", w: 800, h: 600, caption: "블루풀스 (마카로라 강)", credit: "Mike Dickison", license: "CC BY 4.0", page: "https://commons.wikimedia.org/wiki/File:Blue_Pool_Track_MRD_05.jpg" },
+  { day: 5, src: "photos/wanakatree.jpg", w: 800, h: 533, caption: "와나카 트리", credit: "Keerti Siag photography", license: "CC BY-SA 2.0", page: "https://commons.wikimedia.org/wiki/File:Lake_Wanaka_Tree.jpg" },
+  { day: 6, src: "photos/lindis.jpg", w: 800, h: 533, caption: "린디스 패스", credit: "Charlie Mitchell", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Lindis_Pass,_Otago,_New_Zealand.jpg" },
+  { day: 6, src: "photos/hooker.jpg", w: 800, h: 541, caption: "후커밸리 트랙 출렁다리", credit: "Jan Helebrant", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:NZ_Hooker_Valley_track.jpg" },
+  { day: 6, src: "photos/hookerlake.jpg", w: 800, h: 532, caption: "후커 빙하호와 마운트쿡", credit: "Pseudopanax", license: "CC BY 3.0", page: "https://commons.wikimedia.org/wiki/File:Icebergs_in_Hooker_Glacier_Lake_in_front_of_Aoraki_Mount_Cook.jpg" },
+  { day: 7, src: "photos/tasman.jpg", w: 800, h: 614, caption: "타스만 빙하호", credit: "Krzysztof Golik", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Tasman_Lake_and_Tasman_Glacier.jpg" },
+  { day: 7, src: "photos/pukaki.jpg", w: 800, h: 448, caption: "푸카키 호수와 마운트쿡", credit: "Krzysztof Golik", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Lake_Pukaki_%26_Aoraki_Mount_Cook_01.jpg" },
+  { day: 7, src: "photos/church.jpg", w: 800, h: 600, caption: "선한목자교회", credit: "Jillianalma", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Church_of_the_Good_Shepherd,_Lake_Tekapo,_New_Zealand.jpg" },
+  { day: 7, src: "photos/mtjohn.jpg", w: 800, h: 503, caption: "마운트 존 천문대", credit: "Bernard Spragg", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:Mount_John_University_Observatory_(9618676129).jpg" },
+  { day: 8, src: "photos/bungy.jpg", w: 425, h: 640, caption: "카와라우 번지 (43m)", credit: "chee.hong", license: "CC BY 2.0", page: "https://commons.wikimedia.org/wiki/File:Kawarau_Bridge_Bungy_Jump1.jpg" },
+  { day: 8, src: "photos/milford.jpg", w: 800, h: 566, caption: "밀포드 사운드 — 마이터 피크", credit: "MurielBendel", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Milford_Sound_Mitre_Peak.JPG" },
+  { day: 9, src: "photos/shotover.jpg", w: 800, h: 450, caption: "샷오버 제트", credit: "Bernard Spragg", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:Thrill_seekers._Shotover_Jet._(18212837748).jpg" },
+  { day: 9, src: "photos/glenorchy.jpg", w: 800, h: 533, caption: "글레노키 부두", credit: "Pseudopanax", license: "Public domain", page: "https://commons.wikimedia.org/wiki/File:Glenorchy_wharf_and_red_shed_at_Lake_Wakatipu.jpg" }
+];
+
 /* 액티비티 비용 — people: 기본 인원 (화면에서 1/2명 토글 가능) */
 const ACTIVITIES = [
   { id: 'heli',   name: '프란츠 조셉 헬리하이크',     day: 4, nzd: 795, people: 2 },
@@ -627,6 +668,16 @@ function renderHeader(st) {
 /* ---------- Days ---------- */
 const chevron = '<svg class="chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 8l5 5 5-5"/></svg>';
 
+function photoStrip(n) {
+  const list = PHOTOS.filter((p) => p.day === n);
+  if (!list.length) return '';
+  return '<div class="photos">' + list.map((p) =>
+    '<figure class="photo"><img src="' + esc(p.src) + '" width="' + p.w + '" height="' + p.h + '" alt="' + esc(p.caption) + '" loading="lazy" decoding="async" onerror="this.closest(\'figure\').remove()">' +
+    '<figcaption><span class="p-cap">' + esc(p.caption) + '</span>' +
+    '<a class="p-credit" href="' + esc(p.page) + '" target="_blank" rel="noopener">📷 ' + esc(p.credit) + ' · ' + esc(p.license) + '</a></figcaption></figure>').join('') +
+    '</div>';
+}
+
 function renderDays(todayIdx) {
   $('day-list').innerHTML = DAYS.map((d, i) => {
     const n = i + 1, isToday = n === todayIdx;
@@ -648,7 +699,7 @@ function renderDays(todayIdx) {
         '<div class="day-meta"><div class="day-date">' + labelDate(d.date) + (isToday ? '<span class="badge">오늘</span>' : '') + '</div>' +
         '<div class="day-stay">🛏️ ' + esc(d.stay) + '</div></div>' + chevron +
       '</button>' +
-      '<div class="day-body" id="day-body-' + n + '">' +
+      '<div class="day-body" id="day-body-' + n + '">' + photoStrip(n) +
         '<ul class="timeline">' + items + '</ul>' +
         '<div class="day-cost">🛏️ 체류: ' + stay + (d.cost ? '<br>💰 비용: <b>' + esc(d.cost) + '</b>' : '') + '</div>' +
       '</div></article>';
@@ -791,7 +842,7 @@ function updateChecklist() {
 function renderMisc() {
   $('planb-list').innerHTML = PLAN_B.map((p) => '<div class="planb"><h3>' + esc(p.title) + '</h3><p>' + esc(p.text) + '</p></div>').join('');
   $('note-list').innerHTML = NOTES.map((n) => '<li>' + n + '</li>').join(''); // NOTES는 <b> 강조 허용
-  $('foot').textContent = '오프라인에서도 동작합니다 · 체크 상태와 환율은 이 기기에 저장됩니다';
+  $('foot').textContent = '한 번 열어두면 오프라인에서도 동작합니다 · 체크 상태와 환율은 이 기기에 저장됩니다 · 사진: Wikimedia Commons (각 사진의 작가·라이선스 표기)';
 }
 
 /* ---------- Tab bar ---------- */
@@ -823,6 +874,10 @@ $('collapse-all').addEventListener('click', () => document.querySelectorAll('.da
 if (st.phase === 'during') {
   // 여행 중에는 열자마자 오늘 일정으로
   setTimeout(() => { const el = $('day-' + st.day); if (el && !location.hash) el.scrollIntoView({ block: 'start' }); }, 50);
+}
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  // 한 번 열어두면 사진까지 저장되어 오프라인에서도 열림
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
 }
 </script>
 </body>
