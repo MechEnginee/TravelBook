@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cut">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#1f6f9c" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1b24" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="NZ 남섬">
+<title>뉴질랜드 남섬 여행</title>
+<style>
+  :root {
+    --bg: #eef4f7;
+    --surface: #ffffff;
+    --surface-2: #f4f8fa;
+    --text: #15242e;
+    --muted: #5b6d79;
+    --line: #d9e4ea;
+    --glacier: #1f6f9c;
+    --glacier-soft: #e2eff7;
+    --lake: #138f87;
+    --lake-soft: #def4f1;
+    --forest: #2f6b4f;
+    --forest-soft: #e3f0e8;
+    --warn: #a4570f;
+    --warn-soft: #fbefe1;
+    --today: #138f87;
+    --shadow: 0 1px 2px rgba(20, 40, 55, .06), 0 2px 10px rgba(20, 40, 55, .05);
+    --radius: 16px;
+    --tabbar-h: 64px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b161d;
+      --surface: #13222c;
+      --surface-2: #182b37;
+      --text: #e6eef2;
+      --muted: #97aab6;
+      --line: #253946;
+      --glacier: #6db8e3;
+      --glacier-soft: #173447;
+      --lake: #4fd0c3;
+      --lake-soft: #133a38;
+      --forest: #7fc49e;
+      --forest-soft: #183326;
+      --warn: #f0b072;
+      --warn-soft: #3a2a19;
+      --today: #4fd0c3;
+      --shadow: none;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", "Segoe UI", Roboto, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 24px);
+  }
+  a { color: var(--glacier); }
+  button, input { font: inherit; color: inherit; }
+
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+
+  /* ---------- Header ---------- */
+  .hero {
+    background: linear-gradient(160deg, #1f6f9c 0%, #138f87 60%, #2f6b4f 100%);
+    color: #fff;
+    padding: calc(env(safe-area-inset-top) + 28px) 0 26px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .hero { background: linear-gradient(160deg, #123c55 0%, #0f4f4b 60%, #173a2a 100%); }
+  }
+  .hero h1 { margin: 0; font-size: 26px; line-height: 1.3; letter-spacing: -.3px; }
+  .hero .sub { margin: 6px 0 0; opacity: .9; font-size: 16px; }
+  .dday {
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+    margin-top: 18px; padding: 14px 16px;
+    background: rgba(255, 255, 255, .16); border-radius: 14px;
+  }
+  .dday strong { font-size: 32px; line-height: 1.1; letter-spacing: -.5px; }
+  .dday span { font-size: 15px; opacity: .92; }
+  .hero-actions { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .hero-actions button {
+    min-height: 44px; padding: 0 16px; border-radius: 22px; border: 1px solid rgba(255,255,255,.5);
+    background: rgba(255,255,255,.12); color: #fff; font-size: 15px; cursor: pointer;
+  }
+
+  /* ---------- Sections ---------- */
+  section { scroll-margin-top: 12px; padding-top: 28px; }
+  section > h2 {
+    font-size: 21px; margin: 0 0 12px; display: flex; align-items: center; gap: 8px;
+  }
+  section > h2 .count { font-size: 15px; font-weight: 500; color: var(--muted); margin-left: auto; }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow); margin-bottom: 12px;
+  }
+  .pad { padding: 16px; }
+  .muted { color: var(--muted); }
+  .small { font-size: 14px; }
+  ul.plain { margin: 0; padding-left: 20px; }
+  ul.plain li + li { margin-top: 6px; }
+
+  /* ---------- Days ---------- */
+  .day-head {
+    width: 100%; display: flex; align-items: center; gap: 12px; text-align: left;
+    padding: 14px 16px; min-height: 64px; background: none; border: 0; cursor: pointer;
+    border-radius: var(--radius);
+  }
+  .day-num {
+    flex: 0 0 auto; width: 48px; height: 48px; border-radius: 12px;
+    display: grid; place-items: center; text-align: center; line-height: 1.05;
+    background: var(--glacier-soft); color: var(--glacier); font-weight: 700;
+  }
+  .day-num b { font-size: 20px; display: block; }
+  .day-num small { font-size: 11px; font-weight: 600; }
+  .day-meta { flex: 1 1 auto; min-width: 0; }
+  .day-date { font-weight: 700; font-size: 17px; }
+  .day-stay { font-size: 15px; color: var(--muted); }
+  .chev { flex: 0 0 auto; width: 20px; height: 20px; color: var(--muted); transition: transform .15s; }
+  .day.open .chev { transform: rotate(180deg); }
+  .day-body { display: none; padding: 0 16px 16px; }
+  .day.open .day-body { display: block; }
+  .day.today { border: 2px solid var(--today); }
+  .day.today .day-num { background: var(--today); color: #fff; }
+  @media (prefers-color-scheme: dark) { .day.today .day-num { color: #06221f; } }
+  .badge {
+    display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 10px;
+    background: var(--today); color: #fff; vertical-align: 2px; margin-left: 6px;
+  }
+  @media (prefers-color-scheme: dark) { .badge { color: #06221f; } }
+
+  .timeline { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line); margin-left: 6px; }
+  .timeline li { position: relative; padding: 4px 0 12px 18px; }
+  .timeline li::before {
+    content: ""; position: absolute; left: -7px; top: 12px; width: 12px; height: 12px; border-radius: 50%;
+    background: var(--surface); border: 2px solid var(--glacier);
+  }
+  .timeline li.drive::before { border-color: var(--warn); background: var(--warn); }
+  .t-time { font-weight: 700; color: var(--glacier); margin-right: 6px; font-variant-numeric: tabular-nums; }
+  .drive-pill {
+    display: inline-flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 700;
+    padding: 2px 10px; border-radius: 12px; background: var(--warn-soft); color: var(--warn); margin-right: 6px;
+  }
+  .places { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .place {
+    display: inline-flex; align-items: center; min-height: 36px; padding: 4px 12px; border-radius: 18px;
+    background: var(--lake-soft); color: var(--lake); text-decoration: none; font-size: 14px; font-weight: 600;
+  }
+  .day-cost {
+    margin-top: 4px; padding: 10px 12px; border-radius: 12px; background: var(--surface-2); font-size: 15px;
+  }
+  .day-cost b { color: var(--forest); }
+  .toolbar { display: flex; gap: 8px; margin-bottom: 12px; }
+  .btn {
+    min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--line);
+    background: var(--surface); cursor: pointer; font-size: 15px;
+  }
+
+  /* ---------- Flights ---------- */
+  .flight { padding: 16px; }
+  .f-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .f-no { font-size: 20px; font-weight: 800; letter-spacing: .3px; }
+  .f-air { font-size: 14px; color: var(--muted); }
+  .f-route { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; margin: 12px 0; }
+  .f-route .end { min-width: 0; }
+  .f-route .end.r { text-align: right; }
+  .f-code { font-size: 26px; font-weight: 800; line-height: 1.1; color: var(--glacier); }
+  .f-city { font-size: 14px; color: var(--muted); }
+  .f-time { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .f-arrow { color: var(--muted); font-size: 20px; }
+  .f-info { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 10px; }
+  .f-info b { color: var(--text); }
+
+  /* ---------- Costs ---------- */
+  .rate {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 14px 16px;
+  }
+  .rate label { font-weight: 700; }
+  .rate input {
+    width: 110px; min-height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--line);
+    background: var(--surface-2); font-size: 17px; text-align: right;
+  }
+  .cost-row { padding: 14px 16px; border-top: 1px solid var(--line); }
+  .cost-row:first-child { border-top: 0; }
+  .cost-line1 { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+  .cost-name { font-weight: 700; }
+  .cost-day { font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .cost-line2 { display: flex; align-items: center; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .seg button {
+    min-width: 52px; min-height: 40px; border: 0; background: var(--surface-2); cursor: pointer; font-size: 15px;
+  }
+  .seg button[aria-pressed="true"] { background: var(--glacier); color: #fff; font-weight: 700; }
+  @media (prefers-color-scheme: dark) { .seg button[aria-pressed="true"] { color: #05202f; } }
+  .cost-calc { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .cost-amt { margin-left: auto; text-align: right; font-variant-numeric: tabular-nums; }
+  .cost-amt b { display: block; font-size: 17px; }
+  .cost-amt span { font-size: 13px; color: var(--muted); }
+  .total {
+    padding: 16px; background: var(--forest-soft); border-radius: 0 0 var(--radius) var(--radius);
+    display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap;
+  }
+  .total .big { font-size: 22px; font-weight: 800; color: var(--forest); font-variant-numeric: tabular-nums; }
+  .extra-row { display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-top: 1px solid var(--line); }
+  .extra-row:first-child { border-top: 0; }
+  .extra-row label { flex: 1 1 auto; min-width: 0; }
+  .extra-row input {
+    width: 150px; flex: 0 0 auto; min-height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--line);
+    background: var(--surface-2); font-size: 16px; text-align: right;
+  }
+  .grand { padding: 18px 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .grand .big { font-size: 24px; font-weight: 800; color: var(--glacier); font-variant-numeric: tabular-nums; }
+
+  /* ---------- Checklist ---------- */
+  .progress { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; margin: 0 16px 4px; }
+  .progress > div { height: 100%; background: var(--lake); width: 0; transition: width .2s; }
+  .check { display: flex; align-items: center; gap: 12px; padding: 10px 16px; min-height: 52px; border-top: 1px solid var(--line); cursor: pointer; }
+  .check:first-of-type { border-top: 0; }
+  .check input { width: 24px; height: 24px; flex: 0 0 auto; accent-color: var(--lake); margin: 0; }
+  .check.done span { text-decoration: line-through; color: var(--muted); }
+  .check .mark { display: none; }
+
+  /* ---------- Plan B / Notes ---------- */
+  .planb { padding: 14px 16px; border-top: 1px solid var(--line); }
+  .planb:first-child { border-top: 0; }
+  .planb h3 { margin: 0 0 4px; font-size: 16px; color: var(--warn); }
+  .planb p { margin: 0; }
+
+  /* ---------- Tab bar ---------- */
+  .tabbar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+    background: var(--surface); border-top: 1px solid var(--line);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .tabbar .inner { max-width: 720px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); }
+  .tabbar a {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    height: var(--tabbar-h); text-decoration: none; color: var(--muted); font-size: 12px; font-weight: 600;
+  }
+  .tabbar a .ico { font-size: 20px; line-height: 1; }
+  .tabbar a.active { color: var(--glacier); }
+
+  footer { text-align: center; padding: 28px 0 8px; font-size: 13px; color: var(--muted); }
+
+  /* ---------- Print ---------- */
+  @media print {
+    :root { --bg: #fff; --surface: #fff; --surface-2: #f5f5f5; --text: #000; --muted: #444; --line: #ccc; --shadow: none; }
+    body { padding: 0; font-size: 12pt; background: #fff; }
+    .hero { background: none !important; color: #000; padding: 0 0 8px; border-bottom: 2px solid #000; }
+    .dday { background: none; padding: 6px 0; }
+    .tabbar, .hero-actions, .toolbar, .chev, .seg, button.reset, .rate input, .extra-row input, .check input { display: none !important; }
+    .day-body { display: block !important; }
+    .day-head { min-height: 0; padding: 10px 16px 6px; }
+    .card { break-inside: avoid; box-shadow: none; }
+    .day.today { border: 1px solid var(--line); }
+    .print-only { display: inline !important; }
+    .check .mark { display: inline; font-family: monospace; }
+    a { color: #000; text-decoration: none; }
+    .place { background: none; padding: 0 8px 0 0; min-height: 0; color: #000; }
+  }
+  .print-only { display: none; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1 id="trip-title"></h1>
+    <p class="sub" id="trip-sub"></p>
+    <div class="dday" id="dday"><strong>…</strong></div>
+    <div class="hero-actions" id="hero-actions"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="days">
+    <h2>🗓️ 일정</h2>
+    <div class="toolbar">
+      <button class="btn" type="button" id="expand-all">모두 펼치기</button>
+      <button class="btn" type="button" id="collapse-all">모두 접기</button>
+    </div>
+    <div id="day-list"></div>
+  </section>
+
+  <section id="flights">
+    <h2>✈️ 항공 · 렌터카</h2>
+    <div id="flight-list"></div>
+    <div class="card pad"><ul class="plain" id="flight-notes"></ul></div>
+  </section>
+
+  <section id="costs">
+    <h2>💰 비용</h2>
+    <div class="card rate">
+      <label for="rate">환율</label>
+      <span class="muted">1 NZD =</span>
+      <input id="rate" type="number" inputmode="decimal" min="1" step="1">
+      <span class="muted">원</span>
+      <span class="print-only" id="rate-print"></span>
+    </div>
+    <div class="card">
+      <div id="cost-list"></div>
+      <div class="total">
+        <span><b>액티비티 합계</b> <span class="muted small" id="total-nzd"></span></span>
+        <span class="big" id="total-krw"></span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="pad" style="padding-bottom:6px"><b>기타 경비</b> <span class="muted small">(2인 총액, 원)</span></div>
+      <div id="extra-list"></div>
+      <div class="grand">
+        <b>총 예상 경비</b>
+        <span class="big" id="grand-total"></span>
+      </div>
+    </div>
+  </section>
+
+  <section id="checklist">
+    <h2>✅ 예약 체크리스트 <span class="count" id="check-count"></span></h2>
+    <div class="card" style="padding-top:12px">
+      <div class="progress"><div id="check-bar"></div></div>
+      <div id="check-list"></div>
+    </div>
+  </section>
+
+  <section id="planb">
+    <h2>☔ Plan B</h2>
+    <div class="card" id="planb-list"></div>
+  </section>
+
+  <section id="notes">
+    <h2>⚠️ 주의사항</h2>
+    <div class="card pad"><ul class="plain" id="note-list"></ul></div>
+  </section>
+
+  <footer id="foot"></footer>
+</main>
+
+<nav class="tabbar" aria-label="섹션 이동">
+  <div class="inner">
+    <a href="#days" data-sec="days"><span class="ico">🗓️</span>일정</a>
+    <a href="#flights" data-sec="flights"><span class="ico">✈️</span>항공</a>
+    <a href="#costs" data-sec="costs"><span class="ico">💰</span>비용</a>
+    <a href="#checklist" data-sec="checklist"><span class="ico">✅</span>체크</a>
+    <a href="#planb" data-sec="planb"><span class="ico">☔</span>Plan B</a>
+  </div>
+</nav>
+
+<script>
+/* =====================================================================
+   여행 데이터 — 일정이 바뀌면 이 블록만 고치면 됩니다.
+   ===================================================================== */
+const TRIP = {
+  title: '뉴질랜드 남섬 여행',
+  people: 2,
+  startDate: '2026-10-21',          // 1일차 (뉴질랜드 날짜 기준)
+  endDate: '2026-10-30',            // 마지막 일차
+  departure: '2026-10-21T18:00:00+09:00', // 이 시각 전까지는 한국 시간으로 D-day 계산
+  arrival: '2026-10-30T19:40:00+09:00',   // 이 시각 이후는 "여행 완료"
+  defaultRate: 765                  // 1 NZD = 원
+};
+
+const FLIGHTS = [
+  { no: 'KE411', airline: '대한항공 · B787-10', from: ['ICN', '인천'], to: ['AKL', '오클랜드'],
+    dep: '10/21(수) 18:00', arr: '10/22(목) 09:35', terminal: '인천 T2 출발 · 오클랜드 국제선 도착', seat: '44H' },
+  { no: 'JQ233', airline: '젯스타', from: ['AKL', '오클랜드'], to: ['CHC', '크라이스트처치'],
+    dep: '10/22(목) 13:15', arr: '10/22(목) 14:35', terminal: '오클랜드 국내선', seat: '–' },
+  { no: 'JQ298', airline: '젯스타', from: ['ZQN', '퀸스타운'], to: ['AKL', '오클랜드'],
+    dep: '10/29(목) 17:30', arr: '10/29(목) 19:20', terminal: '–', seat: '–' },
+  { no: 'KE412', airline: '대한항공 · B787-10', from: ['AKL', '오클랜드'], to: ['ICN', '인천'],
+    dep: '10/30(금) 11:45', arr: '10/30(금) 19:40', terminal: '오클랜드 국제선 출발 · 인천 T2 도착', seat: '34B' }
+];
+
+const FLIGHT_NOTES = [
+  '대한항공 편은 마일리지 발권',
+  '젯스타 국내선 2구간은 별도 발권 (총 816,400원)',
+  '🚗 렌터카: 크라이스트처치 공항 픽업(10/22) → 퀸스타운 공항 반납(10/29) 편도'
+];
+
+/* 일정 항목:
+   time   : 시각 또는 '오전/오후/일몰' 등 (선택)
+   drive  : 차량 이동 소요시간 — 있으면 🚗 구간으로 표시
+   text   : 설명
+   places : [[표시명, 구글맵 검색어(영문)], ...] */
+const DAYS = [
+  { date: '2026-10-21', stay: '기내', items: [
+    { time: '18:00', text: '인천 T2 출발 (KE411)', places: [['Incheon T2', 'Incheon International Airport Terminal 2']] }
+  ]},
+  { date: '2026-10-22', stay: "아서스 패스 (Arthur's Pass)", stayQuery: "Arthur's Pass Village", cost: '무료', items: [
+    { time: '09:35', text: '오클랜드 도착 → 입국심사, 짐 찾기, 국내선 터미널로 이동 후 짐 다시 부치기', places: [['Auckland Airport', 'Auckland Airport']] },
+    { time: '13:15', text: 'JQ233 출발 → 14:35 크라이스트처치 도착, 렌터카 픽업', places: [['Christchurch Airport', 'Christchurch Airport']] },
+    { drive: '1시간 20분', text: '캐슬힐 (거석 바위군)', places: [['Castle Hill', 'Castle Hill Conservation Area']] },
+    { drive: '30분', text: '아서스 패스 빌리지 도착', places: [["Arthur's Pass", "Arthur's Pass Village"]] }
+  ]},
+  { date: '2026-10-23', stay: '프란츠 조셉 (Franz Josef)', stayQuery: 'Franz Josef', cost: '무료', items: [
+    { time: '오전', text: '데빌스 펀치볼 폭포 트랙 (왕복 1시간)', places: [['Devils Punchbowl Falls', 'Devils Punchbowl Falls']] },
+    { drive: '1시간 30분', text: '호키티카', places: [['Hokitika', 'Hokitika']] },
+    { drive: '왕복 1시간 10분', text: '호키티카 협곡 (에메랄드빛 강)', places: [['Hokitika Gorge', 'Hokitika Gorge']] },
+    { drive: '2시간', text: '프란츠 조셉', places: [['Franz Josef', 'Franz Josef Glacier Village']] },
+    { time: '오후', text: '프란츠 조셉 빙하 계곡 트랙 (왕복 1시간 30분)', places: [['Franz Josef Glacier Valley Walk', 'Franz Josef Glacier Valley Walk']] }
+  ]},
+  { date: '2026-10-24', stay: '폭스 글레이셔 (Fox Glacier)', stayQuery: 'Fox Glacier', cost: '헬리하이크 1인 NZD 795', items: [
+    { time: '오전', text: '프란츠 조셉 헬리하이크 (약 4시간, 헬기로 빙하 착륙 후 가이드 워킹)', places: [['Franz Josef Glacier Guides', 'Franz Josef Glacier Guides']] },
+    { drive: '30분', text: '폭스 글레이셔', places: [['Fox Glacier', 'Fox Glacier Village']] },
+    { time: '오후', text: '폭스 빙하 전망 트랙', places: [['Fox Glacier Lookout', 'Fox Glacier South Side Walkway']] },
+    { time: '일몰', text: '매서슨 호수 — 마운트쿡이 비치는 거울 호수 (둘레길 1시간 30분)', places: [['Lake Matheson', 'Lake Matheson']] }
+  ]},
+  { date: '2026-10-25', stay: '와나카 (Wanaka)', stayQuery: 'Wanaka', cost: '무료', items: [
+    { drive: '2시간', text: '해스트', places: [['Haast', 'Haast']] },
+    { text: '해스트 패스: 썬더크릭 폭포, 팬테일 폭포, 블루풀스 (왕복 1시간)', places: [['Thunder Creek Falls', 'Thunder Creek Falls'], ['Fantail Falls', 'Fantail Falls'], ['Blue Pools', 'Blue Pools Walk Haast Pass']] },
+    { drive: '1시간 30분', text: '와나카', places: [['Wanaka', 'Wanaka']] },
+    { time: '일몰', text: '와나카 트리', places: [['That Wanaka Tree', 'That Wanaka Tree']] }
+  ]},
+  { date: '2026-10-26', stay: '마운트쿡 빌리지 (Aoraki/Mount Cook)', stayQuery: 'Aoraki Mount Cook Village', cost: '무료', items: [
+    { drive: '2시간 30분', text: '린디스 패스 경유 마운트쿡', places: [['Lindis Pass', 'Lindis Pass'], ['Mount Cook Village', 'Aoraki Mount Cook Village']] },
+    { time: '오후', text: '후커밸리 트랙 (왕복 3시간, 빙하호까지)', places: [['Hooker Valley Track', 'Hooker Valley Track']] },
+    { time: '저녁', text: '보름달에 비친 설산 감상' }
+  ]},
+  { date: '2026-10-27', stay: '테카포 (Lake Tekapo)', stayQuery: 'Lake Tekapo', cost: '온천+별관측 1인 NZD 139', items: [
+    { time: '일출', text: '타스만 빙하 전망대 (왕복 40분)', places: [['Tasman Glacier View', 'Tasman Glacier View Track']] },
+    { drive: '45분', text: '푸카키 호수 (연어샵)', places: [['Lake Pukaki', 'Mt Cook Alpine Salmon Shop Lake Pukaki']] },
+    { drive: '45분', text: '테카포', places: [['Lake Tekapo', 'Lake Tekapo']] },
+    { time: '오후', text: '선한목자교회, 마운트 존 전망대', places: [['Church of the Good Shepherd', 'Church of the Good Shepherd Tekapo'], ['Mt John', 'Mt John Observatory']] },
+    { time: '밤', text: '테카포 스프링스 온천 + 별 관측 투어', places: [['Tekapo Springs', 'Tekapo Springs']] }
+  ]},
+  { date: '2026-10-28', stay: '퀸스타운 (Queenstown)', stayQuery: 'Queenstown', cost: '번지 1인 NZD 320 · 밀포드 1인 NZD 668', items: [
+    { drive: '약 3시간', text: '퀸스타운 방향 (린디스 패스, 크롬웰 경유)', places: [['Cromwell', 'Cromwell']] },
+    { text: '도중: 카와라우 번지 (43m, 세계 최초 상업 번지)', places: [['Kawarau Bridge Bungy', 'Kawarau Bridge Bungy']] },
+    { time: '오후', text: '밀포드 사운드 플라이-크루즈-플라이 (경비행기 왕복 + 2시간 크루즈)', places: [['Queenstown Airport', 'Queenstown Airport'], ['Milford Sound', 'Milford Sound']] }
+  ]},
+  { date: '2026-10-29', stay: '오클랜드 공항 근처', stayQuery: 'Auckland Airport', cost: '제트보트 1인 NZD 199', items: [
+    { time: '오전', text: '샷오버 제트', places: [['Shotover Jet', 'Shotover Jet Queenstown']] },
+    { drive: '왕복 1시간 30분', text: '글레노키', places: [['Glenorchy', 'Glenorchy']] },
+    { time: '16:00', text: '퀸스타운 공항 렌터카 반납', places: [['Queenstown Airport', 'Queenstown Airport']] },
+    { time: '17:30', text: 'JQ298 출발 → 19:20 오클랜드 도착', places: [['Auckland Airport', 'Auckland Airport']] }
+  ]},
+  { date: '2026-10-30', stay: '–', items: [
+    { time: '11:45', text: 'KE412 오클랜드 출발 → 19:40 인천 T2 도착', places: [['Auckland Airport', 'Auckland Airport International Terminal']] }
+  ]}
+];
+
+/* 액티비티 비용 — people: 기본 인원 (화면에서 1/2명 토글 가능) */
+const ACTIVITIES = [
+  { id: 'heli',   name: '프란츠 조셉 헬리하이크',     day: 4, nzd: 795, people: 2 },
+  { id: 'tekapo', name: '테카포 온천 + 별 관측',      day: 7, nzd: 139, people: 2 },
+  { id: 'bungy',  name: '카와라우 번지',             day: 8, nzd: 320, people: 2 },
+  { id: 'milford',name: '밀포드 플라이-크루즈-플라이', day: 8, nzd: 668, people: 2 },
+  { id: 'jet',    name: '샷오버 제트',               day: 9, nzd: 199, people: 2 }
+];
+
+/* 기타 경비 (2인 총액, 원) — value는 기본값 */
+const EXTRAS = [
+  { id: 'jq',    name: '젯스타 국내선 (발권 완료)', value: 816400 },
+  { id: 'hotel', name: '숙소', value: 0 },
+  { id: 'car',   name: '렌터카', value: 0 },
+  { id: 'food',  name: '식비', value: 0 },
+  { id: 'fuel',  name: '주유비', value: 0 }
+];
+
+const CHECKLIST = [
+  '젯스타 "운항 정보 변동" 알림 내용 확인',
+  '젯스타 위탁 수하물 포함 여부 확인 (없으면 추가 구매)',
+  '렌터카 예약 (크라이스트처치 픽업 → 퀸스타운 반납 편도, 풀커버 보험)',
+  '숙소: 마운트쿡 빌리지 (가장 먼저 마감)',
+  '숙소: 프란츠 조셉',
+  '숙소: 폭스 글레이셔',
+  '숙소: 테카포',
+  '숙소: 아서스 패스',
+  '숙소: 와나카',
+  '숙소: 퀸스타운',
+  '숙소: 오클랜드 공항 근처 (10/29)',
+  '헬리하이크 예약 (10/24 첫 타임)',
+  '밀포드 플라이-크루즈-플라이 예약 (10/28 오후)',
+  '카와라우 번지 예약 (10/28)',
+  '샷오버 제트 예약 (10/29 오전)',
+  '테카포 온천 + 별 관측 예약 (10/27)',
+  'NZeTA (뉴질랜드 전자여행허가) + IVL 발급',
+  '국제운전면허증 발급',
+  '여행자 보험'
+];
+
+const PLAN_B = [
+  { title: '헬리하이크 취소 (4일차)', text: '5일차 아침 폭스 빙하 헬리하이크로 재시도, 와나카 도착을 늦춤' },
+  { title: '밀포드 비행 취소 (8일차)', text: '9일차 오전으로 이동, 대신 글레노키 생략' },
+  { title: 'KE411 지연', text: '오클랜드 환승 여유 3시간 40분. 별도 발권이라 젯스타 놓치면 보상 없음 → 지연 시 젯스타에 즉시 연락' },
+  { title: '밀포드 로드/산악도로 통제', text: '출발 전날 NZTA 도로 정보 확인' }
+];
+
+const NOTES = [
+  '뉴질랜드는 서머타임 적용 중으로 <b>한국보다 4시간 빠름</b>. 일몰 약 20시 이후',
+  '10월 말은 초봄: 아침 영하 근처, 낮 15도 안팎. 레이어링 + 방수 재킷 필수',
+  '좌측통행, 남섬 시골길은 자갈이 많으니 풀커버 보험',
+  '오클랜드 도착 후 대한항공 짐을 찾아 국내선 터미널로 직접 이동해 다시 부쳐야 함',
+  '보름달이 뉴질랜드 시간 10/26 오후라 여행 후반 은하수 관측은 달빛 때문에 어려울 수 있음. 별 관측 투어는 흐리면 실내 VR로 진행',
+  '헬리하이크는 4시간 연속 맑은 날씨가 필요해 취소가 잦음'
+];
+
+/* =====================================================================
+   렌더링 — 아래는 수정할 필요 없음
+   ===================================================================== */
+const STORE_KEY = 'nz-trip-2026';
+const WEEK = ['일', '월', '화', '수', '목', '금', '토'];
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fmt = (n) => Math.round(n).toLocaleString('ko-KR');
+const mapUrl = (q) => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
+
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch (e) { return {}; }
+}
+const state = Object.assign({ checks: {}, people: {}, extras: {}, rate: null }, loadState());
+function saveState() {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) { /* 저장 불가해도 화면은 정상 */ }
+}
+
+/* ---------- 날짜 계산 ---------- */
+const FIXED_OFFSET = { 'Asia/Seoul': 9, 'Pacific/Auckland': 13 }; // Intl 미지원 시 대비 (10월 말 NZDT)
+function ymdIn(tz, d) {
+  try {
+    const parts = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(d);
+    const get = (t) => parts.find((p) => p.type === t).value;
+    return get('year') + '-' + get('month') + '-' + get('day');
+  } catch (e) {
+    return new Date(d.getTime() + FIXED_OFFSET[tz] * 3600e3).toISOString().slice(0, 10);
+  }
+}
+function ymdToUTC(s) { const [y, m, d] = s.split('-').map(Number); return Date.UTC(y, m - 1, d); }
+function daysBetween(a, b) { return Math.round((ymdToUTC(b) - ymdToUTC(a)) / 864e5); }
+function labelDate(s) { const t = new Date(ymdToUTC(s)); return (t.getUTCMonth() + 1) + '/' + t.getUTCDate() + '(' + WEEK[t.getUTCDay()] + ')'; }
+
+function getNow() {
+  // 테스트용: ?now=2026-10-24T09:00:00+13:00
+  try {
+    const q = new URLSearchParams(location.search).get('now');
+    if (q && !isNaN(Date.parse(q))) return new Date(q);
+  } catch (e) {}
+  return new Date();
+}
+
+function tripStatus(now) {
+  const dep = new Date(TRIP.departure), arr = new Date(TRIP.arrival);
+  if (now < dep) {
+    const d = daysBetween(ymdIn('Asia/Seoul', now), TRIP.startDate);
+    return { phase: 'before', dday: d };
+  }
+  if (now >= arr) return { phase: 'after' };
+  const n = daysBetween(TRIP.startDate, ymdIn('Pacific/Auckland', now)) + 1;
+  return { phase: 'during', day: Math.min(Math.max(n, 1), DAYS.length) };
+}
+
+/* ---------- Header ---------- */
+function renderHeader(st) {
+  const nights = DAYS.length - 1;
+  $('trip-title').textContent = '🏔️ ' + TRIP.title;
+  $('trip-sub').textContent = labelDate(TRIP.startDate) + ' ~ ' + labelDate(TRIP.endDate) + ' · ' + nights + '박 ' + DAYS.length + '일 · ' + TRIP.people + '인';
+  const box = $('dday'), actions = $('hero-actions');
+  if (st.phase === 'before') {
+    box.innerHTML = '<strong>' + (st.dday === 0 ? 'D-DAY' : 'D-' + st.dday) + '</strong><span>' +
+      (st.dday === 0 ? '오늘 18:00 인천 T2 출발!' : '출발까지 ' + st.dday + '일 (한국 시간 기준)') + '</span>';
+  } else if (st.phase === 'during') {
+    const d = DAYS[st.day - 1];
+    box.innerHTML = '<strong>' + st.day + '일차</strong><span>' + esc(labelDate(d.date)) + ' · 체류 ' + esc(d.stay) + '</span>';
+    actions.innerHTML = '<button type="button" id="go-today">오늘 일정 보기 ↓</button>';
+    $('go-today').addEventListener('click', () => {
+      const el = $('day-' + st.day);
+      setOpen(el, true);
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  } else {
+    box.innerHTML = '<strong>여행 완료</strong><span>수고했어요! 🎉</span>';
+  }
+}
+
+/* ---------- Days ---------- */
+const chevron = '<svg class="chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 8l5 5 5-5"/></svg>';
+
+function renderDays(todayIdx) {
+  $('day-list').innerHTML = DAYS.map((d, i) => {
+    const n = i + 1, isToday = n === todayIdx;
+    const items = d.items.map((it) => {
+      const head = it.drive
+        ? '<span class="drive-pill">🚗 ' + esc(it.drive) + '</span>→ '
+        : (it.time ? '<span class="t-time">' + esc(it.time) + '</span>' : '');
+      const places = (it.places || []).map(([label, q]) =>
+        '<a class="place" href="' + mapUrl(q) + '" target="_blank" rel="noopener">📍 ' + esc(label) + '</a>').join('');
+      return '<li class="' + (it.drive ? 'drive' : '') + '">' + head + esc(it.text) +
+        (places ? '<div class="places">' + places + '</div>' : '') + '</li>';
+    }).join('');
+    const stay = d.stayQuery
+      ? '<a href="' + mapUrl(d.stayQuery) + '" target="_blank" rel="noopener">' + esc(d.stay) + '</a>'
+      : esc(d.stay);
+    return '<article class="card day' + (isToday ? ' today open' : '') + '" id="day-' + n + '">' +
+      '<button class="day-head" type="button" aria-expanded="' + isToday + '" aria-controls="day-body-' + n + '">' +
+        '<div class="day-num"><div><b>' + n + '</b><small>일차</small></div></div>' +
+        '<div class="day-meta"><div class="day-date">' + labelDate(d.date) + (isToday ? '<span class="badge">오늘</span>' : '') + '</div>' +
+        '<div class="day-stay">🛏️ ' + esc(d.stay) + '</div></div>' + chevron +
+      '</button>' +
+      '<div class="day-body" id="day-body-' + n + '">' +
+        '<ul class="timeline">' + items + '</ul>' +
+        '<div class="day-cost">🛏️ 체류: ' + stay + (d.cost ? '<br>💰 비용: <b>' + esc(d.cost) + '</b>' : '') + '</div>' +
+      '</div></article>';
+  }).join('');
+
+  document.querySelectorAll('.day-head').forEach((btn) => {
+    btn.addEventListener('click', () => { const el = btn.parentElement; setOpen(el, !el.classList.contains('open')); });
+  });
+}
+function setOpen(el, open) {
+  el.classList.toggle('open', open);
+  el.querySelector('.day-head').setAttribute('aria-expanded', String(open));
+}
+
+/* ---------- Flights ---------- */
+function renderFlights() {
+  $('flight-list').innerHTML = FLIGHTS.map((f) =>
+    '<article class="card flight">' +
+      '<div class="f-top"><span class="f-no">' + esc(f.no) + '</span><span class="f-air">' + esc(f.airline) + '</span></div>' +
+      '<div class="f-route">' +
+        '<div class="end"><div class="f-code">' + f.from[0] + '</div><div class="f-city">' + esc(f.from[1]) + '</div><div class="f-time">' + esc(f.dep) + '</div></div>' +
+        '<div class="f-arrow">✈︎</div>' +
+        '<div class="end r"><div class="f-code">' + f.to[0] + '</div><div class="f-city">' + esc(f.to[1]) + '</div><div class="f-time">' + esc(f.arr) + '</div></div>' +
+      '</div>' +
+      '<div class="f-info"><span>터미널 <b>' + esc(f.terminal) + '</b></span><span>좌석 <b>' + esc(f.seat) + '</b></span></div>' +
+    '</article>').join('');
+  $('flight-notes').innerHTML = FLIGHT_NOTES.map((t) => '<li>' + esc(t) + '</li>').join('');
+}
+
+/* ---------- Costs ---------- */
+function getRate() {
+  const v = parseFloat($('rate').value);
+  return v > 0 ? v : TRIP.defaultRate;
+}
+function peopleOf(a) { return state.people[a.id] || a.people; }
+
+function renderCosts() {
+  $('rate').value = state.rate || TRIP.defaultRate;
+  $('cost-list').innerHTML = ACTIVITIES.map((a) =>
+    '<div class="cost-row">' +
+      '<div class="cost-line1"><span class="cost-name">' + esc(a.name) + '</span><span class="cost-day">' + a.day + '일차</span></div>' +
+      '<div class="cost-line2">' +
+        '<div class="seg" role="group" aria-label="인원">' +
+          [1, 2].map((p) => '<button type="button" data-act="' + a.id + '" data-p="' + p + '">' + p + '명</button>').join('') +
+        '</div>' +
+        '<span class="cost-calc" id="calc-' + a.id + '"></span>' +
+        '<span class="cost-amt"><b id="krw-' + a.id + '"></b><span id="nzd-' + a.id + '"></span></span>' +
+      '</div>' +
+    '</div>').join('');
+  $('extra-list').innerHTML = EXTRAS.map((x) =>
+    '<div class="extra-row"><label for="ex-' + x.id + '">' + esc(x.name) + '</label>' +
+    '<input id="ex-' + x.id + '" data-ex="' + x.id + '" type="text" inputmode="numeric" placeholder="0"></div>').join('');
+  EXTRAS.forEach((x) => {
+    const v = x.id in state.extras ? state.extras[x.id] : x.value;
+    $('ex-' + x.id).value = v ? fmt(v) : '';
+  });
+
+  document.querySelectorAll('.seg button').forEach((b) => b.addEventListener('click', () => {
+    state.people[b.dataset.act] = Number(b.dataset.p); saveState(); updateCosts();
+  }));
+  $('rate').addEventListener('input', () => { state.rate = parseFloat($('rate').value) || null; saveState(); updateCosts(); });
+  document.querySelectorAll('[data-ex]').forEach((inp) => {
+    inp.addEventListener('input', () => {
+      const n = parseInt(inp.value.replace(/[^\d]/g, ''), 10) || 0;
+      state.extras[inp.dataset.ex] = n; saveState(); updateCosts();
+    });
+    inp.addEventListener('blur', () => { const n = state.extras[inp.dataset.ex]; if (n != null) inp.value = n ? fmt(n) : ''; });
+  });
+  updateCosts();
+}
+
+function updateCosts() {
+  const rate = getRate();
+  let totalNzd = 0;
+  ACTIVITIES.forEach((a) => {
+    const p = peopleOf(a), nzd = a.nzd * p;
+    totalNzd += nzd;
+    $('calc-' + a.id).textContent = 'NZD ' + fmt(a.nzd) + ' × ' + p;
+    $('nzd-' + a.id).textContent = 'NZD ' + fmt(nzd);
+    $('krw-' + a.id).textContent = '₩' + fmt(nzd * rate);
+    document.querySelectorAll('.seg button[data-act="' + a.id + '"]').forEach((b) =>
+      b.setAttribute('aria-pressed', String(Number(b.dataset.p) === p)));
+  });
+  const totalKrw = totalNzd * rate;
+  $('total-nzd').textContent = 'NZD ' + fmt(totalNzd);
+  $('total-krw').textContent = '₩' + fmt(totalKrw);
+  $('rate-print').textContent = fmt(rate);
+  const extra = EXTRAS.reduce((s, x) => s + (x.id in state.extras ? state.extras[x.id] : x.value), 0);
+  $('grand-total').textContent = '₩' + fmt(totalKrw + extra);
+}
+
+/* ---------- Checklist ---------- */
+function renderChecklist() {
+  $('check-list').innerHTML = CHECKLIST.map((t, i) =>
+    '<label class="check"><input type="checkbox" data-key="' + esc(t) + '"><span class="mark"></span><span>' + esc(t) + '</span></label>').join('');
+  document.querySelectorAll('#check-list input').forEach((cb) => {
+    cb.checked = !!state.checks[cb.dataset.key];
+    cb.addEventListener('change', () => {
+      if (cb.checked) state.checks[cb.dataset.key] = true; else delete state.checks[cb.dataset.key];
+      saveState(); updateChecklist();
+    });
+  });
+  updateChecklist();
+}
+function updateChecklist() {
+  const boxes = document.querySelectorAll('#check-list input');
+  let done = 0;
+  boxes.forEach((cb) => {
+    cb.parentElement.classList.toggle('done', cb.checked);
+    cb.parentElement.querySelector('.mark').textContent = cb.checked ? '[x]' : '[ ]';
+    if (cb.checked) done++;
+  });
+  $('check-count').textContent = done + ' / ' + boxes.length;
+  $('check-bar').style.width = (boxes.length ? done / boxes.length * 100 : 0) + '%';
+}
+
+/* ---------- Plan B / Notes ---------- */
+function renderMisc() {
+  $('planb-list').innerHTML = PLAN_B.map((p) => '<div class="planb"><h3>' + esc(p.title) + '</h3><p>' + esc(p.text) + '</p></div>').join('');
+  $('note-list').innerHTML = NOTES.map((n) => '<li>' + n + '</li>').join(''); // NOTES는 <b> 강조 허용
+  $('foot').textContent = '오프라인에서도 동작합니다 · 체크 상태와 환율은 이 기기에 저장됩니다';
+}
+
+/* ---------- Tab bar ---------- */
+function setupTabs() {
+  const links = Array.from(document.querySelectorAll('.tabbar a'));
+  const map = { notes: 'planb' };
+  if (!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const id = map[e.target.id] || e.target.id;
+      links.forEach((a) => a.classList.toggle('active', a.dataset.sec === id));
+    });
+  }, { rootMargin: '-35% 0px -60% 0px' });
+  document.querySelectorAll('main section').forEach((s) => io.observe(s));
+}
+
+/* ---------- Init ---------- */
+const st = tripStatus(getNow());
+renderHeader(st);
+renderDays(st.phase === 'during' ? st.day : 0);
+renderFlights();
+renderCosts();
+renderChecklist();
+renderMisc();
+setupTabs();
+$('expand-all').addEventListener('click', () => document.querySelectorAll('.day').forEach((el) => setOpen(el, true)));
+$('collapse-all').addEventListener('click', () => document.querySelectorAll('.day').forEach((el) => setOpen(el, false)));
+if (st.phase === 'during') {
+  // 여행 중에는 열자마자 오늘 일정으로
+  setTimeout(() => { const el = $('day-' + st.day); if (el && !location.hash) el.scrollIntoView({ block: 'start' }); }, 50);
+}
+</script>
+</body>
+</html>
