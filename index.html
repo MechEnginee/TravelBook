@@ -536,7 +536,7 @@ const DAYS = [
     { time: '13:15', text: 'JQ233 출발 → 14:35 크라이스트처치 도착, 렌터카 픽업 (마을에 마트가 없으니 공항 근처에서 장보기)', places: [['Christchurch Airport', 'Christchurch Airport']] },
     { drive: '1시간 20분', text: '캐슬힐 (거석 바위군, 산책 40분)', places: [['Castle Hill', 'Castle Hill Conservation Area']] },
     { drive: '30분', text: '아서스 패스 빌리지', places: [["Arthur's Pass", "Arthur's Pass Village"]] },
-    { checkin: true, time: '~18:30', text: '숙소 도착 · 체크인 (해 지기 전 도착, 일몰 약 20:10)' }
+    { checkin: true, time: '~18:30', text: 'The Nook 도착 · 체크인 (해 지기 전 도착, 일몰 약 20:10)', places: [['The Nook', "The Nook Arthur's Pass"]] }
   ]},
   { date: '2026-10-23', stay: '프란츠 조셉 (Franz Josef)', stayQuery: 'Franz Josef', cost: '무료', items: [
     { time: '08:00', text: '데빌스 펀치볼 폭포 트랙 (왕복 1시간)', places: [['Devils Punchbowl Falls', 'Devils Punchbowl Falls']] },
@@ -635,7 +635,7 @@ const ACTIVITIES = [
 /* 기타 경비 (2인 총액, 원) — value는 기본값 */
 const EXTRAS = [
   { id: 'jq',    name: '젯스타 국내선 (발권 완료)', value: 816400 },
-  { id: 'hotelBooked', name: '숙소 예약 완료 (Aspen Court 2박 + Edgewater 1박 + Aoraki Alpine Lodge 1박)', value: 1219655 },
+  { id: 'hotelBooked', name: '숙소 예약 완료 (The Nook 1박 + Aspen Court 2박 + Edgewater 1박 + Aoraki Alpine Lodge 1박)', value: 1407836 },
   { id: 'hotel', name: '숙소 (남은 곳)', value: 0 },
   { id: 'car',   name: '렌터카', value: 0 },
   { id: 'food',  name: '식비', value: 0 },
@@ -645,7 +645,7 @@ const EXTRAS = [
 /* 숙소 추천 — 동선 기준. booked: 예약 완료한 숙소 { name, nights(앞에서부터 몇 박), krw(실제 결제 금액) }. price: 2인 1실 1박 예상가 [최저, 최고] NZD (2026년 10월 말 기준 추정, 예약 시 꼭 확인)
    첫 번째 옵션이 추천(⭐). 화면에서 고른 숙소로 예상 합계를 계산 */
 const HOTELS = {
-  arthurs: { night: '2026-10-22', area: "아서스 패스", tip: '캐슬힐 보고 저녁 도착 → 다음 날 아침 데빌스 펀치볼 트랙. 마을 안에 묵으면 트랙 입구까지 걸어서 감', options: [
+  arthurs: { night: '2026-10-22', booked: { name: 'The Nook', q: "The Nook Arthur's Pass", nights: 1, krw: 188181 }, area: "아서스 패스", tip: '캐슬힐 보고 저녁 도착 → 다음 날 아침 데빌스 펀치볼 트랙. 마을 안에 묵으면 트랙 입구까지 걸어서 감', options: [
     { name: "Arthur's Pass Alpine Motel", price: [140, 180], why: '마을 중심, 펀치볼 트랙 입구 도보권. 주방 있는 모텔 (마을에 식당이 거의 없음)' },
     { name: 'Mountain House Cottages', q: "Mountain House Arthur's Pass", price: [120, 220], why: '마을 안 독채 코티지/객실. 가격 저렴, 선택지 많음' },
     { name: "Wilderness Lodge Arthur's Pass", price: [900, 1100], why: '고급 로지, 석식·조식·가이드 산책 포함. 마을 동쪽 차로 약 15분 (캐슬힐 쪽)' }
@@ -688,6 +688,7 @@ const CHECKLIST = [
   { title: '완료', due: null, items: [
     { text: '대한항공 왕복 발권 (KE411 / KE412, 마일리지)', done: true },
     { text: '젯스타 국내선 2구간 발권 (JQ233 / JQ298)', done: true },
+    { text: '숙소: 아서스 패스 10/22 — The Nook (1박) ₩188,181', done: true, stay: 'arthurs' },
     { text: '숙소: 프란츠 조셉 — Aspen Court Franz Josef (10/23~24, 2박) ₩535,142', done: true, stay: 'franz' },
     { text: '숙소: 와나카 10/25 — Edgewater Lake Wanaka (1박) ₩277,817', done: true, stay: 'wanaka' },
     { text: '숙소: 마운트쿡 10/26 — Aoraki Alpine Lodge (1박) ₩406,696', done: true, stay: 'cook' }
@@ -695,7 +696,6 @@ const CHECKLIST = [
   { title: '지금 바로 · 가장 급함', due: '2026-10-08', items: [
     { text: 'NZeTA (전자여행허가) + IVL 신청 — 2인 각각', note: '승인까지 최대 72시간. 대행 사이트 말고 공식 앱/사이트에서', link: ['공식 신청', 'https://www.immigration.govt.nz/new-zealand-visas/visas/visa/nzeta'] },
     { text: '숙소: 테카포 (10/27)', stay: 'tekapo' },
-    { text: '숙소: 아서스 패스 (10/22)', note: '마을이 작아 선택지가 적음', stay: 'arthurs' },
     { text: '숙소: 퀸스타운 (10/28)', stay: 'queenstown' },
     { text: '숙소: 오클랜드 공항 근처 (10/29)', note: '10/30 11:45 출발이라 국제선 터미널 가까운 곳으로', stay: 'akl' },
     { text: '렌터카 예약 — 크라이스트처치 공항 픽업(10/22) → 퀸스타운 공항 반납(10/29 16:00)', note: '편도 반납 요금 확인, 풀커버(면책금 0) 보험, 운전자 2인 등록, 스노 체인 대여 요청' },
@@ -923,7 +923,7 @@ function hotelLine(date) {
   const st = stayOn(date);
   if (!st) return '';
   return '<br>🏨 숙소: ' + (st.booked
-    ? '<a href="' + mapUrl(st.name) + '" target="_blank" rel="noopener">' + esc(st.name) + '</a> <b class="ok">✅ 예약 완료</b>'
+    ? '<a href="' + mapUrl(st.q) + '" target="_blank" rel="noopener">' + esc(st.name) + '</a> <b class="ok">✅ 예약 완료</b>'
     : '<b class="todo">아직 예약 안 함</b>');
 }
 function renderDays(todayIdx) {
@@ -1238,14 +1238,14 @@ function addDays(d, n) { return new Date(ymdToUTC(d) + n * 864e5).toISOString().
 function stayOn(date) {
   for (const k of Object.keys(HOTELS)) {
     const i = daysBetween(HOTELS[k].night, date);
-    if (i >= 0 && i < hotelNights(k)) return { key: k, booked: i < bookedNights(k), name: i < bookedNights(k) ? HOTELS[k].booked.name : null };
+    if (i >= 0 && i < hotelNights(k)) return { key: k, booked: i < bookedNights(k), name: i < bookedNights(k) ? HOTELS[k].booked.name : null, q: i < bookedNights(k) ? (HOTELS[k].booked.q || HOTELS[k].booked.name) : null };
   }
   return null;
 }
 function bookedCard(key) {
   const H = HOTELS[key], b = H.booked;
   return '<div class="booked-card">✅ <b>' + esc(b.name) + '</b> 예약 완료<br><span class="muted small">' + labelDate(H.night) + ' 체크인 · ' + b.nights + '박 · ₩' + fmt(b.krw) +
-    (b.nights > 1 ? ' (1박 약 ₩' + fmt(b.krw / b.nights) + ')' : '') + '</span> <a class="small" href="' + mapUrl(b.name) + '" target="_blank" rel="noopener">📍 지도</a></div>';
+    (b.nights > 1 ? ' (1박 약 ₩' + fmt(b.krw / b.nights) + ')' : '') + '</span> <a class="small" href="' + mapUrl(b.q || b.name) + '" target="_blank" rel="noopener">📍 지도</a></div>';
 }
 function hotelPick(key) { const v = state.hotels[key]; return v >= 0 && v < HOTELS[key].options.length ? v : 0; }
 function stayDates(key) {
