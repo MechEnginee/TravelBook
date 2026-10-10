@@ -185,6 +185,18 @@
     display: inline-flex; align-items: center; min-height: 36px; padding: 4px 12px; border-radius: 18px;
     background: var(--lake-soft); color: var(--lake); text-decoration: none; font-size: 14px; font-weight: 600;
   }
+  .day-wx { font-size: 14px; font-weight: 600; color: var(--glacier); margin-top: 2px; }
+  .day-wx.clim { color: var(--muted); font-weight: 500; }
+  .wx-tag { font-size: 11px; font-weight: 700; padding: 1px 6px; border-radius: 8px; background: var(--glacier-soft); vertical-align: 1px; }
+  .wx-box { margin: 0 0 14px; padding: 12px 14px; border-radius: 12px; background: var(--glacier-soft); font-size: 15px; }
+  .wx-h { font-weight: 800; margin-bottom: 6px; }
+  .wx-place + .wx-place { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); }
+  .wx-title { font-weight: 700; font-size: 14px; color: var(--glacier); }
+  .wx-fc { margin: 2px 0; }
+  .wx-clim { font-size: 14px; color: var(--muted); }
+  .wx-tip { font-size: 14px; margin-top: 2px; }
+  .wx-warn { margin: 0 0 8px; padding: 8px 10px; border-radius: 10px; background: var(--warn-soft); color: var(--warn); font-weight: 700; font-size: 14px; }
+  .wx-box .muted.small { margin-top: 8px; }
   .day-cost {
     margin-top: 4px; padding: 10px 12px; border-radius: 12px; background: var(--surface-2); font-size: 15px;
   }
@@ -405,7 +417,9 @@
     <div class="toolbar">
       <button class="btn" type="button" id="expand-all">모두 펼치기</button>
       <button class="btn" type="button" id="collapse-all">모두 접기</button>
+      <button class="btn" type="button" id="wx-refresh">🌦️ 날씨</button>
     </div>
+    <p class="muted small" id="wx-status" style="margin:-4px 0 10px"></p>
     <div id="day-list"></div>
   </section>
 
@@ -621,6 +635,32 @@ const PHOTOS = [
   { day: 9, src: "photos/shotover.jpg", q: "Shotover Jet", w: 800, h: 450, caption: "샷오버 제트", credit: "Bernard Spragg", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:Thrill_seekers._Shotover_Jet._(18212837748).jpg" },
   { day: 9, src: "photos/glenorchy.jpg", q: "Glenorchy Wharf", w: 800, h: 533, caption: "글레노키 부두", credit: "Pseudopanax", license: "Public domain", page: "https://commons.wikimedia.org/wiki/File:Glenorchy_wharf_and_red_shed_at_Lake_Wakatipu.jpg" }
 ];
+
+/* 날씨 — 일차별 기준 장소. clim: 10/18~11/2 지난 10년(2016~2025) 평균 (Open-Meteo 과거 데이터)
+   hi/lo 평균 최고·최저 기온, coldest 그 기간 가장 추웠던 아침, rain 비 온 날(1mm 이상) 비율 %.
+   산간 지역은 격자 평균이라 실제와 몇 도 다를 수 있음 */
+const WEATHER_PLACES = {
+  arthurs:    { label: '아서스 패스',   lat: -42.9396, lon: 171.5626, clim: { hi: 11.4, lo: 4.6,  coldest: -4.9, rain: 62 } },
+  franz:      { label: '프란츠 조셉',   lat: -43.3889, lon: 170.1833, clim: { hi: 14.4, lo: 7.9,  coldest: 1.7,  rain: 66 } },
+  haast:      { label: '해스트',       lat: -43.8800, lon: 169.0430, clim: { hi: 14.6, lo: 8.3,  coldest: 1.9,  rain: 64 } },
+  wanaka:     { label: '와나카',       lat: -44.7000, lon: 169.1320, clim: { hi: 15.7, lo: 6.6,  coldest: 0.4,  rain: 44 } },
+  cook:       { label: '마운트쿡',     lat: -43.7344, lon: 170.0960, clim: { hi: 8.6,  lo: 2.8,  coldest: -4.4, rain: 58 } },
+  tekapo:     { label: '테카포',       lat: -44.0047, lon: 170.4771, clim: { hi: 13.0, lo: 3.4,  coldest: -3.8, rain: 39 } },
+  queenstown: { label: '퀸스타운',     lat: -45.0312, lon: 168.6626, clim: { hi: 15.0, lo: 6.3,  coldest: -1.6, rain: 54 } },
+  auckland:   { label: '오클랜드',     lat: -37.0082, lon: 174.7850, clim: { hi: 18.0, lo: 12.8, coldest: 7.8,  rain: 45 } }
+};
+/* 날짜별 날씨 장소 — [주 장소, 함께 볼 장소?]. watch: 날씨에 민감한 일정 (비·바람 강하면 경고) */
+const DAY_WEATHER = {
+  '2026-10-22': { at: ['arthurs'] },
+  '2026-10-23': { at: ['franz'] },
+  '2026-10-24': { at: ['franz'], watch: '헬리하이크' },
+  '2026-10-25': { at: ['wanaka', 'haast'] },
+  '2026-10-26': { at: ['cook'] },
+  '2026-10-27': { at: ['tekapo', 'cook'], watch: '별 관측' },
+  '2026-10-28': { at: ['queenstown'], watch: '밀포드 경비행기' },
+  '2026-10-29': { at: ['queenstown', 'auckland'] },
+  '2026-10-30': { at: ['auckland'] }
+};
 
 /* 액티비티 비용 — people: 기본 인원 (화면에서 1/2명 토글 가능) */
 const ACTIVITIES = [
@@ -952,9 +992,9 @@ function renderDays(todayIdx) {
       '<button class="day-head" type="button" aria-expanded="' + isToday + '" aria-controls="day-body-' + n + '">' +
         '<div class="day-num"><div><b>' + n + '</b><small>일차</small></div></div>' +
         '<div class="day-meta"><div class="day-date">' + labelDate(d.date) + (isToday ? '<span class="badge">오늘</span>' : '') + '</div>' +
-        '<div class="day-stay">🛏️ ' + esc(d.stay) + '</div></div>' + chevron +
+        '<div class="day-stay">🛏️ ' + esc(d.stay) + '</div>' + (DAY_WEATHER[d.date] ? '<div class="day-wx" id="wx-head-' + n + '"></div>' : '') + '</div>' + chevron +
       '</button>' +
-      '<div class="day-body" id="day-body-' + n + '">' + photoStrip(n) +
+      '<div class="day-body" id="day-body-' + n + '">' + (DAY_WEATHER[d.date] ? '<div class="wx-box" id="wx-' + n + '"></div>' : '') + photoStrip(n) +
         '<ul class="timeline">' + items + '</ul>' +
         '<div class="day-cost">🛏️ 체류: ' + stay + hotelLine(d.date) + (d.cost ? '<br>💰 비용: <b>' + esc(d.cost) + '</b>' : '') + '</div>' +
       '</div></article>';
@@ -1154,6 +1194,96 @@ function showHotel(key) {
 }
 function highlight(key) {
   document.querySelectorAll('#map-marks .m-pt').forEach((g) => g.classList.toggle('sel', g.dataset.key === key));
+}
+
+/* ---------- Weather ---------- */
+const WX_KEY = 'nz-trip-weather';
+const WMO = [
+  [[0], '☀️', '맑음'], [[1], '🌤️', '대체로 맑음'], [[2], '⛅', '구름 조금'], [[3], '☁️', '흐림'], [[45, 48], '🌫️', '안개'],
+  [[51, 53, 55, 56, 57], '🌦️', '이슬비'], [[61], '🌧️', '약한 비'], [[63], '🌧️', '비'], [[65], '🌧️', '강한 비'], [[66, 67], '🌧️', '어는 비'],
+  [[71, 73, 75, 77], '🌨️', '눈'], [[80, 81], '🌦️', '소나기'], [[82], '⛈️', '강한 소나기'], [[85, 86], '🌨️', '눈 소나기'], [[95, 96, 99], '⛈️', '뇌우']
+];
+function wmo(code) { const m = WMO.find((w) => w[0].includes(code)); return m ? [m[1], m[2]] : ['🌡️', '']; }
+function loadWx() { try { return JSON.parse(localStorage.getItem(WX_KEY)) || null; } catch (e) { return null; } }
+function saveWx(v) { try { localStorage.setItem(WX_KEY, JSON.stringify(v)); } catch (e) { /* 저장 불가해도 화면은 정상 */ } }
+const r0 = (n) => Math.round(n);
+const hhmm = (iso) => (iso || '').slice(11, 16);
+function wxTime(ms) { const d = new Date(ms); return (d.getMonth() + 1) + '/' + d.getDate() + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); }
+
+function renderWeather() {
+  const wx = loadWx();
+  DAYS.forEach((d, i) => {
+    const conf = DAY_WEATHER[d.date], head = $('wx-head-' + (i + 1)), box = $('wx-' + (i + 1));
+    if (!conf || !head || !box) return;
+    const lines = conf.at.map((k, j) => {
+      const P = WEATHER_PLACES[k], c = P.clim, f = wx && wx.by && wx.by[k] && wx.by[k][d.date];
+      let fc = '';
+      if (f) {
+        const [ic, label] = wmo(f.code);
+        fc = '<div class="wx-fc">' + ic + ' <b>' + label + '</b> · 최고 <b>' + r0(f.hi) + '°</b> 최저 <b>' + r0(f.lo) + '°</b>' +
+          (f.pop != null ? ' · 강수 ' + f.pop + '%' : '') + (f.wind != null ? ' · 바람 ' + r0(f.wind) + 'km/h' : '') +
+          (f.rise ? '<br><span class="muted small">🌅 일출 ' + hhmm(f.rise) + ' · 🌇 일몰 ' + hhmm(f.set) + '</span>' : '') + '</div>';
+        if (j === 0) {
+          head.innerHTML = ic + ' ' + r0(f.hi) + '° / ' + r0(f.lo) + '°' + (f.pop != null ? ' · 비 ' + f.pop + '%' : '') + ' <span class="wx-tag">예보</span>';
+          head.classList.remove('clim');
+        }
+      } else if (j === 0) {
+        head.innerHTML = '🌡️ 평년 ' + r0(c.hi) + '° / ' + r0(c.lo) + '° · 비 온 날 ' + c.rain + '%';
+        head.classList.add('clim');
+      }
+      const tips = [];
+      if (c.coldest <= 0 || (f && f.lo <= 1)) tips.push('아침 영하 가능 — 패딩·장갑·모자');
+      if (c.rain >= 60 || (f && f.pop >= 60)) tips.push('비 올 확률 높음 — 방수 재킷·신발');
+      return '<div class="wx-place"><div class="wx-title">' + (j ? '함께 보기 · ' : '') + esc(P.label) + '</div>' + fc +
+        '<div class="wx-clim">평년(10월 말): 최고 ' + c.hi + '° · 최저 ' + c.lo + '° · 비 온 날 ' + c.rain + '% · 가장 추웠던 아침 ' + c.coldest + '°</div>' +
+        (tips.length ? '<div class="wx-tip">👕 ' + tips.join(' / ') + '</div>' : '') + '</div>';
+    });
+    const f0 = wx && wx.by && wx.by[conf.at[0]] && wx.by[conf.at[0]][d.date];
+    const warn = conf.watch && f0 && (f0.pop >= 60 || f0.wind >= 40)
+      ? '<div class="wx-warn">⚠️ ' + esc(conf.watch) + ' 일정이 날씨로 취소될 수 있어요 (강수 ' + f0.pop + '%, 바람 ' + r0(f0.wind) + 'km/h). Plan B를 확인하세요.</div>' : '';
+    box.innerHTML = '<div class="wx-h">🌦️ 날씨</div>' + warn + lines.join('') +
+      '<div class="muted small">' + (wx && wx.at ? '예보 ' + wxTime(wx.at) + ' 업데이트 (16일 이내 날짜만)' : '예보는 16일 전부터 나와요') + ' · 날씨 데이터: Open-Meteo</div>';
+  });
+  $('wx-status').textContent = wx && wx.at
+    ? '🌦️ 날씨 예보 ' + wxTime(wx.at) + ' 기준 · 예보가 없는 날은 평년(지난 10년) 날씨'
+    : '🌦️ 예보 없음 — 평년(지난 10년) 날씨 표시 중';
+}
+
+async function fetchForecast(force) {
+  const old = loadWx();
+  if (!force && old && Date.now() - old.at < 3600e3) return; // 1시간 안에 받은 예보는 다시 안 받음
+  if (typeof navigator !== 'undefined' && navigator.onLine === false) return;
+  const keys = Object.keys(WEATHER_PLACES);
+  const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + keys.map((k) => WEATHER_PLACES[k].lat).join(',') +
+    '&longitude=' + keys.map((k) => WEATHER_PLACES[k].lon).join(',') +
+    '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,sunrise,sunset' +
+    '&timezone=Pacific%2FAuckland&forecast_days=16';
+  $('wx-status').textContent = '예보 받는 중…';
+  try {
+    const ctl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    const timer = setTimeout(() => ctl && ctl.abort(), 15000); // 산간 지역 느린 연결 대비
+    const res = await fetch(url, ctl ? { signal: ctl.signal } : {});
+    clearTimeout(timer);
+    if (!res.ok) throw new Error(res.status);
+    let data = await res.json();
+    if (!Array.isArray(data)) data = [data];
+    const by = (old && old.by) || {};
+    data.forEach((loc, i) => {
+      const k = keys[i], d = loc.daily; by[k] = by[k] || {};
+      d.time.forEach((t, j) => {
+        if (!DAY_WEATHER[t]) return; // 여행 날짜만 저장
+        by[k][t] = { code: d.weather_code[j], hi: d.temperature_2m_max[j], lo: d.temperature_2m_min[j],
+          pop: d.precipitation_probability_max[j], wind: d.wind_speed_10m_max[j], rise: d.sunrise[j], set: d.sunset[j] };
+      });
+    });
+    saveWx({ at: Date.now(), by });
+  } catch (e) {
+    // 인터넷이 안 되면 저장된 예보·평년값으로 표시
+    renderWeather();
+    $('wx-status').textContent += ' (지금은 새 예보를 받지 못함)';
+    return;
+  }
+  renderWeather();
 }
 
 /* ---------- Flights ---------- */
@@ -1366,7 +1496,7 @@ function updateChecklist() {
 function renderMisc() {
   $('planb-list').innerHTML = PLAN_B.map((p) => '<div class="planb"><h3>' + esc(p.title) + '</h3><p>' + esc(p.text) + '</p></div>').join('');
   $('note-list').innerHTML = NOTES.map((n) => '<li>' + n + '</li>').join(''); // NOTES는 <b> 강조 허용
-  $('foot').textContent = '한 번 열어두면 오프라인에서도 동작합니다 · 체크 상태와 환율은 이 기기에 저장됩니다 · 사진: Wikimedia Commons (각 사진의 작가·라이선스 표기)';
+  $('foot').textContent = '한 번 열어두면 오프라인에서도 동작합니다 · 체크 상태와 환율은 이 기기에 저장됩니다 · 사진: Wikimedia Commons (각 사진의 작가·라이선스 표기) · 날씨: Open-Meteo (CC BY 4.0)';
 }
 
 /* ---------- Tab bar ---------- */
@@ -1394,6 +1524,9 @@ renderChecklist();
 renderMap();
 renderMisc();
 setupTabs();
+renderWeather();
+fetchForecast();
+$('wx-refresh').addEventListener('click', () => fetchForecast(true));
 $('expand-all').addEventListener('click', () => document.querySelectorAll('.day').forEach((el) => setOpen(el, true)));
 $('collapse-all').addEventListener('click', () => document.querySelectorAll('.day').forEach((el) => setOpen(el, false)));
 if (st.phase === 'during') {
