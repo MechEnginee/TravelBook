@@ -561,7 +561,7 @@ const DAYS = [
     { time: '16:00', text: '프란츠 조셉 빙하 계곡 트랙 (왕복 1시간 30분) · 🅿️ 빙하 주차장 유료 (NZD 5/시간, 하루 최대 20)', places: [['Franz Josef Glacier Valley Walk', 'Franz Josef Glacier Valley Walk']] }
   ]},
   { date: '2026-10-24', stay: '프란츠 조셉 (Franz Josef) · 연박', stayQuery: 'Franz Josef', cost: '헬리하이크 1인 NZD 899', items: [
-    { time: '07:30', text: '프란츠 조셉 헬리하이크 — Franz Josef Glacier Guides (07:15 체크인, Glacier Base 63 Cron St — Aspen Court에서 걸어서). 빙하 위 최대 2.5시간, 전체 최대 4시간', places: [['Glacier Base', 'Franz Josef Glacier Guides 63 Cron Street']] },
+    { time: '08:00', text: '✅ 프란츠 조셉 헬리하이크 예약 완료 — Franz Josef Glacier Guides (07:45 체크인, Glacier Base 63 Cron St — Aspen Court에서 걸어서). 빙하 위 최대 2.5시간, ~12:00 종료', places: [['Glacier Base', 'Franz Josef Glacier Guides 63 Cron Street']] },
     { drive: '30분', text: '폭스 글레이셔 (점심)', places: [['Fox Glacier', 'Fox Glacier Village']] },
     { time: '오후', text: '폭스 빙하 전망 트랙', places: [['Fox Glacier Lookout', 'Fox Glacier South Side Walkway']] },
     { time: '18:45', text: '매서슨 호수 — 마운트쿡이 비치는 거울 호수 (둘레길 1시간 30분, 일몰 약 20:25)', places: [['Lake Matheson', 'Lake Matheson']] },
@@ -665,7 +665,7 @@ const DAY_WEATHER = {
 
 /* 액티비티 비용 — people: 기본 인원 (화면에서 1/2명 토글 가능). nzd는 2026-10-11에 확인한 1인 정가 (할인은 체크리스트에 표시) */
 const ACTIVITIES = [
-  { id: 'heli',   name: '프란츠 조셉 헬리하이크',     day: 4, nzd: 899, people: 2 },
+  { id: 'heli',   name: '프란츠 조셉 헬리하이크 ✅ 예약 완료', day: 4, nzd: 899, people: 2 },
   { id: 'tekapo', name: '테카포 온천 + 별 관측',      day: 7, nzd: 179, people: 2 },
   { id: 'bungy',  name: '카와라우 번지',             day: 8, nzd: 205, people: 2 },
   { id: 'milford',name: '밀포드 플라이-크루즈-플라이', day: 8, nzd: 825, people: 2 },
@@ -740,13 +740,13 @@ const CHECKLIST = [
     { text: '숙소: 와나카 10/25 — Edgewater Lake Wanaka (1박) ₩277,817 · 호텔스닷컴', done: true, stay: 'wanaka' },
     { text: '숙소: 마운트쿡 10/26 — Aoraki Alpine Lodge (1박) ₩406,696 · 아고다', done: true, stay: 'cook' },
     { text: '숙소: 테카포 10/27 — Peppers Bluewater Resort (1박) ₩473,522 · 아고다', done: true, stay: 'tekapo' },
+    { text: '헬리하이크: 10/24 08:00 — Franz Josef Glacier Guides (2인) NZD 1,798 · 공식 사이트', note: '07:45 Glacier Base(63 Cron St) 체크인. 예약 확인 메일 보관. 날씨 취소 시 10/25 아침 또는 폭스 빙하(8:50)로', done: true },
     { text: '숙소: 퀸스타운 10/28 — Mi-pad Queenstown (1박) ₩213,321 · 호텔스닷컴', note: '호텔 주차장 없음 → Ballarat Street 주차장(옆), 18:00~08:00 무료', done: true, stay: 'queenstown' }
   ]},
   { title: '지금 바로 · 가장 급함', due: '2026-10-08', items: [
     { text: 'NZeTA (전자여행허가) + IVL 신청 — 2인 각각', note: '승인까지 최대 72시간. 대행 사이트 말고 공식 앱/사이트에서', link: ['공식 신청', 'https://www.immigration.govt.nz/new-zealand-visas/visas/visa/nzeta'] },
     { text: '숙소: 오클랜드 공항 근처 (10/29)', note: '10/30 11:45 출발이라 국제선 터미널 가까운 곳으로', stay: 'akl' },
     { text: '렌터카 예약 — 크라이스트처치 공항 픽업(10/22) → 퀸스타운 공항 반납(10/29 16:00)', note: '편도 반납 요금 확인, 풀커버(면책금 0) 보험, 운전자 2인 등록, 스노 체인 대여 요청' },
-    { text: '헬리하이크 예약 (10/24 07:30 첫 타임) — Franz Josef Glacier Guides 1인 NZD 899', note: '공식 예약 사이트에서 날짜 선택 (출발 시간 07:30·10:00·12:30, 15분 전 체크인). 자리가 빨리 차니 바로 예약. 날씨로 취소되면 10/25 아침으로 옮기거나 폭스 빙하(Fox Glacier Guiding 849)로 대체. 몸무게 제한·장비 포함 여부는 예약 페이지에서 확인', link: ['공식 예약', 'https://book.franzjosefglacier.com/activity'] },
     { text: '밀포드 플라이-크루즈-플라이 예약 (10/28 13:00, True South Flights)', note: 'Bookme 정가 1인 NZD 825, 할인 날짜는 659~740 (6석 미만). 크루즈 2시간, 약 4시간. 날씨로 취소되면 10/29 오전으로 변경 가능한지 확인', link: ['Bookme 예약', 'https://www.bookme.co.nz/things-to-do/queenstown/activity/milford-sound-fly-cruise-fly-true-south-flights/13'] },
     { text: '젯스타 "운항 정보 변동" 알림 확인', note: '시간이 바뀌었으면 환승·렌터카 시간 다시 맞추기' },
     { text: '대한항공 좌석 확인 — 두 사람 나란히 앉는지', note: '지금 적힌 좌석: 가는 편 44H, 오는 편 34B' }
