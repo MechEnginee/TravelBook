@@ -593,11 +593,12 @@ const DAYS = [
     { drive: '약 3시간', text: '07:30 테카포 출발 → 린디스 패스, 크롬웰 경유', places: [['Cromwell', 'Cromwell']] },
     { time: '10:30', text: '도중: 카와라우 번지 (43m, 세계 최초 상업 번지)', places: [['Kawarau Bridge Bungy', 'Kawarau Bridge Bungy']] },
     { time: '오후', text: '밀포드 사운드 플라이-크루즈-플라이 (경비행기 왕복 + 2시간 크루즈)', places: [['Queenstown Airport', 'Queenstown Airport'], ['Milford Sound', 'Milford Sound']] },
-    { checkin: true, time: '~17:00', text: '숙소 도착 · 체크인 (밀포드 시간에 따라 바뀜)' },
-    { time: '저녁', text: '스카이라인 곤돌라 — 퀸스타운 야경 + 산 위 저녁 (곤돌라 21:00까지, 루지는 18:00 마감이라 시간 되면)', places: [['Skyline Queenstown', 'Skyline Queenstown']] }
+    { checkin: true, time: '~17:00', text: 'Mi-pad Queenstown 도착 · 체크인 (밀포드 시간에 따라 바뀜) — 호텔 주차장 없음: Henry St 입구에서 짐만 내리고 Ballarat Street 주차장(호텔 바로 옆)에 주차. 18:00~08:00 무료, 그 외 시간당 요금(입구 결제기)', places: [['Mi-pad', 'mi-pad Queenstown 4 Henry Street'], ['🅿️ Ballarat St 주차장', 'Ballarat Street Car Park Queenstown'], ['🅿️ Boundary St 주차장', 'Boundary Street Car Park Queenstown']] },
+    { time: '저녁', text: '스카이라인 곤돌라 — 퀸스타운 야경 + 산 위 저녁 (숙소에서 걸어서 약 5분, 차는 그대로 두기. 곤돌라 21:00까지, 루지는 18:00 마감이라 시간 되면)', places: [['Skyline Queenstown', 'Skyline Queenstown']] }
   ]},
   { date: '2026-10-29', stay: '오클랜드 공항 근처', stayQuery: 'Auckland Airport', cost: '제트보트 1인 NZD 199', items: [
-    { time: '09:00', text: '체크아웃 → 샷오버 제트', places: [['Shotover Jet', 'Shotover Jet Queenstown']] },
+    { time: '08:00', text: '주차장에서 차 빼기 (08:00 이후 유료) → 체크아웃', places: [['🅿️ Ballarat St 주차장', 'Ballarat Street Car Park Queenstown']] },
+    { time: '09:00', text: '샷오버 제트', places: [['Shotover Jet', 'Shotover Jet Queenstown']] },
     { drive: '왕복 1시간 30분', text: '글레노키', places: [['Glenorchy', 'Glenorchy']] },
     { time: '16:00', text: '퀸스타운 공항 렌터카 반납', places: [['Queenstown Airport', 'Queenstown Airport']] },
     { time: '17:30', text: 'JQ298 출발 → 19:20 오클랜드 도착', places: [['Auckland Airport', 'Auckland Airport']] },
@@ -675,7 +676,7 @@ const ACTIVITIES = [
 /* 기타 경비 (2인 총액, 원) — value는 기본값 */
 const EXTRAS = [
   { id: 'jq',    name: '젯스타 국내선 (발권 완료)', value: 816400 },
-  { id: 'hotelBooked', name: '숙소 예약 완료 (The Nook·Aspen Court 2박·Edgewater·Aoraki Alpine Lodge·Peppers Bluewater, 6박)', value: 1881358 },
+  { id: 'hotelBooked', name: '숙소 예약 완료 (The Nook·Aspen Court 2박·Edgewater·Aoraki Alpine Lodge·Peppers Bluewater·Mi-pad, 7박)', value: 2094679 },
   { id: 'hotel', name: '숙소 (남은 곳)', value: 0 },
   { id: 'car',   name: '렌터카', value: 0 },
   { id: 'food',  name: '식비', value: 0 },
@@ -716,7 +717,7 @@ const HOTELS = {
     { name: 'The Godley Hotel', q: 'The Godley Hotel Lake Tekapo', price: [180, 280], why: '시내 호숫가, 선한목자교회 도보 10분. 식당 가기 편함' },
     { name: 'Lake Tekapo Village Motel', q: 'Lake Tekapo Village Motel', price: [180, 260], why: '시내 중심 모텔, 주방 있음. 가성비' }
   ]},
-  queenstown: { night: '2026-10-28', area: '퀸스타운', tip: '다음 날 아침 샷오버 제트(아서스 포인트, 시내에서 10분) → 글레노키 → 16:00 공항 반납. 시내 호숫가가 무난. 주차 포함 여부 꼭 확인', options: [
+  queenstown: { night: '2026-10-28', booked: { via: 'hotels', name: 'Mi-pad Queenstown', q: 'mi-pad Queenstown 4 Henry Street', nights: 1, krw: 213321 }, area: '퀸스타운', tip: '다음 날 아침 샷오버 제트(아서스 포인트, 시내에서 10분) → 글레노키 → 16:00 공항 반납. 시내 호숫가가 무난. 주차 포함 여부 꼭 확인', options: [
     { name: 'Novotel Queenstown Lakeside', price: [300, 500], why: '시내 한가운데 호숫가, 식당·상점 도보. 유료 주차' },
     { name: 'Crowne Plaza Queenstown', q: 'Crowne Plaza Queenstown', price: [280, 450], why: '시내 호숫가 바로 앞, 식당·상점 도보. 호수 전망 객실 추천 (Rydges Lakeland는 QT 호텔로 바뀌는 공사로 휴업 중이라 대체)' },
     { name: 'Hotel St Moritz', q: 'Hotel St Moritz Queenstown', price: [350, 550], why: '언덕 위 고급 호텔, 호수 전망. 시내 도보 5분' }
@@ -738,11 +739,11 @@ const CHECKLIST = [
     { text: '숙소: 프란츠 조셉 10/23~24 — Aspen Court Franz Josef (2박) ₩535,142 · 호텔스닷컴', done: true, stay: 'franz' },
     { text: '숙소: 와나카 10/25 — Edgewater Lake Wanaka (1박) ₩277,817 · 호텔스닷컴', done: true, stay: 'wanaka' },
     { text: '숙소: 마운트쿡 10/26 — Aoraki Alpine Lodge (1박) ₩406,696 · 아고다', done: true, stay: 'cook' },
-    { text: '숙소: 테카포 10/27 — Peppers Bluewater Resort (1박) ₩473,522 · 아고다', done: true, stay: 'tekapo' }
+    { text: '숙소: 테카포 10/27 — Peppers Bluewater Resort (1박) ₩473,522 · 아고다', done: true, stay: 'tekapo' },
+    { text: '숙소: 퀸스타운 10/28 — Mi-pad Queenstown (1박) ₩213,321 · 호텔스닷컴', note: '호텔 주차장 없음 → Ballarat Street 주차장(옆), 18:00~08:00 무료', done: true, stay: 'queenstown' }
   ]},
   { title: '지금 바로 · 가장 급함', due: '2026-10-08', items: [
     { text: 'NZeTA (전자여행허가) + IVL 신청 — 2인 각각', note: '승인까지 최대 72시간. 대행 사이트 말고 공식 앱/사이트에서', link: ['공식 신청', 'https://www.immigration.govt.nz/new-zealand-visas/visas/visa/nzeta'] },
-    { text: '숙소: 퀸스타운 (10/28)', stay: 'queenstown' },
     { text: '숙소: 오클랜드 공항 근처 (10/29)', note: '10/30 11:45 출발이라 국제선 터미널 가까운 곳으로', stay: 'akl' },
     { text: '렌터카 예약 — 크라이스트처치 공항 픽업(10/22) → 퀸스타운 공항 반납(10/29 16:00)', note: '편도 반납 요금 확인, 풀커버(면책금 0) 보험, 운전자 2인 등록, 스노 체인 대여 요청' },
     { text: '헬리하이크 예약 (10/24 첫 타임) — Helicopter Line 1인 NZD 795', note: '약 3시간, Bookme 평점 4.7 (후기 230개), 장비 포함. 날씨 취소가 잦아 첫 타임으로, 취소되면 10/25 아침으로 옮길 수 있는지 문의. 참고: Franz Josef Glacier Guides는 1인 899 (빙하 위 최대 2.5시간)', link: ['Bookme 예약', 'https://www.bookme.co.nz/things-to-do/west-coast-glacier-country/activity/helicopter-line-franz-josef-heli-hike/4862'] },
