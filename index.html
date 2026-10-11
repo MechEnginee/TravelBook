@@ -473,7 +473,7 @@
         <div>🏨 숙소 <span id="hotel-nights">8</span>박 <span class="muted small">(2인 1실)</span></div>
         <div>✅ 예약 완료 <b id="hotel-booked"></b></div>
         <div>남은 <span id="hotel-open"></span> 예상: <span id="hotel-total"></span></div>
-        <div class="muted small">남은 숙소 가격은 추정치입니다. 각 숙소 항목의 "추천 숙소 보기"에서 고르면 합계가 바뀝니다. 예약 완료 금액은 비용 탭에 이미 들어가 있어요.</div>
+        <div class="muted small" id="hotel-note">남은 숙소 가격은 추정치입니다. 각 숙소 항목의 "추천 숙소 보기"에서 고르면 합계가 바뀝니다. 예약 완료 금액은 비용 탭에 이미 들어가 있어요.</div>
         <button type="button" class="btn" id="hotel-apply">남은 숙소 예상을 비용 탭에 반영</button>
       </div>
       <div id="check-list"></div>
@@ -1439,6 +1439,7 @@ function updateHotelTotal() {
   const done = all === bk; // 모든 숙소 예약 완료면 '남은 숙소 예상' 줄과 반영 버튼 숨김
   $('hotel-open').parentElement.style.display = done ? 'none' : '';
   $('hotel-apply').style.display = done ? 'none' : '';
+  $('hotel-note').style.display = done ? 'none' : '';
   $('hotel-booked').textContent = (done ? '전체 ' : '') + bk + '박 ₩' + fmt(bookedKrw()) + (done ? ' 🎉' : '');
   document.querySelectorAll('.h-krw').forEach((el) => {
     el.textContent = '≈ ' + man(el.dataset.lo * rate) + '~' + man(el.dataset.hi * rate) + '원';
