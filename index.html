@@ -561,7 +561,7 @@ const DAYS = [
     { time: '16:00', text: '프란츠 조셉 빙하 계곡 트랙 (왕복 1시간 30분) · 🅿️ 빙하 주차장 유료 (NZD 5/시간, 하루 최대 20)', places: [['Franz Josef Glacier Valley Walk', 'Franz Josef Glacier Valley Walk']] }
   ]},
   { date: '2026-10-24', stay: '프란츠 조셉 (Franz Josef) · 연박', stayQuery: 'Franz Josef', cost: '헬리하이크 1인 NZD 795', items: [
-    { time: '08:00', text: '프란츠 조셉 헬리하이크 (약 4시간, 헬기로 빙하 착륙 후 가이드 워킹)', places: [['Franz Josef Glacier Guides', 'Franz Josef Glacier Guides']] },
+    { time: '08:00', text: '프란츠 조셉 헬리하이크 — Helicopter Line (약 3시간, 헬기로 빙하 착륙 후 가이드 워킹)', places: [['Helicopter Line', 'The Helicopter Line Franz Josef']] },
     { drive: '30분', text: '폭스 글레이셔 (점심)', places: [['Fox Glacier', 'Fox Glacier Village']] },
     { time: '오후', text: '폭스 빙하 전망 트랙', places: [['Fox Glacier Lookout', 'Fox Glacier South Side Walkway']] },
     { time: '18:45', text: '매서슨 호수 — 마운트쿡이 비치는 거울 호수 (둘레길 1시간 30분, 일몰 약 20:25)', places: [['Lake Matheson', 'Lake Matheson']] },
@@ -581,7 +581,7 @@ const DAYS = [
     { checkin: true, time: '~15:30', text: 'Aoraki Alpine Lodge 도착 · 체크인 (마운트쿡이 구름에 가리면 다음 날 일출 때 다시 보기)', places: [['Aoraki Alpine Lodge', 'Aoraki Alpine Lodge']] },
     { time: '저녁', text: '보름달에 비친 설산 감상' }
   ]},
-  { date: '2026-10-27', stay: '테카포 (Lake Tekapo)', stayQuery: 'Lake Tekapo', cost: '온천+별관측 1인 NZD 139', items: [
+  { date: '2026-10-27', stay: '테카포 (Lake Tekapo)', stayQuery: 'Lake Tekapo', cost: '온천+별관측 1인 NZD 179', items: [
     { time: '06:30', text: '일출: 타스만 빙하 전망대 (왕복 40분, 마을에서 차로 15분)', places: [['Tasman Glacier View', 'Tasman Glacier View Track']] },
     { drive: '45분', text: '09:30 체크아웃 → 푸카키 호수 (연어샵)', places: [['Lake Pukaki', 'Mt Cook Alpine Salmon Shop Lake Pukaki']] },
     { drive: '45분', text: '테카포 (점심)', places: [['Lake Tekapo', 'Lake Tekapo']] },
@@ -589,7 +589,7 @@ const DAYS = [
     { checkin: true, time: '~15:30', text: 'Peppers Bluewater Resort 도착 · 체크인 (저녁 전 휴식, 온천까지 차로 3분)', places: [['Peppers Bluewater', 'Peppers Bluewater Resort Lake Tekapo']] },
     { time: '밤', text: '테카포 스프링스 온천 + 별 관측 투어', places: [['Tekapo Springs', 'Tekapo Springs']] }
   ]},
-  { date: '2026-10-28', stay: '퀸스타운 (Queenstown)', stayQuery: 'Queenstown', cost: '번지 1인 NZD 205 · 밀포드 1인 NZD 668 · 곤돌라 1인 NZD 69', items: [
+  { date: '2026-10-28', stay: '퀸스타운 (Queenstown)', stayQuery: 'Queenstown', cost: '번지 1인 NZD 205 · 밀포드 1인 NZD 825 · 곤돌라 1인 NZD 69', items: [
     { drive: '약 3시간', text: '07:30 테카포 출발 → 린디스 패스, 크롬웰 경유', places: [['Cromwell', 'Cromwell']] },
     { time: '10:30', text: '도중: 카와라우 번지 (43m, 세계 최초 상업 번지)', places: [['Kawarau Bridge Bungy', 'Kawarau Bridge Bungy']] },
     { time: '오후', text: '밀포드 사운드 플라이-크루즈-플라이 (경비행기 왕복 + 2시간 크루즈)', places: [['Queenstown Airport', 'Queenstown Airport'], ['Milford Sound', 'Milford Sound']] },
@@ -662,12 +662,12 @@ const DAY_WEATHER = {
   '2026-10-30': { at: ['auckland'] }
 };
 
-/* 액티비티 비용 — people: 기본 인원 (화면에서 1/2명 토글 가능) */
+/* 액티비티 비용 — people: 기본 인원 (화면에서 1/2명 토글 가능). nzd는 2026-10-11에 확인한 1인 정가 (할인은 체크리스트에 표시) */
 const ACTIVITIES = [
   { id: 'heli',   name: '프란츠 조셉 헬리하이크',     day: 4, nzd: 795, people: 2 },
-  { id: 'tekapo', name: '테카포 온천 + 별 관측',      day: 7, nzd: 139, people: 2 },
+  { id: 'tekapo', name: '테카포 온천 + 별 관측',      day: 7, nzd: 179, people: 2 },
   { id: 'bungy',  name: '카와라우 번지',             day: 8, nzd: 205, people: 2 },
-  { id: 'milford',name: '밀포드 플라이-크루즈-플라이', day: 8, nzd: 668, people: 2 },
+  { id: 'milford',name: '밀포드 플라이-크루즈-플라이', day: 8, nzd: 825, people: 2 },
   { id: 'skyline',name: '스카이라인 곤돌라',          day: 8, nzd: 69,  people: 2 },
   { id: 'jet',    name: '샷오버 제트',               day: 9, nzd: 199, people: 2 }
 ];
@@ -745,7 +745,7 @@ const CHECKLIST = [
     { text: '숙소: 퀸스타운 (10/28)', stay: 'queenstown' },
     { text: '숙소: 오클랜드 공항 근처 (10/29)', note: '10/30 11:45 출발이라 국제선 터미널 가까운 곳으로', stay: 'akl' },
     { text: '렌터카 예약 — 크라이스트처치 공항 픽업(10/22) → 퀸스타운 공항 반납(10/29 16:00)', note: '편도 반납 요금 확인, 풀커버(면책금 0) 보험, 운전자 2인 등록, 스노 체인 대여 요청' },
-    { text: '헬리하이크 예약 (10/24 첫 타임)', note: '날씨 취소가 잦아 첫 타임으로. 취소되면 10/25 아침으로 옮길 수 있는지도 문의', link: ['Franz Josef Glacier Guides', 'https://www.franzjosefglacier.com/'] },
+    { text: '헬리하이크 예약 (10/24 첫 타임) — Helicopter Line 1인 NZD 795', note: '약 3시간, Bookme 평점 4.7 (후기 230개), 장비 포함. 날씨 취소가 잦아 첫 타임으로, 취소되면 10/25 아침으로 옮길 수 있는지 문의. 참고: Franz Josef Glacier Guides는 1인 899 (빙하 위 최대 2.5시간)', link: ['Bookme 예약', 'https://www.bookme.co.nz/things-to-do/west-coast-glacier-country/activity/helicopter-line-franz-josef-heli-hike/4862'] },
     { text: '밀포드 플라이-크루즈-플라이 예약 (10/28 13:00, True South Flights)', note: 'Bookme 정가 1인 NZD 825, 할인 날짜는 659~740 (6석 미만). 크루즈 2시간, 약 4시간. 날씨로 취소되면 10/29 오전으로 변경 가능한지 확인', link: ['Bookme 예약', 'https://www.bookme.co.nz/things-to-do/queenstown/activity/milford-sound-fly-cruise-fly-true-south-flights/13'] },
     { text: '젯스타 "운항 정보 변동" 알림 확인', note: '시간이 바뀌었으면 환승·렌터카 시간 다시 맞추기' },
     { text: '대한항공 좌석 확인 — 두 사람 나란히 앉는지', note: '지금 적힌 좌석: 가는 편 44H, 오는 편 34B' }
@@ -753,8 +753,8 @@ const CHECKLIST = [
   { title: '이번 주 안에', due: '2026-10-12', items: [
     { text: '젯스타 위탁 수하물 포함 여부 확인 (없으면 추가 구매)', note: '공항에서 사면 훨씬 비쌈. 기내 수하물 무게 제한도 확인' },
     { text: '카와라우 번지 예약 (10/28 10:30 추천) — 1인 NZD 205', note: 'Bookme의 AJ Hackett 공식 상품. 직접 운전해 가면 15분 전 체크인, 전체 2.5시간 잡기. 몸무게 35~235kg, 둘이 같이(탠덤)는 몸무게 차이 30kg 이내', link: ['Bookme 예약', 'https://www.bookme.co.nz/things-to-do/queenstown/activity/aj-hackett-bungy-kawarau-bridge-bungy/2382'] },
-    { text: '샷오버 제트 예약 (10/29 오전)', note: '16:00 렌터카 반납 전에 글레노키까지 다녀올 수 있는 시간으로', link: ['Shotover Jet', 'https://www.shotoverjet.com/'] },
-    { text: '테카포 온천 + 별 관측 예약 (10/27)', link: ['Tekapo Springs', 'https://www.tekaposprings.co.nz/'] },
+    { text: '샷오버 제트 예약 (10/29 오전) — 1인 NZD 199', note: '공식 사이트 정가. 16:00 렌터카 반납 전에 글레노키까지 다녀올 수 있는 시간으로. 더 싼 대안: KJet(카와라우·샷오버 강) Bookme 1인 149', link: ['Shotover Jet 예약', 'https://www.shotoverjet.com/prices/'] },
+    { text: '테카포 온천 + 별 관측 예약 (10/27) — 1인 NZD 179', note: 'Bookme 정가 179, 날짜에 따라 할인 139부터. 약 90분, 수건 포함. 흐리면 실내 VR로 진행', link: ['Bookme 예약', 'https://www.bookme.co.nz/things-to-do/queenstown/activity/stargazing-hot-pool-experience-tekapo-springs/5401'] },
     { text: '스카이라인 곤돌라 예약 (10/28 저녁, 선택)', note: '밀포드에서 돌아온 뒤 저녁에. 산 위 뷔페(Stratosfare) 저녁 포함 상품도 있음', link: ['Skyline Queenstown', 'https://queenstown.skyline.co.nz/'] },
     { text: '국제운전면허증 발급 — 운전할 사람 모두', note: '운전면허시험장은 당일 발급. 여권·면허증·사진 지참', link: ['안전운전 통합민원', 'https://www.safedriving.or.kr/'] },
     { text: '여행자 보험 가입 — 2인', note: '번지·헬기·제트보트 같은 레저 활동이 보장되는지 확인' },
