@@ -589,10 +589,10 @@ const DAYS = [
     { checkin: true, time: '~15:30', text: 'Peppers Bluewater Resort 도착 · 체크인 (저녁 전 휴식, 온천까지 차로 3분)', places: [['Peppers Bluewater', 'Peppers Bluewater Resort Lake Tekapo']] },
     { time: '밤', text: '테카포 스프링스 온천 + 별 관측 투어', places: [['Tekapo Springs', 'Tekapo Springs']] }
   ]},
-  { date: '2026-10-28', stay: '퀸스타운 (Queenstown)', stayQuery: 'Queenstown', cost: '번지 1인 NZD 205 · 밀포드 1인 NZD 825 · 곤돌라 1인 NZD 69', items: [
+  { date: '2026-10-28', stay: '퀸스타운 (Queenstown)', stayQuery: 'Queenstown', cost: '번지 1인 NZD 205 · 밀포드 1인 NZD 659 · 곤돌라 1인 NZD 69', items: [
     { drive: '약 3시간', text: '07:30 테카포 출발 → 린디스 패스, 크롬웰 경유', places: [['Cromwell', 'Cromwell']] },
     { time: '10:30', text: '도중: 카와라우 번지 (43m, 세계 최초 상업 번지)', places: [['Kawarau Bridge Bungy', 'Kawarau Bridge Bungy']] },
-    { time: '오후', text: '밀포드 사운드 플라이-크루즈-플라이 (경비행기 왕복 + 2시간 크루즈)', places: [['Queenstown Airport', 'Queenstown Airport'], ['Milford Sound', 'Milford Sound']] },
+    { time: '13:00', text: '✅ 밀포드 사운드 플라이-크루즈-플라이 예약 완료 — True South Flights (경비행기 왕복 + 2시간 크루즈, 약 4시간). 출발: True South 사무실, 12 Hawthorne Dr, Frankton (무료 주차). 체크인 시간은 확인 메일 참고', places: [['True South 사무실', 'True South Flights 12 Hawthorne Drive Frankton'], ['Milford Sound', 'Milford Sound']] },
     { checkin: true, time: '~17:00', text: 'Mi-pad Queenstown 도착 · 체크인 (밀포드 시간에 따라 바뀜) — 호텔 주차장 없음: Henry St 입구에서 짐만 내리고 Ballarat Street 주차장(호텔 바로 옆)에 주차. 18:00~08:00 무료, 그 외 시간당 요금(입구 결제기)', places: [['Mi-pad', 'mi-pad Queenstown 4 Henry Street'], ['🅿️ Ballarat St 주차장', 'Ballarat Street Car Park Queenstown'], ['🅿️ Boundary St 주차장', 'Boundary Street Car Park Queenstown']] },
     { time: '저녁', text: '스카이라인 곤돌라 — 퀸스타운 야경 + 산 위 저녁 (숙소에서 걸어서 약 5분, 차는 그대로 두기. 곤돌라 21:00까지, 루지는 18:00 마감이라 시간 되면)', places: [['Skyline Queenstown', 'Skyline Queenstown']] }
   ]},
@@ -668,7 +668,7 @@ const ACTIVITIES = [
   { id: 'heli',   name: '프란츠 조셉 헬리하이크 ✅ 예약 완료', day: 4, nzd: 899, people: 2 },
   { id: 'tekapo', name: '테카포 온천 + 별 관측',      day: 7, nzd: 179, people: 2 },
   { id: 'bungy',  name: '카와라우 번지',             day: 8, nzd: 205, people: 2 },
-  { id: 'milford',name: '밀포드 플라이-크루즈-플라이', day: 8, nzd: 825, people: 2 },
+  { id: 'milford',name: '밀포드 플라이-크루즈-플라이 ✅ 예약 완료', day: 8, nzd: 659, people: 2 },
   { id: 'skyline',name: '스카이라인 곤돌라',          day: 8, nzd: 69,  people: 2 },
   { id: 'jet',    name: '샷오버 제트',               day: 9, nzd: 199, people: 2 }
 ];
@@ -741,13 +741,13 @@ const CHECKLIST = [
     { text: '숙소: 마운트쿡 10/26 — Aoraki Alpine Lodge (1박) ₩406,696 · 아고다', done: true, stay: 'cook' },
     { text: '숙소: 테카포 10/27 — Peppers Bluewater Resort (1박) ₩473,522 · 아고다', done: true, stay: 'tekapo' },
     { text: '헬리하이크: 10/24 08:00 — Franz Josef Glacier Guides (2인) NZD 1,798 · 공식 사이트', note: '07:45 Glacier Base(63 Cron St) 체크인. 예약 확인 메일 보관. 날씨 취소 시 10/25 아침 또는 폭스 빙하(8:50)로', done: true },
+    { text: '밀포드 플라이-크루즈-플라이: 10/28 13:00 — True South Flights (2인) NZD 1,318 · Bookme', note: '할인가 1인 659로 예약. 출발: True South 사무실(Frankton). 날씨로 취소되면 운영사가 일정 변경 또는 전액 환불 — 10/29 오전 가능 여부 문의', done: true },
     { text: '숙소: 퀸스타운 10/28 — Mi-pad Queenstown (1박) ₩213,321 · 호텔스닷컴', note: '호텔 주차장 없음 → Ballarat Street 주차장(옆), 18:00~08:00 무료', done: true, stay: 'queenstown' }
   ]},
   { title: '지금 바로 · 가장 급함', due: '2026-10-08', items: [
     { text: 'NZeTA (전자여행허가) + IVL 신청 — 2인 각각', note: '승인까지 최대 72시간. 대행 사이트 말고 공식 앱/사이트에서', link: ['공식 신청', 'https://www.immigration.govt.nz/new-zealand-visas/visas/visa/nzeta'] },
     { text: '숙소: 오클랜드 공항 근처 (10/29)', note: '10/30 11:45 출발이라 국제선 터미널 가까운 곳으로', stay: 'akl' },
     { text: '렌터카 예약 — 크라이스트처치 공항 픽업(10/22) → 퀸스타운 공항 반납(10/29 16:00)', note: '편도 반납 요금 확인, 풀커버(면책금 0) 보험, 운전자 2인 등록, 스노 체인 대여 요청' },
-    { text: '밀포드 플라이-크루즈-플라이 예약 (10/28 13:00, True South Flights)', note: 'Bookme 정가 1인 NZD 825, 할인 날짜는 659~740 (6석 미만). 크루즈 2시간, 약 4시간. 날씨로 취소되면 10/29 오전으로 변경 가능한지 확인', link: ['Bookme 예약', 'https://www.bookme.co.nz/things-to-do/queenstown/activity/milford-sound-fly-cruise-fly-true-south-flights/13'] },
     { text: '젯스타 "운항 정보 변동" 알림 확인', note: '시간이 바뀌었으면 환승·렌터카 시간 다시 맞추기' },
     { text: '대한항공 좌석 확인 — 두 사람 나란히 앉는지', note: '지금 적힌 좌석: 가는 편 44H, 오는 편 34B' }
   ]},
