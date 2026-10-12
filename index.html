@@ -601,10 +601,13 @@ const DAYS = [
     { checkin: true, time: '~17:00', text: 'Mi-pad Queenstown 도착 · 체크인 (밀포드 시간에 따라 바뀜) — 호텔 주차장 없음: Henry St 입구에서 짐만 내리고 Ballarat Street 주차장(호텔 바로 옆)에 주차. 18:00~08:00 무료, 그 외 시간당 요금(입구 결제기)', places: [['Mi-pad', 'mi-pad Queenstown 4 Henry Street'], ['🅿️ Ballarat St 주차장', 'Ballarat Street Car Park Queenstown'], ['🅿️ Boundary St 주차장', 'Boundary Street Car Park Queenstown']] },
     { time: '저녁', text: '스카이라인 곤돌라 (선택 · 예약 안 함) — 밀포드에서 돌아온 시간과 컨디션 보고 당일 결정, 탑승장 매표소나 휴대폰으로 그날 구매. 퀸스타운 야경 + 산 위 저녁 (숙소에서 걸어서 약 5분, 차는 그대로 두기. 곤돌라 21:00까지, 루지는 18:00 마감이라 시간 되면)', places: [['Skyline Queenstown', 'Skyline Queenstown']] }
   ]},
-  { date: '2026-10-29', stay: '오클랜드 시내 (Auckland CBD)', stayQuery: 'Auckland CBD', cost: '제트보트 1인 NZD 199', items: [
+  { date: '2026-10-29', stay: '오클랜드 시내 (Auckland CBD)', stayQuery: 'Auckland CBD', cost: '샷오버 제트 1인 NZD 199 (선택 · 밀포드 취소 시)', items: [
     { time: '08:00', text: '주차장에서 차 빼기 (08:00 이후 유료) → 체크아웃', places: [['🅿️ Ballarat St 주차장', 'Ballarat Street Car Park Queenstown']] },
-    { time: '09:00', text: '샷오버 제트', places: [['Shotover Jet', 'Shotover Jet Queenstown']] },
-    { drive: '왕복 1시간 30분', text: '글레노키', places: [['Glenorchy', 'Glenorchy']] },
+    { time: '(선택)', text: '샷오버 제트 — 미리 예약 안 함. 10/28 밀포드가 날씨로 취소되면 그때 예약 (그날 오후 빈 시간 또는 이날 오전, 보통 당일 예약도 가능). 밀포드를 탔으면 생략하고 아래 코스로', places: [['Shotover Jet', 'Shotover Jet Queenstown']] },
+    { drive: '25분', text: '08:30 밥스 코브 (Bob\'s Cove) — 글레노키 가는 길, 에메랄드빛 작은 만. 왕복 30분 숲길 산책 · 🅿️ 도로변 무료 주차', places: [["Bob's Cove", "Bob's Cove Track"]] },
+    { drive: '35분', text: '~09:45 글레노키 — 빨간 창고가 있는 부두 사진 + 글레노키 라군 산책로 (나무 데크, 30분~1시간, 설산이 호수에 비침) + 마을 카페에서 커피 · 🅿️ 부두 앞 무료 주차', places: [['Glenorchy 부두', 'Glenorchy Wharf'], ['Glenorchy Lagoon Walkway', 'Glenorchy Lagoon Walkway']] },
+    { drive: '1시간', text: '~12:30 애로우타운 (Arrowtown) — 금광 시대 거리가 남은 작은 마을. 버킹엄 스트리트에서 점심, 강가의 옛 중국인 금광촌 (산책 30분) · 🅿️ 마을 무료 주차장. 공항까지 20분이라 마지막 코스로 딱 맞음', places: [['Arrowtown', 'Buckingham Street Arrowtown'], ['Chinese Settlement', 'Arrowtown Chinese Settlement']] },
+    { drive: '20분', text: '~15:30 프랭크턴에서 주유 (가득) → 렌터카 반납 장소로', places: [['Frankton 주유소', 'Z Frankton Queenstown']] },
     { time: '16:00', text: '✅ Apex 렌터카 반납 — 32 Lucas Place, Queenstown (공항 터미널 아님, 공항 바로 옆). 반납 전 주유해서 가득 채우기 (안 채우면 리터당 주유 서비스 요금). 반납 후 Apex 무료 셔틀로 공항 터미널 이동 → JQ298 체크인', places: [['Apex 반납 (32 Lucas Pl)', '32 Lucas Place Queenstown'], ['Queenstown Airport', 'Queenstown Airport']] },
     { time: '17:30', text: 'JQ298 출발 → 19:20 오클랜드 도착', places: [['Auckland Airport', 'Auckland Airport']] },
     { drive: '약 30~40분', text: '오클랜드 공항 국내선 → 시내 (택시·우버 또는 공항 버스). 렌터카는 퀸스타운에서 반납했으니 주차 걱정 없음', places: [['Auckland Airport', 'Auckland Airport Domestic Terminal']] },
@@ -678,7 +681,7 @@ const ACTIVITIES = [
   { id: 'bungy',  name: '카와라우 번지 (사진·영상 포함) ✅ 예약 완료', day: 8, nzd: 320, people: 2 },
   { id: 'milford',name: '밀포드 플라이-크루즈-플라이 ✅ 예약 완료', day: 8, nzd: 659, people: 2 },
   { id: 'skyline',name: '스카이라인 곤돌라 (선택 · 당일 구매)', day: 8, nzd: 69,  people: 2 },
-  { id: 'jet',    name: '샷오버 제트',               day: 9, nzd: 199, people: 2 }
+  { id: 'jet',    name: '샷오버 제트 (선택 · 밀포드 취소 시)', day: 9, nzd: 199, people: 2 }
 ];
 
 /* 기타 경비 (2인 총액, 원) — value는 기본값 */
@@ -725,7 +728,7 @@ const HOTELS = {
     { name: 'The Godley Hotel', q: 'The Godley Hotel Lake Tekapo', price: [180, 280], why: '시내 호숫가, 선한목자교회 도보 10분. 식당 가기 편함' },
     { name: 'Lake Tekapo Village Motel', q: 'Lake Tekapo Village Motel', price: [180, 260], why: '시내 중심 모텔, 주방 있음. 가성비' }
   ]},
-  queenstown: { night: '2026-10-28', booked: { via: 'hotels', name: 'Mi-pad Queenstown', q: 'mi-pad Queenstown 4 Henry Street', nights: 1, krw: 213321 }, area: '퀸스타운', tip: '다음 날 아침 샷오버 제트(아서스 포인트, 시내에서 10분) → 글레노키 → 16:00 공항 반납. 시내 호숫가가 무난. 주차 포함 여부 꼭 확인', options: [
+  queenstown: { night: '2026-10-28', booked: { via: 'hotels', name: 'Mi-pad Queenstown', q: 'mi-pad Queenstown 4 Henry Street', nights: 1, krw: 213321 }, area: '퀸스타운', tip: '다음 날 글레노키 → 애로우타운 → 16:00 공항 반납 (샷오버 제트는 밀포드 취소 시에만). 시내 호숫가가 무난. 주차 포함 여부 꼭 확인', options: [
     { name: 'Novotel Queenstown Lakeside', price: [300, 500], why: '시내 한가운데 호숫가, 식당·상점 도보. 유료 주차' },
     { name: 'Crowne Plaza Queenstown', q: 'Crowne Plaza Queenstown', price: [280, 450], why: '시내 호숫가 바로 앞, 식당·상점 도보. 호수 전망 객실 추천 (Rydges Lakeland는 QT 호텔로 바뀌는 공사로 휴업 중이라 대체)' },
     { name: 'Hotel St Moritz', q: 'Hotel St Moritz Queenstown', price: [350, 550], why: '언덕 위 고급 호텔, 호수 전망. 시내 도보 5분' }
@@ -763,7 +766,6 @@ const CHECKLIST = [
   ]},
   { title: '이번 주 안에', due: '2026-10-12', items: [
     { text: '젯스타 위탁 수하물 포함 여부 확인 (없으면 추가 구매)', note: '공항에서 사면 훨씬 비쌈. 기내 수하물 무게 제한도 확인' },
-    { text: '샷오버 제트 예약 (10/29 오전) — 1인 NZD 199', note: '공식 사이트 정가. 16:00 렌터카 반납 전에 글레노키까지 다녀올 수 있는 시간으로. 더 싼 대안: KJet(카와라우·샷오버 강) Bookme 1인 149', link: ['Shotover Jet 예약', 'https://www.shotoverjet.com/prices/'] },
     { text: '국제운전면허증 발급 — 운전할 사람 모두', note: '운전면허시험장은 당일 발급. 여권·면허증·사진 지참', link: ['안전운전 통합민원', 'https://www.safedriving.or.kr/'] },
     { text: '여행자 보험 가입 — 2인', note: '번지·헬기·제트보트 같은 레저 활동이 보장되는지 확인' },
     { text: '해외 결제 카드 준비 (트래블 카드 등)', note: '뉴질랜드는 대부분 카드 결제. 비상용 카드 1장 더' },
@@ -789,6 +791,7 @@ const CHECKLIST = [
   { title: '여행 중 매일', due: null, items: [
     { text: '다음 날 날씨 확인 (헬기·경비행기 일정 있는 날은 특히)' },
     { text: '이동 전 도로 정보 확인', link: ['NZTA 도로 정보', 'https://www.journeys.nzta.govt.nz/'] },
+    { text: '10/28 밀포드가 날씨로 취소되면 → 샷오버 제트 예약 (선택) — 1인 NZD 199', note: '그날 오후 빈 시간이나 다음 날 오전으로. 보통 당일 예약도 가능. 더 싼 대안: KJet Bookme 1인 149. 밀포드를 탔으면 예약 안 함', link: ['Shotover Jet 예약', 'https://www.shotoverjet.com/prices/'] },
     { text: '10/28 저녁 스카이라인 곤돌라 — 당일 컨디션 보고 결정 (선택)', note: '미리 예약 안 함. 탑승권은 매표소나 온라인에서 당일 구매. 산 위 뷔페(Stratosfare)까지 먹고 싶으면 그날 낮에 자리 있는지 확인', link: ['Skyline Queenstown', 'https://queenstown.skyline.co.nz/'] },
     { text: '외진 구간 들어가기 전 주유 (해스트 패스, 린디스 패스)', note: '남섬 산간은 주유소 간격이 김' }
   ]}
@@ -796,7 +799,7 @@ const CHECKLIST = [
 
 const PLAN_B = [
   { title: '헬리하이크 취소 (4일차)', text: '5일차 아침 프란츠 조셉에서 재시도 (같은 숙소라 짐 그대로), 와나카 도착을 늦춤' },
-  { title: '밀포드 비행 취소 (8일차)', text: '9일차 오전으로 이동, 대신 글레노키 생략' },
+  { title: '밀포드 비행 취소 (8일차)', text: '9일차 오전으로 이동, 대신 글레노키·애로우타운 생략. 비게 된 8일차 오후에는 샷오버 제트 (당일 예약)' },
   { title: 'KE411 지연', text: '오클랜드 환승 여유 3시간 40분. 별도 발권이라 젯스타 놓치면 보상 없음 → 지연 시 젯스타에 즉시 연락' },
   { title: '밀포드 로드/산악도로 통제', text: '출발 전날 NZTA 도로 정보 확인' }
 ];
@@ -844,7 +847,9 @@ const MAP_POINTS = {
   queenstown:['퀸스타운', -45.0302, 168.6629, 'stay', 'queenstown'],
   zqn:       ['퀸스타운 공항', -45.0211, 168.7392, 'air'],
   milford:   ['밀포드 사운드', -44.6414, 167.8974, 'sight'],
-  shotover:  ['샷오버 제트', -44.9970, 168.6750, 'sight'],
+  shotover:  ['샷오버 제트 (선택)', -44.9970, 168.6750, 'sight'],
+  bobscove:  ['밥스 코브', -45.0730, 168.5100, 'sight'],
+  arrowtown: ['애로우타운', -44.9415, 168.8317, 'sight'],
   glenorchy: ['글레노키', -44.8505, 168.3884, 'sight'],
   skyline:   ['스카이라인 곤돌라', -45.0277, 168.6510, 'sight']
 };
@@ -876,8 +881,8 @@ const MAP_ROUTE = [
     drive: ['tekapo', [-44.12, 170.30], [-44.19, 170.15], [-44.26, 170.10], [-44.49, 169.97], 'lindis', [-44.70, 169.55], [-44.84, 169.41], [-44.96, 169.25], 'cromwell', [-45.01, 169.03], 'bungy', [-45.02, 168.78], 'queenstown', 'skyline'],
     nav: ['tekapo', 'lindis', 'cromwell', 'bungy', 'queenstown'] },
   { day: 9, color: '#7c3aed', fly: [['zqn', [-40.6, 172.4]]],
-    drive: ['queenstown', 'shotover', 'queenstown', [-45.03, 168.55], [-44.95, 168.43], 'glenorchy', [-44.95, 168.43], [-45.03, 168.55], 'queenstown', 'zqn'],
-    nav: ['queenstown', 'shotover', 'glenorchy', 'zqn'] }
+    drive: ['queenstown', [-45.05, 168.60], 'bobscove', [-44.95, 168.43], 'glenorchy', [-44.95, 168.43], 'bobscove', [-45.05, 168.60], 'queenstown', [-45.02, 168.74], [-44.99, 168.80], 'arrowtown', [-44.99, 168.80], 'zqn'],
+    nav: ['queenstown', 'bobscove', 'glenorchy', 'arrowtown', 'zqn'] }
 ];
 
 /* =====================================================================
@@ -890,7 +895,7 @@ const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&
 const fmt = (n) => Math.round(n).toLocaleString('ko-KR');
 // 지명만 쓰면 다른 나라의 같은 이름으로 가는 경우가 있어서(예: Franz Josef) 뉴질랜드를 붙여 검색
 const mapUrl = (q) => 'https://www.google.com/maps/search/?api=1&query=' +
-  encodeURIComponent(/New Zealand|Incheon|^-?\d/.test(q) ? q : q + ', New Zealand');
+  encodeURIComponent(/New Zealand|Incheon|^-?\d+(\.\d+)?,\s*-?\d/.test(q) ? q : q + ', New Zealand');
 
 function loadState() {
   try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch (e) { return {}; }
