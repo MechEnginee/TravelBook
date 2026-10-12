@@ -547,7 +547,8 @@ const DAYS = [
   ]},
   { date: '2026-10-22', stay: "아서스 패스 (Arthur's Pass)", stayQuery: "Arthur's Pass Village", cost: '무료', items: [
     { time: '09:35', text: '오클랜드 도착 → 입국심사, 짐 찾기, 국내선 터미널로 이동 후 짐 다시 부치기', places: [['Auckland Airport', 'Auckland Airport']] },
-    { time: '13:15', text: 'JQ233 출발 → 14:35 크라이스트처치 도착, 렌터카 픽업 (마을에 마트가 없으니 공항 근처에서 장보기)', places: [['Christchurch Airport', 'Christchurch Airport']] },
+    { time: '13:15', text: 'JQ233 출발 → 14:35 크라이스트처치 도착', places: [['Christchurch Airport', 'Christchurch Airport']] },
+    { time: '15:30', text: '✅ Apex 렌터카 픽업 — 크라이스트처치 공항 지점 (18:29까지 영업). 예약자 본인 실물 카드(픽업 때 NZD 886.73 결제), 한국 면허증 + 국제운전면허증 지참. 출발 전 차 사방·앞유리 사진 찍기. 마을에 마트가 없으니 공항 근처에서 장보기', places: [['Apex 크라이스트처치 공항', 'Apex Car Rentals Christchurch Airport']] },
     { drive: '1시간 20분', text: '캐슬힐 (거석 바위군, 산책 40분)', places: [['Castle Hill', 'Castle Hill Conservation Area']] },
     { drive: '30분', text: '아서스 패스 빌리지', places: [["Arthur's Pass", "Arthur's Pass Village"]] },
     { checkin: true, time: '~18:30', text: 'The Nook 도착 · 체크인 (65 Brake Hill, 해 지기 전 도착 — 일몰 약 20:10) · 🅿️ 숙소 무료 주차', places: [['The Nook', "65 Brake Hill, Arthur's Pass"]] }
@@ -601,7 +602,7 @@ const DAYS = [
     { time: '08:00', text: '주차장에서 차 빼기 (08:00 이후 유료) → 체크아웃', places: [['🅿️ Ballarat St 주차장', 'Ballarat Street Car Park Queenstown']] },
     { time: '09:00', text: '샷오버 제트', places: [['Shotover Jet', 'Shotover Jet Queenstown']] },
     { drive: '왕복 1시간 30분', text: '글레노키', places: [['Glenorchy', 'Glenorchy']] },
-    { time: '16:00', text: '퀸스타운 공항 렌터카 반납', places: [['Queenstown Airport', 'Queenstown Airport']] },
+    { time: '16:00', text: '✅ Apex 렌터카 반납 — 퀸스타운 공항 지점 (반납 전 주유해서 가득 채우기, 안 채우면 리터당 주유 서비스 요금)', places: [['Queenstown Airport', 'Queenstown Airport']] },
     { time: '17:30', text: 'JQ298 출발 → 19:20 오클랜드 도착', places: [['Auckland Airport', 'Auckland Airport']] },
     { drive: '약 30~40분', text: '오클랜드 공항 국내선 → 시내 (택시·우버 또는 공항 버스). 렌터카는 퀸스타운에서 반납했으니 주차 걱정 없음', places: [['Auckland Airport', 'Auckland Airport Domestic Terminal']] },
     { checkin: true, time: '~20:30', text: 'Radisson RED Auckland 도착 · 체크인 (33 Lorne St, 시내 중심, 앨버트 파크 옆) — 저녁에 바이어덕트 항구·스카이타워 산책', places: [['Radisson RED', 'Radisson RED Auckland 33 Lorne Street']] }
@@ -682,7 +683,7 @@ const EXTRAS = [
   { id: 'jq',    name: '젯스타 국내선 (발권 완료)', value: 816400 },
   { id: 'hotelBooked', name: '숙소 예약 완료 8박 (The Nook·Aspen Court 2박·Edgewater·Aoraki Alpine Lodge·Peppers Bluewater·Mi-pad·Radisson RED)', value: 2249758 },
   { id: 'hotel', name: '숙소 (남은 곳)', value: 0 },
-  { id: 'car',   name: '렌터카', value: 0 },
+  { id: 'car',   name: '렌터카 Apex (NZD 886.73 × 환율 765 추정, 픽업 때 결제)', value: 678348 },
   { id: 'food',  name: '식비', value: 0 },
   { id: 'fuel',  name: '주유비', value: 0 }
 ];
@@ -739,6 +740,7 @@ const CHECKLIST = [
   { title: '완료', due: null, items: [
     { text: '대한항공 왕복 발권 (KE411 / KE412, 마일리지)', done: true },
     { text: '젯스타 국내선 2구간 발권 (JQ233 / JQ298)', done: true },
+    { text: '렌터카: Apex — Mitsubishi ASX 2WD (소형 SUV), 10/22 15:30 크라이스트처치 공항 → 10/29 16:00 퀸스타운 공항, NZD 886.73', note: '면책금 $0 + Roadside Cover + 추가 운전자 1명 + 스노 체인 포함. 아직 결제 전 — 픽업 때 예약자 본인 실물 카드로 결제', done: true },
     { text: '숙소: 아서스 패스 10/22 — The Nook (1박) ₩188,181 · 아고다', done: true, stay: 'arthurs' },
     { text: '숙소: 프란츠 조셉 10/23~24 — Aspen Court Franz Josef (2박) ₩535,142 · 호텔스닷컴', done: true, stay: 'franz' },
     { text: '숙소: 와나카 10/25 — Edgewater Lake Wanaka (1박) ₩277,817 · 호텔스닷컴', done: true, stay: 'wanaka' },
@@ -751,7 +753,6 @@ const CHECKLIST = [
   ]},
   { title: '지금 바로 · 가장 급함', due: '2026-10-08', items: [
     { text: 'NZeTA (전자여행허가) + IVL 신청 — 2인 각각', note: '승인까지 최대 72시간. 대행 사이트 말고 공식 앱/사이트에서', link: ['공식 신청', 'https://www.immigration.govt.nz/new-zealand-visas/visas/visa/nzeta'] },
-    { text: '렌터카 예약 — 크라이스트처치 공항 픽업(10/22) → 퀸스타운 공항 반납(10/29 16:00)', note: '편도 반납 요금 확인, 풀커버(면책금 0) 보험, 운전자 2인 등록, 스노 체인 대여 요청' },
     { text: '젯스타 "운항 정보 변동" 알림 확인', note: '시간이 바뀌었으면 환승·렌터카 시간 다시 맞추기' },
     { text: '대한항공 좌석 확인 — 두 사람 나란히 앉는지', note: '지금 적힌 좌석: 가는 편 44H, 오는 편 34B' }
   ]},
@@ -768,7 +769,6 @@ const CHECKLIST = [
   ]},
   { title: '출발 전 주', due: '2026-10-19', items: [
     { text: '숙소·렌터카·액티비티 예약 확인서 모아두기 (캡처/PDF)', note: '오프라인에서도 볼 수 있게 사진첩에 저장' },
-    { text: '렌터카에 스노 체인 실리는지 확인', note: '10월 말에도 아서스·해스트·린디스 패스에 늦은 눈이 올 수 있음. 픽업할 때 끼우는 법도 물어보기' },
     { text: '국립공원 유료 주차 결제 방법 확인', note: '프란츠 조셉 빙하 주차장(하루 최대 NZD 20), 후커밸리 화이트호스힐(최대 25). 시간당 NZD 5, 짧은 무료 시간 있음. 렌터카 번호판 사진 찍어두기', link: ['DOC 유료 주차 안내', 'https://www.doc.govt.nz/paid-parking'] },
     { text: '구글 지도 오프라인 지도 다운로드 (남섬 전체)', note: '서해안·해스트 패스·마운트쿡은 통신이 거의 안 됨' },
     { text: '이 페이지 홈 화면에 추가 + 한 번 열어두기' },
