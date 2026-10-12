@@ -548,7 +548,8 @@ const DAYS = [
   { date: '2026-10-22', stay: "아서스 패스 (Arthur's Pass)", stayQuery: "Arthur's Pass Village", cost: '무료', items: [
     { time: '09:35', text: '오클랜드 도착 → 입국심사, 짐 찾기, 국내선 터미널로 이동 후 짐 다시 부치기', places: [['Auckland Airport', 'Auckland Airport']] },
     { time: '13:15', text: 'JQ233 출발 → 14:35 크라이스트처치 도착', places: [['Christchurch Airport', 'Christchurch Airport']] },
-    { time: '15:30', text: '✅ Apex 렌터카 픽업 — 크라이스트처치 공항 지점 (18:29까지 영업). 예약자 본인 실물 카드(픽업 때 NZD 886.73 결제), 한국 면허증 + 국제운전면허증 지참. 출발 전 차 사방·앞유리 사진 찍기. 마을에 마트가 없으니 공항 근처에서 장보기', places: [['Apex 크라이스트처치 공항', 'Apex Car Rentals Christchurch Airport']] },
+    { time: '~14:50', text: 'Apex 셔틀 부르기 — 짐 찾은 뒤 확인 메일의 "Ready to Collect" 버튼 누르거나 무료전화 0800 400 121 (+64 3 667 4238)로 "Apex 셔틀 기다린다"고 전화. 터미널 안을 지나 체크인 카운터를 넘어 1번 또는 2번 문으로 나가면 오른쪽, Air New Zealand 간판 아래가 셔틀 정류장. 짐은 직접 밴/트레일러에 싣고 기사에게 이름 말하고 예약 확인 보여주기 → Apex 사무실까지 차로 2분', places: [['Christchurch Airport', 'Christchurch Airport']] },
+    { time: '15:30', text: '✅ Apex 렌터카 픽업 — 크라이스트처치 공항 근처 Apex 사무실 (18:29까지 영업). 예약자 본인 실물 카드(픽업 때 NZD 886.73 결제), 한국 면허증 + 국제운전면허증 지참. 출발 전 차 사방·앞유리 사진 찍기. 마을에 마트가 없으니 공항 근처에서 장보기', places: [['Apex 크라이스트처치', 'Apex Car Rentals Christchurch Airport']] },
     { drive: '1시간 20분', text: '캐슬힐 (거석 바위군, 산책 40분)', places: [['Castle Hill', 'Castle Hill Conservation Area']] },
     { drive: '30분', text: '아서스 패스 빌리지', places: [["Arthur's Pass", "Arthur's Pass Village"]] },
     { checkin: true, time: '~18:30', text: 'The Nook 도착 · 체크인 (65 Brake Hill, 해 지기 전 도착 — 일몰 약 20:10) · 🅿️ 숙소 무료 주차', places: [['The Nook', "65 Brake Hill, Arthur's Pass"]] }
@@ -582,13 +583,13 @@ const DAYS = [
     { checkin: true, time: '~15:30', text: 'Aoraki Alpine Lodge 도착 · 체크인 (101 Bowen Dr, 방문자 센터 옆. 마운트쿡이 구름에 가리면 다음 날 일출 때 다시 보기) · 🅿️ 숙소 앞 무료 주차', places: [['Aoraki Alpine Lodge', 'Aoraki Mount Cook Alpine Lodge 101 Bowen Drive']] },
     { time: '저녁', text: '보름달에 비친 설산 감상' }
   ]},
-  { date: '2026-10-27', stay: '테카포 (Lake Tekapo)', stayQuery: 'Lake Tekapo', cost: '온천+별관측 1인 NZD 179', items: [
+  { date: '2026-10-27', stay: '테카포 (Lake Tekapo)', stayQuery: 'Lake Tekapo', cost: '온천+별관측 2인 NZD 358 (예약 완료)', items: [
     { time: '06:30', text: '일출: 타스만 빙하 전망대 (왕복 40분, 마을에서 차로 15분)', places: [['Tasman Glacier View', 'Tasman Glacier View Track']] },
     { drive: '45분', text: '09:30 체크아웃 → 푸카키 호수 (연어샵)', places: [['Lake Pukaki', 'Mt Cook Alpine Salmon Shop Lake Pukaki']] },
     { drive: '45분', text: '테카포 (점심)', places: [['Lake Tekapo', 'Lake Tekapo']] },
     { time: '오후', text: '선한목자교회, 마운트 존 전망대', places: [['Church of the Good Shepherd', 'Church of the Good Shepherd Tekapo'], ['Mt John', 'Mt John Observatory']] },
     { checkin: true, time: '~15:30', text: 'Peppers Bluewater Resort 도착 · 체크인 (호수 서쪽, 저녁 전 휴식, 온천까지 차로 3분) · 🅿️ 객실 근처 무료 주차', places: [['Peppers Bluewater', 'Peppers Bluewater Resort Lake Tekapo']] },
-    { time: '밤', text: '테카포 스프링스 온천 + 별 관측 투어', places: [['Tekapo Springs', 'Tekapo Springs']] }
+    { time: '22:30', text: '✅ 테카포 스프링스 온천 + 별 관측 예약 완료 (2인, 약 90분, 수건 포함, 흐리면 실내 VR) — 6 Lakeside Drive, 숙소에서 차로 3분 · 🅿️ 온천 앞 주차장. 끝나면 자정 넘으니 다음 날 07:00 출발 대비해 짐은 미리 싸두기', places: [['Tekapo Springs', 'Tekapo Springs 6 Lakeside Drive Lake Tekapo']] }
   ]},
   { date: '2026-10-28', stay: '퀸스타운 (Queenstown)', stayQuery: 'Queenstown', cost: '번지 1인 NZD 205 · 밀포드 1인 NZD 659 · 곤돌라 1인 NZD 69', items: [
     { drive: '약 3시간', text: '07:00 테카포 출발 (체크아웃·아침은 간단히) → 린디스 패스, 크롬웰 경유 → ~10:15 번지 센터 도착', places: [['Cromwell', 'Cromwell']] },
@@ -602,7 +603,7 @@ const DAYS = [
     { time: '08:00', text: '주차장에서 차 빼기 (08:00 이후 유료) → 체크아웃', places: [['🅿️ Ballarat St 주차장', 'Ballarat Street Car Park Queenstown']] },
     { time: '09:00', text: '샷오버 제트', places: [['Shotover Jet', 'Shotover Jet Queenstown']] },
     { drive: '왕복 1시간 30분', text: '글레노키', places: [['Glenorchy', 'Glenorchy']] },
-    { time: '16:00', text: '✅ Apex 렌터카 반납 — 퀸스타운 공항 지점 (반납 전 주유해서 가득 채우기, 안 채우면 리터당 주유 서비스 요금)', places: [['Queenstown Airport', 'Queenstown Airport']] },
+    { time: '16:00', text: '✅ Apex 렌터카 반납 — 32 Lucas Place, Queenstown (공항 터미널 아님, 공항 바로 옆). 반납 전 주유해서 가득 채우기 (안 채우면 리터당 주유 서비스 요금). 반납 후 Apex 무료 셔틀로 공항 터미널 이동 → JQ298 체크인', places: [['Apex 반납 (32 Lucas Pl)', '32 Lucas Place Queenstown'], ['Queenstown Airport', 'Queenstown Airport']] },
     { time: '17:30', text: 'JQ298 출발 → 19:20 오클랜드 도착', places: [['Auckland Airport', 'Auckland Airport']] },
     { drive: '약 30~40분', text: '오클랜드 공항 국내선 → 시내 (택시·우버 또는 공항 버스). 렌터카는 퀸스타운에서 반납했으니 주차 걱정 없음', places: [['Auckland Airport', 'Auckland Airport Domestic Terminal']] },
     { checkin: true, time: '~20:30', text: 'Radisson RED Auckland 도착 · 체크인 (33 Lorne St, 시내 중심, 앨버트 파크 옆) — 저녁에 바이어덕트 항구·스카이타워 산책', places: [['Radisson RED', 'Radisson RED Auckland 33 Lorne Street']] }
@@ -671,7 +672,7 @@ const DAY_WEATHER = {
 /* 액티비티 비용 — people: 기본 인원 (화면에서 1/2명 토글 가능). nzd는 2026-10-11에 확인한 1인 정가 (할인은 체크리스트에 표시) */
 const ACTIVITIES = [
   { id: 'heli',   name: '프란츠 조셉 헬리하이크 ✅ 예약 완료', day: 4, nzd: 899, people: 2 },
-  { id: 'tekapo', name: '테카포 온천 + 별 관측',      day: 7, nzd: 179, people: 2 },
+  { id: 'tekapo', name: '테카포 온천 + 별 관측 ✅ 예약 완료', day: 7, nzd: 179, people: 2 },
   { id: 'bungy',  name: '카와라우 번지',             day: 8, nzd: 205, people: 2 },
   { id: 'milford',name: '밀포드 플라이-크루즈-플라이 ✅ 예약 완료', day: 8, nzd: 659, people: 2 },
   { id: 'skyline',name: '스카이라인 곤돌라',          day: 8, nzd: 69,  people: 2 },
@@ -748,6 +749,7 @@ const CHECKLIST = [
     { text: '숙소: 테카포 10/27 — Peppers Bluewater Resort (1박) ₩473,522 · 아고다', done: true, stay: 'tekapo' },
     { text: '헬리하이크: 10/24 08:00 — Franz Josef Glacier Guides (2인) NZD 1,798 · 공식 사이트', note: '07:45 Glacier Base(63 Cron St) 체크인. 예약 확인 메일 보관. 날씨 취소 시 10/25 아침 또는 폭스 빙하(8:50)로', done: true },
     { text: '밀포드 플라이-크루즈-플라이: 10/28 13:00 — True South Flights (2인) NZD 1,318 · Bookme', note: '할인가 1인 659로 예약. 출발: True South 사무실(Frankton). 날씨로 취소되면 운영사가 일정 변경 또는 전액 환불 — 10/29 오전 가능 여부 문의', done: true },
+    { text: '테카포 온천 + 별 관측: 10/27 22:30 — Tekapo Springs (2인) NZD 358 · Bookme', note: '6 Lakeside Drive, Lake Tekapo. 문의 0800 2 353 8283 / reception@tekaposprings.co.nz. 예약 확인 메일 보관', done: true },
     { text: '숙소: 퀸스타운 10/28 — Mi-pad Queenstown (1박) ₩213,321 · 호텔스닷컴', note: '호텔 주차장 없음 → Ballarat Street 주차장(옆), 18:00~08:00 무료', done: true, stay: 'queenstown' },
     { text: '숙소: 오클랜드 10/29 — Radisson RED Auckland (1박) ₩155,079 · 호텔스닷컴', note: '시내 중심. 공항↔시내 30~40분 — 10/30 아침 08:15쯤 출발. 체크인 15:00, 체크아웃 12:00', done: true, stay: 'akl' }
   ]},
@@ -760,7 +762,6 @@ const CHECKLIST = [
     { text: '젯스타 위탁 수하물 포함 여부 확인 (없으면 추가 구매)', note: '공항에서 사면 훨씬 비쌈. 기내 수하물 무게 제한도 확인' },
     { text: '카와라우 번지 예약 (10/28 10:30 추천) — 1인 NZD 205', note: 'Bookme의 AJ Hackett 공식 상품. 직접 운전해 가면 15분 전 체크인, 전체 2.5시간 잡기. 몸무게 35~235kg, 둘이 같이(탠덤)는 몸무게 차이 30kg 이내', link: ['Bookme 예약', 'https://www.bookme.co.nz/things-to-do/queenstown/activity/aj-hackett-bungy-kawarau-bridge-bungy/2382'] },
     { text: '샷오버 제트 예약 (10/29 오전) — 1인 NZD 199', note: '공식 사이트 정가. 16:00 렌터카 반납 전에 글레노키까지 다녀올 수 있는 시간으로. 더 싼 대안: KJet(카와라우·샷오버 강) Bookme 1인 149', link: ['Shotover Jet 예약', 'https://www.shotoverjet.com/prices/'] },
-    { text: '테카포 온천 + 별 관측 예약 (10/27) — 1인 NZD 179', note: 'Bookme 정가 179, 날짜에 따라 할인 139부터. 약 90분, 수건 포함. 흐리면 실내 VR로 진행', link: ['Bookme 예약', 'https://www.bookme.co.nz/things-to-do/queenstown/activity/stargazing-hot-pool-experience-tekapo-springs/5401'] },
     { text: '스카이라인 곤돌라 예약 (10/28 저녁, 선택)', note: '밀포드에서 돌아온 뒤 저녁에. 산 위 뷔페(Stratosfare) 저녁 포함 상품도 있음', link: ['Skyline Queenstown', 'https://queenstown.skyline.co.nz/'] },
     { text: '국제운전면허증 발급 — 운전할 사람 모두', note: '운전면허시험장은 당일 발급. 여권·면허증·사진 지참', link: ['안전운전 통합민원', 'https://www.safedriving.or.kr/'] },
     { text: '여행자 보험 가입 — 2인', note: '번지·헬기·제트보트 같은 레저 활동이 보장되는지 확인' },
