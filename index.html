@@ -275,7 +275,8 @@
   .f-code { font-size: 26px; font-weight: 800; line-height: 1.1; color: var(--glacier); }
   .f-city { font-size: 14px; color: var(--muted); }
   .f-time { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; }
-  .f-arrow { color: var(--muted); font-size: 20px; }
+  .f-arrow { color: var(--muted); font-size: 20px; text-align: center; }
+  .f-dur { font-size: 12px; font-weight: 700; white-space: nowrap; text-align: center; }
   .f-info { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 10px; }
   .f-info b { color: var(--text); }
 
@@ -522,16 +523,17 @@ const TRIP = {
 
 const FLIGHTS = [
   { no: 'KE411', airline: '대한항공 · B787-10', from: ['ICN', '인천'], to: ['AKL', '오클랜드'],
-    dep: '10/21(수) 18:00', arr: '10/22(목) 09:35', terminal: '인천 T2 출발 · 오클랜드 국제선 도착', seat: '44H' },
+    dep: '10/21(수) 18:00', arr: '10/22(목) 09:35', dur: '11시간 35분', terminal: '인천 T2 출발 · 오클랜드 국제선 도착', seat: '44H' },
   { no: 'JQ233', airline: '젯스타', from: ['AKL', '오클랜드'], to: ['CHC', '크라이스트처치'],
-    dep: '10/22(목) 13:15', arr: '10/22(목) 14:35', terminal: '오클랜드 국내선', seat: '–' },
+    dep: '10/22(목) 13:15', arr: '10/22(목) 14:35', dur: '1시간 20분', terminal: '오클랜드 국내선', seat: '–' },
   { no: 'JQ298', airline: '젯스타', from: ['ZQN', '퀸스타운'], to: ['AKL', '오클랜드'],
-    dep: '10/29(목) 17:30', arr: '10/29(목) 19:20', terminal: '–', seat: '–' },
+    dep: '10/29(목) 17:30', arr: '10/29(목) 19:20', dur: '1시간 50분', terminal: '–', seat: '–' },
   { no: 'KE412', airline: '대한항공 · B787-10', from: ['AKL', '오클랜드'], to: ['ICN', '인천'],
-    dep: '10/30(금) 11:45', arr: '10/30(금) 19:40', terminal: '오클랜드 국제선 출발 · 인천 T2 도착', seat: '34B' }
+    dep: '10/30(금) 11:45', arr: '10/30(금) 19:40', dur: '11시간 55분', terminal: '오클랜드 국제선 출발 · 인천 T2 도착', seat: '34B' }
 ];
 
 const FLIGHT_NOTES = [
+  '비행시간은 시차 반영 (10월 말 뉴질랜드는 서머타임이라 한국보다 4시간 빠름)',
   '대한항공 편은 마일리지 발권',
   '젯스타 국내선 2구간은 별도 발권 (총 816,400원)',
   '🚗 렌터카: 크라이스트처치 공항 픽업(10/22) → 퀸스타운 공항 반납(10/29) 편도'
@@ -545,11 +547,11 @@ const FLIGHT_NOTES = [
    places : [[표시명, 구글맵 검색어(영문)], ...] */
 const DAYS = [
   { date: '2026-10-21', stay: '기내', items: [
-    { time: '18:00', text: '인천 T2 출발 (KE411)', places: [['Incheon T2', 'Incheon International Airport Terminal 2']] }
+    { time: '18:00', text: '인천 T2 출발 (KE411, 비행 11시간 35분 · 뉴질랜드는 한국보다 4시간 빠름)', places: [['Incheon T2', 'Incheon International Airport Terminal 2']] }
   ]},
   { date: '2026-10-22', stay: "아서스 패스 (Arthur's Pass)", stayQuery: "Arthur's Pass Village", cost: '무료', items: [
     { time: '09:35', text: '오클랜드 도착 → 입국심사, 짐 찾기, 국내선 터미널로 이동 후 짐 다시 부치기', places: [['Auckland Airport', 'Auckland Airport']] },
-    { time: '13:15', text: 'JQ233 출발 → 14:35 크라이스트처치 도착', places: [['Christchurch Airport', 'Christchurch Airport']] },
+    { time: '13:15', text: 'JQ233 출발 → 14:35 크라이스트처치 도착 (비행 1시간 20분)', places: [['Christchurch Airport', 'Christchurch Airport']] },
     { time: '~14:50', text: 'Apex 셔틀 부르기 — 짐 찾은 뒤 확인 메일의 "Ready to Collect" 버튼 누르거나 무료전화 0800 400 121 (+64 3 667 4238)로 "Apex 셔틀 기다린다"고 전화. 터미널 안을 지나 체크인 카운터를 넘어 1번 또는 2번 문으로 나가면 오른쪽, Air New Zealand 간판 아래가 셔틀 정류장. 짐은 직접 밴/트레일러에 싣고 기사에게 이름 말하고 예약 확인 보여주기 → Apex 사무실까지 차로 2분', places: [['Christchurch Airport', 'Christchurch Airport']] },
     { time: '15:30', text: '✅ Apex 렌터카 픽업 — 크라이스트처치 공항 근처 Apex 사무실 (18:29까지 영업). 예약자 본인 실물 카드(픽업 때 NZD 886.73 결제), 한국 면허증 + 국제운전면허증 지참. 출발 전 차 사방·앞유리 사진 찍기. 마을에 마트가 없으니 공항 근처에서 장보기', places: [['Apex 크라이스트처치', 'Apex Car Rentals Christchurch Airport']] },
     { drive: '1시간 20분', text: '캐슬힐 (거석 바위군, 산책 40분)', places: [['Castle Hill', 'Castle Hill Conservation Area']] },
@@ -609,14 +611,14 @@ const DAYS = [
     { drive: '1시간', text: '~12:30 애로우타운 (Arrowtown) — 금광 시대 거리가 남은 작은 마을. 버킹엄 스트리트에서 점심, 강가의 옛 중국인 금광촌 (산책 30분) · 🅿️ 마을 무료 주차장. 공항까지 20분이라 마지막 코스로 딱 맞음', places: [['Arrowtown', 'Buckingham Street Arrowtown'], ['Chinese Settlement', 'Arrowtown Chinese Settlement']] },
     { drive: '20분', text: '~15:30 프랭크턴에서 주유 (가득) → 렌터카 반납 장소로', places: [['Frankton 주유소', 'Z Frankton Queenstown']] },
     { time: '16:00', text: '✅ Apex 렌터카 반납 — 32 Lucas Place, Queenstown (공항 터미널 아님, 공항 바로 옆). 반납 전 주유해서 가득 채우기 (안 채우면 리터당 주유 서비스 요금). 반납 후 Apex 무료 셔틀로 공항 터미널 이동 → JQ298 체크인', places: [['Apex 반납 (32 Lucas Pl)', '32 Lucas Place Queenstown'], ['Queenstown Airport', 'Queenstown Airport']] },
-    { time: '17:30', text: 'JQ298 출발 → 19:20 오클랜드 도착', places: [['Auckland Airport', 'Auckland Airport']] },
+    { time: '17:30', text: 'JQ298 출발 → 19:20 오클랜드 도착 (비행 1시간 50분)', places: [['Auckland Airport', 'Auckland Airport']] },
     { drive: '약 30~40분', text: '오클랜드 공항 국내선 → 시내 (택시·우버 또는 공항 버스). 렌터카는 퀸스타운에서 반납했으니 주차 걱정 없음', places: [['Auckland Airport', 'Auckland Airport Domestic Terminal']] },
     { checkin: true, time: '~20:30', text: 'Radisson RED Auckland 도착 · 체크인 (33 Lorne St, 시내 중심, 앨버트 파크 옆) — 저녁에 바이어덕트 항구·스카이타워 산책', places: [['Radisson RED', 'Radisson RED Auckland 33 Lorne Street']] }
   ]},
   { date: '2026-10-30', stay: '–', items: [
     { time: '08:15', text: 'Radisson RED 체크아웃 → 공항 국제선으로 (택시·우버 약 30~40분, 출근 시간이라 여유 있게)', places: [['Auckland Airport', 'Auckland Airport International Terminal']] },
     { time: '09:15', text: '오클랜드 공항 국제선 도착 · 대한항공 체크인 (출발 2시간 30분 전)' },
-    { time: '11:45', text: 'KE412 오클랜드 출발 → 19:40 인천 T2 도착', places: [['Auckland Airport', 'Auckland Airport International Terminal']] }
+    { time: '11:45', text: 'KE412 오클랜드 출발 → 19:40 인천 T2 도착 (비행 11시간 55분)', places: [['Auckland Airport', 'Auckland Airport International Terminal']] }
   ]}
 ];
 
@@ -1322,7 +1324,7 @@ function renderFlights() {
       '<div class="f-top"><span class="f-no">' + esc(f.no) + '</span><span class="f-air">' + esc(f.airline) + '</span></div>' +
       '<div class="f-route">' +
         '<div class="end"><div class="f-code">' + f.from[0] + '</div><div class="f-city">' + esc(f.from[1]) + '</div><div class="f-time">' + esc(f.dep) + '</div></div>' +
-        '<div class="f-arrow">✈︎</div>' +
+        '<div class="f-arrow">✈︎' + (f.dur ? '<div class="f-dur">' + esc(f.dur) + '</div>' : '') + '</div>' +
         '<div class="end r"><div class="f-code">' + f.to[0] + '</div><div class="f-city">' + esc(f.to[1]) + '</div><div class="f-time">' + esc(f.arr) + '</div></div>' +
       '</div>' +
       '<div class="f-info"><span>터미널 <b>' + esc(f.terminal) + '</b></span><span>좌석 <b>' + esc(f.seat) + '</b></span></div>' +
