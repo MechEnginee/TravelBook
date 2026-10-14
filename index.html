@@ -553,17 +553,17 @@ const DAYS = [
     { time: '09:35', text: '오클랜드 도착 → 입국심사, 짐 찾기, 국내선 터미널로 이동 후 짐 다시 부치기', places: [['Auckland Airport', 'Auckland Airport']] },
     { time: '13:15', text: 'JQ233 출발 → 14:35 크라이스트처치 도착 (비행 1시간 20분)', places: [['Christchurch Airport', 'Christchurch Airport']] },
     { time: '~14:50', text: 'Apex 셔틀 부르기 — 짐 찾은 뒤 확인 메일의 "Ready to Collect" 버튼 누르거나 무료전화 0800 400 121 (+64 3 667 4238)로 "Apex 셔틀 기다린다"고 전화. 터미널 안을 지나 체크인 카운터를 넘어 1번 또는 2번 문으로 나가면 오른쪽, Air New Zealand 간판 아래가 셔틀 정류장. 짐은 직접 밴/트레일러에 싣고 기사에게 이름 말하고 예약 확인 보여주기 → Apex 사무실까지 차로 2분', places: [['Christchurch Airport', 'Christchurch Airport']] },
-    { time: '15:30', text: '✅ Apex 렌터카 픽업 — 크라이스트처치 공항 근처 Apex 사무실 (18:29까지 영업). 예약자 본인 실물 카드(픽업 때 NZD 886.73 결제), 한국 면허증 + 국제운전면허증 지참. 출발 전 차 사방·앞유리 사진 찍기. 마을에 마트가 없으니 공항 근처에서 장보기', places: [['Apex 크라이스트처치', 'Apex Car Rentals Christchurch Airport']] },
+    { time: '15:30', text: '✅ Apex 렌터카 픽업 — 크라이스트처치 공항 근처 Apex 사무실 (18:29까지 영업). 예약자 본인 이름의 실물 신용카드(픽업 때 NZD 886.73 결제 — 트래블월렛 같은 충전식 선불카드는 안 받을 수 있음), 한국 면허증 + 국제운전면허증 지참. 출발 전 차 사방·앞유리 사진 찍기. 마을에 마트가 없으니 공항 근처에서 장보기', places: [['Apex 크라이스트처치', 'Apex Car Rentals Christchurch Airport']] },
     { drive: '1시간 20분', text: '캐슬힐 (거석 바위군, 산책 40분)', places: [['Castle Hill', 'Castle Hill Conservation Area']] },
     { drive: '30분', text: '아서스 패스 빌리지', places: [["Arthur's Pass", "Arthur's Pass Village"]] },
-    { checkin: true, time: '~19:00', text: 'The Nook 도착 · 체크인 (65 Brake Hill, 렌터카 수속·장보기·캐슬힐 산책 포함하면 19시 전후. 해 지기 전 도착 — 일몰 약 20:10) · 🅿️ 숙소 무료 주차', places: [['The Nook', "65 Brake Hill, Arthur's Pass"]] }
+    { checkin: true, time: '~19:00', text: 'The Nook 도착 · 체크인 · 🧺 세탁기 없음 (65 Brake Hill, 렌터카 수속·장보기·캐슬힐 산책 포함하면 19시 전후. 해 지기 전 도착 — 일몰 약 20:10) · 🅿️ 숙소 무료 주차', places: [['The Nook', "65 Brake Hill, Arthur's Pass"]] }
   ]},
   { date: '2026-10-23', stay: '프란츠 조셉 (Franz Josef)', stayQuery: 'Franz Josef', cost: '무료', items: [
     { time: '08:00', text: '데빌스 펀치볼 폭포 트랙 (왕복 1시간)', places: [['Devils Punchbowl Falls', 'Devils Punchbowl Falls']] },
     { drive: '약 2시간', text: '09:00 출발 → ~11:00 호키티카 협곡 (에메랄드빛 강, 출렁다리 산책 40분) · 🅿️ 무료 주차', places: [['Hokitika Gorge', 'Hokitika Gorge']] },
     { drive: '35분', text: '~12:20 호키티카 (점심, 바닷가 마을)', places: [['Hokitika', 'Hokitika']] },
     { drive: '2시간', text: '13:30 출발 → 프란츠 조셉', places: [['Franz Josef', 'Franz Josef Glacier Village']] },
-    { checkin: true, time: '~15:30', text: 'Aspen Court Franz Josef 도착 · 체크인 (76 Cron St, 2박 — 짐 한 번만 풀기) · 🅿️ 숙소 무료 주차. 헬리하이크 출발지(Glacier Base)는 같은 길 150m', places: [['Aspen Court', 'Aspen Court Motel 76 Cron Street Franz Josef']] },
+    { checkin: true, time: '~15:30', text: 'Aspen Court Franz Josef 도착 · 체크인 · 🧺 셀프 세탁실 있음 — 2박이라 오늘 저녁 빨래 추천 (76 Cron St, 2박 — 짐 한 번만 풀기) · 🅿️ 숙소 무료 주차. 헬리하이크 출발지(Glacier Base)는 같은 길 150m', places: [['Aspen Court', 'Aspen Court Motel 76 Cron Street Franz Josef']] },
     { time: '16:00', text: '프란츠 조셉 빙하 계곡 트랙 (왕복 1시간 30분) · 🅿️ 빙하 주차장 유료 (NZD 5/시간, 하루 최대 20)', places: [['Franz Josef Glacier Valley Walk', 'Franz Josef Glacier Valley Walk']] }
   ]},
   { date: '2026-10-24', stay: '프란츠 조셉 (Franz Josef) · 연박', stayQuery: 'Franz Josef', cost: '헬리하이크 1인 NZD 899', items: [
@@ -578,13 +578,13 @@ const DAYS = [
     { drive: '2시간 30분', text: '08:00 프란츠 조셉 출발 → 폭스 글레이셔 경유 → 해스트', places: [['Haast', 'Haast']] },
     { text: '해스트 패스: 썬더크릭 폭포, 팬테일 폭포, 블루풀스 (왕복 1시간)', places: [['Thunder Creek Falls', 'Thunder Creek Falls'], ['Fantail Falls', 'Fantail Falls'], ['Blue Pools', 'Blue Pools Walk Haast Pass']] },
     { drive: '1시간 30분', text: '와나카', places: [['Wanaka', 'Wanaka']] },
-    { checkin: true, time: '~15:30', text: 'Edgewater Lake Wanaka 도착 · 체크인 (54 Sargood Dr, 시내에서 2km 호숫가 — 산책, 이른 저녁) · 🅿️ 숙소 무료 주차', places: [['Edgewater', 'Edgewater 54 Sargood Drive Wanaka']] },
+    { checkin: true, time: '~15:30', text: 'Edgewater Lake Wanaka 도착 · 체크인 · 🧺 셀프 세탁실 있음 (54 Sargood Dr, 시내에서 2km 호숫가 — 산책, 이른 저녁) · 🅿️ 숙소 무료 주차', places: [['Edgewater', 'Edgewater 54 Sargood Drive Wanaka']] },
     { time: '일몰', text: '와나카 트리 (일몰 약 20:30, 숙소에서 호숫가 산책로로 걸어서 약 10분 — 차는 숙소에 두기)', places: [['That Wanaka Tree', 'That Wanaka Tree']] }
   ]},
   { date: '2026-10-26', stay: '마운트쿡 빌리지 (Aoraki/Mount Cook)', stayQuery: 'Aoraki Mount Cook Village', cost: '무료', items: [
     { drive: '2시간 30분', text: '09:00 와나카 출발 → 린디스 패스 경유 마운트쿡 (트위젤에서 장보기 — 마을에 마트 없음)', places: [['Lindis Pass', 'Lindis Pass'], ['Mount Cook Village', 'Aoraki Mount Cook Village']] },
     { time: '~12:30', text: '후커밸리 트랙 (왕복 3시간, 빙하호까지) · 🅿️ 화이트호스힐 주차장 유료 (NZD 5/시간, 하루 최대 25)', places: [['Hooker Valley Track', 'Hooker Valley Track']] },
-    { checkin: true, time: '~16:00', text: 'Aoraki Alpine Lodge 도착 · 체크인 (101 Bowen Dr, 방문자 센터 옆. 마운트쿡이 구름에 가리면 다음 날 일출 때 다시 보기) · 🅿️ 숙소 앞 무료 주차', places: [['Aoraki Alpine Lodge', 'Aoraki Mount Cook Alpine Lodge 101 Bowen Drive']] },
+    { checkin: true, time: '~16:00', text: 'Aoraki Alpine Lodge 도착 · 체크인 · 🧺 셀프 세탁실 있음 (101 Bowen Dr, 방문자 센터 옆. 마운트쿡이 구름에 가리면 다음 날 일출 때 다시 보기) · 🅿️ 숙소 앞 무료 주차', places: [['Aoraki Alpine Lodge', 'Aoraki Mount Cook Alpine Lodge 101 Bowen Drive']] },
     { time: '저녁', text: '보름달(10/26)에 비친 설산 감상' }
   ]},
   { date: '2026-10-27', stay: '테카포 (Lake Tekapo)', stayQuery: 'Lake Tekapo', cost: '온천+별관측 2인 NZD 358 (예약 완료)', items: [
@@ -592,7 +592,7 @@ const DAYS = [
     { drive: '45분', text: '09:30 체크아웃 → 푸카키 호수 (연어샵)', places: [['Lake Pukaki', 'Mt Cook Alpine Salmon Shop Lake Pukaki']] },
     { drive: '45분', text: '테카포 (점심)', places: [['Lake Tekapo', 'Lake Tekapo']] },
     { time: '오후', text: '선한목자교회, 마운트 존 전망대', places: [['Church of the Good Shepherd', 'Church of the Good Shepherd Tekapo'], ['Mt John', 'Mt John Observatory']] },
-    { checkin: true, time: '~15:30', text: 'Peppers Bluewater Resort 도착 · 체크인 (호수 서쪽, 저녁 전 휴식, 온천까지 차로 3분) · 🅿️ 객실 근처 무료 주차', places: [['Peppers Bluewater', 'Peppers Bluewater Resort Lake Tekapo']] },
+    { checkin: true, time: '~15:30', text: 'Peppers Bluewater Resort 도착 · 체크인 · 🧺 셀프 세탁실 있음 (호수 서쪽, 저녁 전 휴식, 온천까지 차로 3분) · 🅿️ 객실 근처 무료 주차', places: [['Peppers Bluewater', 'Peppers Bluewater Resort Lake Tekapo']] },
     { time: '22:30', text: '✅ 테카포 스프링스 온천 + 별 관측 예약 완료 (2인, 약 90분, 수건 포함, 흐리면 실내 VR). 10/26이 보름이라 이날 밤은 달이 밝아 은하수는 흐리게 보일 수 있음 — 대신 달빛 비친 호수·설산 — 6 Lakeside Drive, 숙소에서 차로 3분 · 🅿️ 온천 앞 주차장. 끝나면 자정 넘으니 다음 날 06:45 출발 대비해 짐은 미리 싸두기', places: [['Tekapo Springs', 'Tekapo Springs 6 Lakeside Drive Lake Tekapo']] }
   ]},
   { date: '2026-10-28', stay: '퀸스타운 (Queenstown)', stayQuery: 'Queenstown', cost: '번지 2인 NZD 640 (예약 완료) · 밀포드 1인 NZD 659 · 곤돌라 1인 NZD 69 (당일 구매)', items: [
@@ -600,7 +600,7 @@ const DAYS = [
     { time: '10:30', text: '✅ 카와라우 번지 예약 완료 — Kawarau Bungy with Media (2인, 사진·영상 포함, AJ Hackett 공식 사이트). 43m, 세계 최초 상업 번지 — 15분 전 체크인, ~11:30 종료 · 🅿️ 번지 센터 무료 주차', places: [['Kawarau Bridge Bungy', 'Kawarau Bridge Bungy']] },
     { drive: '15~20분', text: '~11:50 True South 사무실 (Frankton) 도착 · 근처에서 간단히 점심 → 비행 체크인 (확인 메일 시간)', places: [['True South 사무실', 'True South Flights 12 Hawthorne Drive Frankton']] },
     { time: '13:00', text: '✅ 밀포드 사운드 플라이-크루즈-플라이 예약 완료 — True South Flights (경비행기 왕복 + 2시간 크루즈, 약 4시간). 출발: True South 사무실, 12 Hawthorne Dr, Frankton (무료 주차). 체크인 시간은 확인 메일 참고', places: [['True South 사무실', 'True South Flights 12 Hawthorne Drive Frankton'], ['Milford Sound', 'Milford Sound']] },
-    { checkin: true, time: '~17:00', text: 'Mi-pad Queenstown 도착 · 체크인 (밀포드 시간에 따라 바뀜) — 호텔 주차장 없음: Henry St 입구에서 짐만 내리고 Ballarat Street 주차장(호텔 바로 옆)에 주차. 18:00~08:00 무료, 그 외 시간당 요금(입구 결제기)', places: [['Mi-pad', 'mi-pad Queenstown 4 Henry Street'], ['🅿️ Ballarat St 주차장', 'Ballarat Street Car Park Queenstown'], ['🅿️ Boundary St 주차장', 'Boundary Street Car Park Queenstown']] },
+    { checkin: true, time: '~17:00', text: 'Mi-pad Queenstown 도착 · 체크인 · 🧺 셀프 세탁실 있음 (밀포드 시간에 따라 바뀜) — 호텔 주차장 없음: Henry St 입구에서 짐만 내리고 Ballarat Street 주차장(호텔 바로 옆)에 주차. 18:00~08:00 무료, 그 외 시간당 요금(입구 결제기)', places: [['Mi-pad', 'mi-pad Queenstown 4 Henry Street'], ['🅿️ Ballarat St 주차장', 'Ballarat Street Car Park Queenstown'], ['🅿️ Boundary St 주차장', 'Boundary Street Car Park Queenstown']] },
     { time: '저녁', text: '스카이라인 곤돌라 (선택 · 예약 안 함) — 밀포드에서 돌아온 시간과 컨디션 보고 당일 결정, 탑승장 매표소나 휴대폰으로 그날 구매. 퀸스타운 야경 + 산 위 저녁 (숙소에서 걸어서 약 5분, 차는 그대로 두기. 곤돌라 21:00까지, 루지는 18:00 마감이라 시간 되면)', places: [['Skyline Queenstown', 'Skyline Queenstown']] }
   ]},
   { date: '2026-10-29', stay: '오클랜드 시내 (Auckland CBD)', stayQuery: 'Auckland CBD', cost: '샷오버 제트 1인 NZD 199 (선택 · 밀포드 취소 시)', items: [
@@ -613,7 +613,7 @@ const DAYS = [
     { time: '16:00', text: '✅ Apex 렌터카 반납 — 32 Lucas Place, Queenstown (공항 터미널 아님, 공항 바로 옆). 반납 전 주유해서 가득 채우기 (안 채우면 리터당 주유 서비스 요금). 반납 후 Apex 무료 셔틀로 공항 터미널 이동 → JQ298 체크인', places: [['Apex 반납 (32 Lucas Pl)', '32 Lucas Place Queenstown'], ['Queenstown Airport', 'Queenstown Airport']] },
     { time: '17:30', text: 'JQ298 출발 → 19:20 오클랜드 도착 (비행 1시간 50분)', places: [['Auckland Airport', 'Auckland Airport']] },
     { drive: '약 30~40분', text: '오클랜드 공항 국내선 → 시내 (택시·우버 또는 공항 버스). 렌터카는 퀸스타운에서 반납했으니 주차 걱정 없음', places: [['Auckland Airport', 'Auckland Airport Domestic Terminal']] },
-    { checkin: true, time: '~20:30', text: 'Radisson RED Auckland 도착 · 체크인 (33 Lorne St, 시내 중심, 앨버트 파크 옆) — 저녁에 바이어덕트 항구·스카이타워 산책', places: [['Radisson RED', 'Radisson RED Auckland 33 Lorne Street']] }
+    { checkin: true, time: '~20:30', text: 'Radisson RED Auckland 도착 · 체크인 · 🧺 세탁실 + 유료 세탁 서비스 (33 Lorne St, 시내 중심, 앨버트 파크 옆) — 저녁에 바이어덕트 항구·스카이타워 산책', places: [['Radisson RED', 'Radisson RED Auckland 33 Lorne Street']] }
   ]},
   { date: '2026-10-30', stay: '–', items: [
     { time: '08:15', text: 'Radisson RED 체크아웃 → 공항 국제선으로 (택시·우버 약 30~40분, 출근 시간이라 여유 있게)', places: [['Auckland Airport', 'Auckland Airport International Terminal']] },
@@ -703,40 +703,40 @@ const BOOKING_SITES = {
   hotels: ['호텔스닷컴', 'https://kr.hotels.com/trips']
 };
 
-/* 숙소 추천 — 동선 기준. booked: 예약 완료한 숙소 { via(예약 사이트), name, q?(지도 검색어), nights(앞에서부터 몇 박), krw(실제 결제 금액) }. price: 2인 1실 1박 예상가 [최저, 최고] NZD (2026년 10월 말 기준 추정, 예약 시 꼭 확인)
+/* 숙소 추천 — 동선 기준. booked: 예약 완료한 숙소 { via(예약 사이트), name, laundry?(세탁 시설), q?(지도 검색어), nights(앞에서부터 몇 박), krw(실제 결제 금액) }. price: 2인 1실 1박 예상가 [최저, 최고] NZD (2026년 10월 말 기준 추정, 예약 시 꼭 확인)
    첫 번째 옵션이 추천(⭐). 화면에서 고른 숙소로 예상 합계를 계산 */
 const HOTELS = {
-  arthurs: { night: '2026-10-22', booked: { via: 'agoda', name: 'The Nook', q: "The Nook Arthur's Pass", nights: 1, krw: 188181 }, area: "아서스 패스", tip: '캐슬힐 보고 저녁 도착 → 다음 날 아침 데빌스 펀치볼 트랙. 마을 안에 묵으면 트랙 입구까지 걸어서 감', options: [
+  arthurs: { night: '2026-10-22', booked: { via: 'agoda', name: 'The Nook', laundry: '🧺 세탁기 없음', q: "The Nook Arthur's Pass", nights: 1, krw: 188181 }, area: "아서스 패스", tip: '캐슬힐 보고 저녁 도착 → 다음 날 아침 데빌스 펀치볼 트랙. 마을 안에 묵으면 트랙 입구까지 걸어서 감', options: [
     { name: "Arthur's Pass Alpine Motel", price: [140, 180], why: '마을 중심, 펀치볼 트랙 입구 도보권. 주방 있는 모텔 (마을에 식당이 거의 없음)' },
     { name: 'Mountain House Cottages', q: "Mountain House Arthur's Pass", price: [120, 220], why: '마을 안 독채 코티지/객실. 가격 저렴, 선택지 많음' },
     { name: "Wilderness Lodge Arthur's Pass", price: [900, 1100], why: '고급 로지, 석식·조식·가이드 산책 포함. 마을 동쪽 차로 약 15분 (캐슬힐 쪽)' }
   ]},
-  franz: { night: '2026-10-23', nights: 2, booked: { via: 'hotels', name: 'Aspen Court Franz Josef', nights: 2, krw: 535142 }, area: '프란츠 조셉', tip: '2박 연박 — 짐은 한 번만 풀기. 헬리하이크 출발 사무소가 마을 중심 큰길에 있고, 날씨로 취소되면 다음 날 아침 같은 숙소에서 재시도. 폭스·매서슨 호수는 차로 30~40분', options: [
+  franz: { night: '2026-10-23', nights: 2, booked: { via: 'hotels', name: 'Aspen Court Franz Josef', laundry: '🧺 셀프 세탁실 있음 (세제 제공 정보 있음) — 2박이라 세탁하기 가장 좋은 곳', nights: 2, krw: 535142 }, area: '프란츠 조셉', tip: '2박 연박 — 짐은 한 번만 풀기. 헬리하이크 출발 사무소가 마을 중심 큰길에 있고, 날씨로 취소되면 다음 날 아침 같은 숙소에서 재시도. 폭스·매서슨 호수는 차로 30~40분', options: [
     { name: 'Rainforest Retreat', q: 'Rainforest Retreat Franz Josef', price: [180, 300], why: '마을 중심, 헬리하이크 사무소까지 도보. 숲속 트리하우스·모텔 객실' },
     { name: 'Glenfern Villas', q: 'Glenfern Villas Franz Josef', price: [280, 330], why: '마을 북쪽 3km 별채형 빌라, 평점 높고 조용함. 아침에 차로 5분' },
     { name: 'Te Waonui Forest Retreat', q: 'Te Waonui Forest Retreat', price: [550, 800], why: '프란츠 조셉 최고급 호텔, 마을 중심. 석식 포함 패키지 있음' }
   ]},
-  wanaka: { night: '2026-10-25', booked: { via: 'hotels', name: 'Edgewater Lake Wanaka', nights: 1, krw: 277817 }, area: '와나카', tip: '와나카 트리 일몰 → 시내 호숫가에 묵으면 트리까지 걸어서 15분', options: [
+  wanaka: { night: '2026-10-25', booked: { via: 'hotels', name: 'Edgewater Lake Wanaka', laundry: '🧺 셀프 세탁실 있음', nights: 1, krw: 277817 }, area: '와나카', tip: '와나카 트리 일몰 → 시내 호숫가에 묵으면 트리까지 걸어서 15분', options: [
     { name: 'Lakeside Wanaka', q: 'Lakeside Serviced Apartments Wanaka', price: [300, 450], why: '시내 호숫가 아파트형, 호수 전망 발코니. 와나카 트리 도보 15분' },
     { name: 'Edgewater Lake Wanaka', q: 'Edgewater Lake Wanaka', price: [300, 500], why: '와나카 유일한 호숫가 리조트, 시내에서 2km. 와나카 트리 차로 5분' },
     { name: 'Wanaka Hotel', q: 'Wanaka Hotel Ardmore Street', price: [170, 250], why: '시내 중심 깔끔한 호텔, 식당 가기 편함. 가성비' }
   ]},
-  cook: { night: '2026-10-26', booked: { via: 'agoda', name: 'Aoraki Alpine Lodge', nights: 1, krw: 406696 }, area: '마운트쿡 빌리지', tip: '숙소가 몇 곳뿐이라 가장 먼저 마감. 후커밸리 트랙 주차장(화이트호스힐)까지 차로 5분, 다음 날 일출 타스만 전망대 차로 15분', options: [
+  cook: { night: '2026-10-26', booked: { via: 'agoda', name: 'Aoraki Alpine Lodge', laundry: '🧺 셀프 세탁실 있음', nights: 1, krw: 406696 }, area: '마운트쿡 빌리지', tip: '숙소가 몇 곳뿐이라 가장 먼저 마감. 후커밸리 트랙 주차장(화이트호스힐)까지 차로 5분, 다음 날 일출 타스만 전망대 차로 15분', options: [
     { name: 'The Hermitage Hotel', q: 'The Hermitage Hotel Mount Cook', price: [350, 600], why: '마운트쿡 정면 뷰 객실(Mt Cook view)이 핵심. 보름달 설산 감상에 최적. 객실 등급별 가격 차이 큼' },
     { name: 'Aoraki Court Motel', q: 'Aoraki Court Motel', price: [250, 380], why: '신축급 모텔, 주방 있음. 산 전망 객실 있음' },
     { name: 'Mt Cook Lodge & Motels', q: 'Mt Cook Lodge and Motels', price: [200, 300], why: '마을 안 가성비 숙소. 식당 있음' }
   ]},
-  tekapo: { night: '2026-10-27', booked: { via: 'agoda', name: 'Peppers Bluewater Resort', q: 'Peppers Bluewater Resort Lake Tekapo', nights: 1, krw: 473522 }, area: '테카포', tip: '밤에 테카포 스프링스 온천+별 관측 → 온천 근처나 호수 서쪽이 이동 편함', options: [
+  tekapo: { night: '2026-10-27', booked: { via: 'agoda', name: 'Peppers Bluewater Resort', laundry: '🧺 셀프 세탁실 있음 (일부 스위트는 객실 세탁기)', q: 'Peppers Bluewater Resort Lake Tekapo', nights: 1, krw: 473522 }, area: '테카포', tip: '밤에 테카포 스프링스 온천+별 관측 → 온천 근처나 호수 서쪽이 이동 편함', options: [
     { name: 'Peppers Bluewater Resort', q: 'Peppers Bluewater Resort Lake Tekapo', price: [220, 350], why: '호숫가 리조트, 테카포 스프링스까지 차로 3분. 호수 전망 객실 추천' },
     { name: 'The Godley Hotel', q: 'The Godley Hotel Lake Tekapo', price: [180, 280], why: '시내 호숫가, 선한목자교회 도보 10분. 식당 가기 편함' },
     { name: 'Lake Tekapo Village Motel', q: 'Lake Tekapo Village Motel', price: [180, 260], why: '시내 중심 모텔, 주방 있음. 가성비' }
   ]},
-  queenstown: { night: '2026-10-28', booked: { via: 'hotels', name: 'Mi-pad Queenstown', q: 'mi-pad Queenstown 4 Henry Street', nights: 1, krw: 213321 }, area: '퀸스타운', tip: '다음 날 글레노키 → 애로우타운 → 16:00 공항 반납 (샷오버 제트는 밀포드 취소 시에만). 시내 호숫가가 무난. 주차 포함 여부 꼭 확인', options: [
+  queenstown: { night: '2026-10-28', booked: { via: 'hotels', name: 'Mi-pad Queenstown', laundry: '🧺 셀프 세탁실 있음', q: 'mi-pad Queenstown 4 Henry Street', nights: 1, krw: 213321 }, area: '퀸스타운', tip: '다음 날 글레노키 → 애로우타운 → 16:00 공항 반납 (샷오버 제트는 밀포드 취소 시에만). 시내 호숫가가 무난. 주차 포함 여부 꼭 확인', options: [
     { name: 'Novotel Queenstown Lakeside', price: [300, 500], why: '시내 한가운데 호숫가, 식당·상점 도보. 유료 주차' },
     { name: 'Crowne Plaza Queenstown', q: 'Crowne Plaza Queenstown', price: [280, 450], why: '시내 호숫가 바로 앞, 식당·상점 도보. 호수 전망 객실 추천 (Rydges Lakeland는 QT 호텔로 바뀌는 공사로 휴업 중이라 대체)' },
     { name: 'Hotel St Moritz', q: 'Hotel St Moritz Queenstown', price: [350, 550], why: '언덕 위 고급 호텔, 호수 전망. 시내 도보 5분' }
   ]},
-  akl: { night: '2026-10-29', booked: { via: 'hotels', name: 'Radisson RED Auckland', q: 'Radisson RED Auckland 33 Lorne Street', nights: 1, krw: 155079 }, area: '오클랜드 시내', tip: 'JQ298 국내선 19:20 도착 → 시내까지 30~40분. 다음 날 KE412 11:45 국제선 → 08:15쯤 출발', options: [
+  akl: { night: '2026-10-29', booked: { via: 'hotels', name: 'Radisson RED Auckland', laundry: '🧺 세탁실 + 유료 세탁 서비스', q: 'Radisson RED Auckland 33 Lorne Street', nights: 1, krw: 155079 }, area: '오클랜드 시내', tip: 'JQ298 국내선 19:20 도착 → 시내까지 30~40분. 다음 날 KE412 11:45 국제선 → 08:15쯤 출발', options: [
     { name: 'Novotel Auckland Airport', price: [300, 450], why: '국제선 터미널 바로 앞(도보 1분). 국내선에서 무료 셔틀·도보 10분. 아침이 제일 편함' },
     { name: 'Holiday Inn Auckland Airport', price: [250, 350], why: '공항 안 신축 호텔, 국제선 터미널 도보 약 10분' },
     { name: 'Jet Park Airport Hotel', q: 'Jet Park Airport Hotel Auckland', price: [180, 250], why: '공항 무료 셔틀 운행, 가성비' }
@@ -750,7 +750,7 @@ const CHECKLIST = [
     { text: '대한항공 왕복 발권 (KE411 / KE412, 마일리지)', done: true },
     { text: '젯스타 국내선 2구간 발권 (JQ233 / JQ298)', done: true },
     { text: 'NZeTA (전자여행허가) + IVL 신청 — 2인, 각 NZD 117 (총 234)', note: '승인 메일 보관. 입국 때 여권으로 확인 (따로 출력 안 해도 됨)', done: true },
-    { text: '렌터카: Apex — Mitsubishi ASX 2WD (소형 SUV), 10/22 15:30 크라이스트처치 공항 → 10/29 16:00 퀸스타운 공항, NZD 886.73', note: '면책금 $0 + Roadside Cover + 추가 운전자 1명 + 스노 체인 포함. 아직 결제 전 — 픽업 때 예약자 본인 실물 카드로 결제', done: true },
+    { text: '렌터카: Apex — Mitsubishi ASX 2WD (소형 SUV), 10/22 15:30 크라이스트처치 공항 → 10/29 16:00 퀸스타운 공항, NZD 886.73', note: '면책금 $0 + Roadside Cover + 추가 운전자 1명 + 스노 체인 포함. 아직 결제 전 — 픽업 때 예약자 본인 이름의 실물 신용카드로 결제 (Apex는 신용카드 또는 은행 발급 Visa/Master 체크카드만 명시 — 트래블월렛 같은 선불카드는 피하기)', done: true },
     { text: '숙소: 아서스 패스 10/22 — The Nook (1박) ₩188,181 · 아고다', done: true, stay: 'arthurs' },
     { text: '숙소: 프란츠 조셉 10/23~24 — Aspen Court Franz Josef (2박) ₩535,142 · 호텔스닷컴', done: true, stay: 'franz' },
     { text: '숙소: 와나카 10/25 — Edgewater Lake Wanaka (1박) ₩277,817 · 호텔스닷컴', done: true, stay: 'wanaka' },
@@ -771,7 +771,8 @@ const CHECKLIST = [
     { text: '젯스타 위탁 수하물 포함 여부 확인 (없으면 추가 구매)', note: '공항에서 사면 훨씬 비쌈. 기내 수하물 무게 제한도 확인' },
     { text: '국제운전면허증 발급 — 운전할 사람 모두', note: '운전면허시험장은 당일 발급. 여권·면허증·사진 지참', link: ['안전운전 통합민원', 'https://www.safedriving.or.kr/'] },
     { text: '여행자 보험 가입 — 2인', note: '번지·헬기·제트보트 같은 레저 활동이 보장되는지 확인' },
-    { text: '해외 결제 카드 준비 (트래블 카드 등)', note: '뉴질랜드는 대부분 카드 결제. 비상용 카드 1장 더' },
+    { text: '해외 결제 카드 준비 — 트래블월렛 + 본인 이름 신용카드', note: '뉴질랜드는 거의 다 카드·컨택리스 결제. 트래블월렛은 NZD 충전 가능하지만 NZD는 무료 환전 통화가 아니라 충전 수수료가 붙음 (앱에서 확인). 렌터카 결제, 호텔 보증금(디파짓), 주유소 셀프 주유기는 선불카드가 거절되거나 금액이 묶일 수 있으니 신용카드로. 비상용 카드 1장 더' },
+    { text: '현금 조금 준비 — NZD 100 정도 (1·2달러 동전 포함)', note: '셀프 세탁기(동전식인 곳 있음), 시골 무인 판매대·작은 가게, 카드 단말기 고장 대비. 한국에서 환전하거나 현지 ATM에서 트래블월렛으로 인출 (월 USD 500까지 수수료 무료, 현지 ATM 수수료는 별도)' },
     { text: '데이터: eSIM 또는 로밍 신청', note: '산간 지역은 원래 안 터지니 오프라인 준비도 같이' }
   ]},
   { title: '출발 전 주', due: '2026-10-19', items: [
@@ -1414,6 +1415,7 @@ function bookedCard(key) {
   const H = HOTELS[key], b = H.booked;
   return '<div class="booked-card">✅ <b>' + esc(b.name) + '</b> 예약 완료<br><span class="muted small">' + labelDate(H.night) + ' 체크인 · ' + b.nights + '박 · ' + (b.krw ? '₩' + fmt(b.krw) : '금액 미입력') +
     (b.krw && b.nights > 1 ? ' (1박 약 ₩' + fmt(b.krw / b.nights) + ')' : '') + (b.via ? ' · ' + BOOKING_SITES[b.via][0] : '') + '</span><br>' +
+    (b.laundry ? '<span class="small">' + esc(b.laundry) + '</span><br>' : '') +
     '<span class="h-links" style="margin:0"><a href="' + mapUrl(b.q || b.name) + '" target="_blank" rel="noopener">📍 지도</a>' +
     (b.via ? '<a href="' + BOOKING_SITES[b.via][1] + '" target="_blank" rel="noopener">🔗 ' + BOOKING_SITES[b.via][0] + ' 예약 확인</a>' : '') + '</span></div>';
 }
