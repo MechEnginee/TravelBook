@@ -547,6 +547,8 @@ const FLIGHT_NOTES = [
    places : [[표시명, 구글맵 검색어(영문)], ...] */
 const DAYS = [
   { date: '2026-10-21', stay: '기내', items: [
+    { time: '15:00', text: '✅ 노벨파킹 입차 (예약 완료) — 인천광역시 영종구 공항서로 539. 직접 주차하고 노벨파킹 셔틀로 인천공항 T2 이동 (약 10~15분). 주차 요금 ₩105,000은 귀국 후 출차할 때 무인정산기에서 결제', places: [['노벨파킹', 'Incheon 공항서로 539 노벨파킹']] },
+    { time: '~15:30', text: '인천 T2 도착 → 대한항공 체크인·수하물 위탁 → 출국심사' },
     { time: '18:00', text: '인천 T2 출발 (KE411, 비행 11시간 35분 · 뉴질랜드는 한국보다 4시간 빠름)', places: [['Incheon T2', 'Incheon International Airport Terminal 2']] }
   ]},
   { date: '2026-10-22', stay: "아서스 패스 (Arthur's Pass)", stayQuery: "Arthur's Pass Village", cost: '무료', items: [
@@ -618,7 +620,9 @@ const DAYS = [
   { date: '2026-10-30', stay: '–', items: [
     { time: '08:15', text: 'Radisson RED 체크아웃 → 공항 국제선으로 (택시·우버 약 30~40분, 출근 시간이라 여유 있게)', places: [['Auckland Airport', 'Auckland Airport International Terminal']] },
     { time: '09:15', text: '오클랜드 공항 국제선 도착 · 대한항공 체크인 (출발 2시간 30분 전)' },
-    { time: '11:45', text: 'KE412 오클랜드 출발 → 19:40 인천 T2 도착 (비행 11시간 55분)', places: [['Auckland Airport', 'Auckland Airport International Terminal']] }
+    { time: '11:45', text: 'KE412 오클랜드 출발 → 19:40 인천 T2 도착 (비행 11시간 55분)', places: [['Auckland Airport', 'Auckland Airport International Terminal']] },
+    { time: '~20:10', text: '수하물 모두 찾은 뒤 노벨파킹 고객센터 1588-8440 (내선 2번)에 전화 → T2 3층 7번 출구에서 셔틀 탑승 (T1은 3층 5번 출구)', places: [['Incheon T2', 'Incheon International Airport Terminal 2']] },
+    { time: '~20:20', text: '노벨파킹 출차 — 무인정산기에서 주차 요금 ₩105,000 결제 → 집으로 (예약 출차 시각 20:20, 입국이 늦어지면 고객센터에 미리 연락)', places: [['노벨파킹', 'Incheon 공항서로 539 노벨파킹']] }
   ]}
 ];
 
@@ -689,6 +693,7 @@ const ACTIVITIES = [
 /* 기타 경비 (2인 총액, 원) — value는 기본값 */
 const EXTRAS = [
   { id: 'jq',    name: '젯스타 국내선 (발권 완료)', value: 816400 },
+  { id: 'parking', name: '인천공항 주차 노벨파킹 (9박, 출차 때 결제)', value: 105000 },
   { id: 'nzeta', name: 'NZeTA + IVL 2인 (NZD 234 × 환율 765 추정, 신청 완료)', value: 179010 },
   { id: 'hotelBooked', name: '숙소 예약 완료 8박 (The Nook·Aspen Court 2박·Edgewater·Aoraki Alpine Lodge·Peppers Bluewater·Mi-pad·Radisson RED)', value: 2249758 },
   { id: 'hotel', name: '숙소 (남은 곳)', value: 0 },
@@ -749,6 +754,7 @@ const CHECKLIST = [
   { title: '완료', due: null, items: [
     { text: '대한항공 왕복 발권 (KE411 / KE412, 마일리지)', done: true },
     { text: '젯스타 국내선 2구간 발권 (JQ233 / JQ298)', done: true },
+    { text: '인천공항 주차: 노벨파킹 10/21 15:00 → 10/30 20:20 — ₩105,000 (출차 때 무인정산기 후불)', note: '인천 영종구 공항서로 539, 직접 주차 + 셔틀. 귀국 후 짐 다 찾고 1588-8440 (내선 2번) 연락 → T2 3층 7번 출구 셔틀. 예약 조회는 차량번호 + 휴대폰 뒷자리', done: true },
     { text: 'NZeTA (전자여행허가) + IVL 신청 — 2인, 각 NZD 117 (총 234)', note: '승인 메일 보관. 입국 때 여권으로 확인 (따로 출력 안 해도 됨)', done: true },
     { text: '렌터카: Apex — Mitsubishi ASX 2WD (소형 SUV), 10/22 15:30 크라이스트처치 공항 → 10/29 16:00 퀸스타운 공항, NZD 886.73', note: '면책금 $0 + Roadside Cover + 추가 운전자 1명 + 스노 체인 포함. 아직 결제 전 — 픽업 때 예약자 본인 이름의 실물 신용카드로 결제 (Apex는 신용카드 또는 은행 발급 Visa/Master 체크카드만 명시 — 트래블월렛 같은 선불카드는 피하기)', done: true },
     { text: '숙소: 아서스 패스 10/22 — The Nook (1박) ₩188,181 · 아고다', done: true, stay: 'arthurs' },
@@ -790,7 +796,7 @@ const CHECKLIST = [
     { text: '대한항공 온라인 체크인' },
     { text: '여권 (유효기간 6개월 이상), 한국 면허증 + 국제운전면허증 챙기기' },
     { text: '가져가는 음식은 입국 때 모두 신고', note: '신고 안 하면 벌금. 육류·과일·꿀 등은 대부분 반입 불가' },
-    { text: '인천 T2 15:00 전후 도착 (18:00 출발)' }
+    { text: '15:00 노벨파킹 입차 → 셔틀로 인천 T2 (18:00 출발)', note: '공항서로 539에 직접 주차. 주차 요금은 귀국 후 출차 때 결제' }
   ]},
   { title: '여행 중 매일', due: null, items: [
     { text: '다음 날 날씨 확인 (헬기·경비행기 일정 있는 날은 특히)' },
