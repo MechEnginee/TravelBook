@@ -359,6 +359,9 @@
   .check.done .c-text { text-decoration: line-through; color: var(--muted); }
   .check.done .c-note, .check.done .c-link { display: none; }
   .check .mark { display: none; }
+  .pack-intro { padding: 0 16px 12px; color: var(--muted); line-height: 1.55; }
+  .qty { display: inline-block; margin-left: 6px; padding: 0 7px; border-radius: 9px; background: var(--lake-soft); color: var(--lake); font-size: 13px; font-weight: 800; white-space: nowrap; }
+  .check.done .qty { opacity: .5; }
 
   /* ---------- Plan B / Notes ---------- */
   .planb { padding: 14px 16px; border-top: 1px solid var(--line); }
@@ -372,7 +375,7 @@
     background: var(--surface); border-top: 1px solid var(--line);
     padding-bottom: env(safe-area-inset-bottom);
   }
-  .tabbar .inner { max-width: 720px; margin: 0 auto; display: grid; grid-template-columns: repeat(6, 1fr); }
+  .tabbar .inner { max-width: 720px; margin: 0 auto; display: grid; grid-template-columns: repeat(7, 1fr); }
   .tabbar a {
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
     height: var(--tabbar-h); text-decoration: none; color: var(--muted); font-size: 12px; font-weight: 600;
@@ -485,6 +488,15 @@
     </div>
   </section>
 
+  <section id="packing">
+    <h2>🧳 캐리어 짐 <span class="count" id="pack-count"></span></h2>
+    <div class="card" style="padding-top:12px;overflow:hidden">
+      <div class="progress" style="margin-bottom:12px"><div id="pack-bar"></div></div>
+      <div class="pack-intro small">옷 개수는 <b>1인 기준</b> (2명이면 각자 챙기기). 9박 10일, 중간에 <b>2번 빨래</b> 기준 — 10/23 프란츠 조셉(2박), 10/28 퀸스타운. 아침·밤 0~3°, 낮 10~18°, 비 오는 날 있음 → 두꺼운 옷 몇 벌보다 <b>얇은 옷 여러 겹</b>. 🛫 표시는 비행기에 입고 타거나 기내 가방에.</div>
+      <div id="pack-list"></div>
+    </div>
+  </section>
+
   <section id="planb">
     <h2>☔ Plan B</h2>
     <div class="card" id="planb-list"></div>
@@ -505,6 +517,7 @@
     <a href="#flights" data-sec="flights"><span class="ico">✈️</span>항공</a>
     <a href="#costs" data-sec="costs"><span class="ico">💰</span>비용</a>
     <a href="#checklist" data-sec="checklist"><span class="ico">✅</span>체크</a>
+    <a href="#packing" data-sec="packing"><span class="ico">🧳</span>짐</a>
     <a href="#planb" data-sec="planb"><span class="ico">☔</span>Plan B</a>
   </div>
 </nav>
@@ -816,6 +829,79 @@ const CHECKLIST = [
     { text: '10/28 밀포드가 날씨로 취소되면 → 샷오버 제트 예약 (선택) — 1인 NZD 199', note: '그날 오후 빈 시간이나 다음 날 오전으로. 보통 당일 예약도 가능. 더 싼 대안: KJet Bookme 1인 149. 밀포드를 탔으면 예약 안 함', link: ['Shotover Jet 예약', 'https://www.shotoverjet.com/prices/'] },
     { text: '10/28 저녁 스카이라인 곤돌라 — 당일 컨디션 보고 결정 (선택)', note: '미리 예약 안 함. 탑승권은 매표소나 온라인에서 당일 구매. 산 위 뷔페(Stratosfare)까지 먹고 싶으면 그날 낮에 자리 있는지 확인', link: ['Skyline Queenstown', 'https://queenstown.skyline.co.nz/'] },
     { text: '외진 구간 들어가기 전 주유 (해스트 패스, 린디스 패스)', note: '남섬 산간은 주유소 간격이 김' }
+  ]}
+];
+
+/* 캐리어 짐 — qty: 1인 개수(단위 포함). qty 없는 건 둘이 같이 챙기는 것. 체크 상태는 이 기기에 저장 */
+const PACKING = [
+  { title: '👕 상의', items: [
+    { text: '히트텍(발열 내의) 상의', qty: '3벌', note: '마운트쿡·테카포·헬리하이크·밤 별 관측 날 안에 입기' },
+    { text: '긴팔 티셔츠', qty: '4벌', note: '빨리 마르는 기능성 소재면 빨래가 편함' },
+    { text: '반팔 티셔츠', qty: '2벌', note: '레이어 맨 안쪽, 오클랜드(18°)·차 안' },
+    { text: '플리스 또는 두꺼운 가디건', qty: '2벌', note: '매일 입는 중간층 — 1벌은 🛫 입고 타기' },
+    { text: '신혼여행 사진용 옷', qty: '1~2벌', note: '와나카 트리·테카포 호수·밀포드 사진' }
+  ]},
+  { title: '🧥 겉옷', items: [
+    { text: '방수 재킷 (후드 있는 것)', qty: '1벌', note: '필수 — 10/26 마운트쿡 비 많음, 펀치볼·밀포드 물보라. 우산보다 우비' },
+    { text: '경량 패딩', qty: '1벌', note: '아침·저녁 쌀쌀한 날 — 🛫 입고 타기 (오클랜드 도착 15~18°)' },
+    { text: '두꺼운 패딩', qty: '1벌', note: '10/27 새벽 타스만 전망대·밤 별 관측, 마운트쿡 (0° 안팎). 부피 크면 압축팩' }
+  ]},
+  { title: '👖 하의', items: [
+    { text: '트레킹 바지 (빨리 마르는 것)', qty: '2벌', note: '후커밸리·빙하 계곡·블루풀스. 헬리하이크에 청바지·면 바지는 피하기' },
+    { text: '편한 바지 (청바지·면바지)', qty: '1벌', note: '이동일·시내·저녁' },
+    { text: '히트텍(발열 내의) 하의', qty: '2벌', note: '추운 날 바지 안에' },
+    { text: '방수 오버바지 (선택)', qty: '0~1벌', note: '비 오는 날 후커밸리 걸을 거면. 헬리하이크는 업체가 빌려줌' }
+  ]},
+  { title: '🧦 속옷·잠옷·수영복', items: [
+    { text: '속옷', qty: '6벌', note: '빨래 2번 기준' },
+    { text: '양말', qty: '6켤레', note: '그중 3켤레는 두꺼운 등산 양말 (트레킹·헬리하이크)' },
+    { text: '잠옷', qty: '1벌' },
+    { text: '수영복', qty: '1벌', note: '10/27 테카포 온천 필수 (수건은 제공)' }
+  ]},
+  { title: '👟 신발', items: [
+    { text: '방수 트레킹화 또는 접지 좋은 운동화', qty: '1켤레', note: '🛫 신고 타기. 번지는 끈 있는 신발' },
+    { text: '편한 운동화', qty: '1켤레', note: '시내·애로우타운·이동일 (트레킹화가 젖었을 때 대비)' },
+    { text: '슬리퍼', qty: '1켤레', note: '숙소·온천·기내' },
+    { text: '⚠️ 신발 흙 털고 씻어서 가기', note: '뉴질랜드 입국 때 등산화·캠핑 장비에 흙이 묻어 있으면 검사·세척 대상' }
+  ]},
+  { title: '🧢 방한·햇빛', items: [
+    { text: '비니', qty: '1개' },
+    { text: '장갑 (터치 되는 것)', qty: '1켤레', note: '새벽 일출·별 관측·후커밸리 바람' },
+    { text: '넥워머 또는 버프', qty: '1개' },
+    { text: '선글라스', qty: '1개', note: '빙하·호수 햇빛 반사가 강함' },
+    { text: '햇빛 모자', qty: '1개' }
+  ]},
+  { title: '🧴 세면·건강 (둘이 같이)', items: [
+    { text: '선크림 SPF50', note: '구름 있어도 자외선이 아주 강함' },
+    { text: '립밤·보습크림', note: '바람·건조' },
+    { text: '벌레 퇴치제', note: '서해안·해스트 샌드플라이 (무는 날벌레). 현지 마트에서도 팔아요 (Bushman 등)' },
+    { text: '멀미약', note: '10/28 밀포드 경비행기·크루즈 — 미리 먹기' },
+    { text: '상비약 — 두통·소화·감기·밴드·근육통 파스' },
+    { text: '세면도구·렌즈/안경 (+ 안경 고정끈: 번지)' },
+    { text: '빨래 세제 시트 몇 장 + 지퍼백·비닐봉지', note: '셀프 세탁실에 세제가 없는 곳 대비, 젖은 옷 분리' }
+  ]},
+  { title: '🔌 전자기기', items: [
+    { text: '뉴질랜드 멀티 어댑터 (I타입, 230V)', qty: '1개', note: '한국 플러그 안 맞음' },
+    { text: '멀티탭 (짧은 것) — 둘이 1개', note: '숙소 콘센트가 적을 때' },
+    { text: '보조배터리', note: '⚠️ 위탁 수하물 금지 — 기내 가방에만' },
+    { text: '충전 케이블·충전기', note: '차량용 USB 충전기 + 휴대폰 거치대 (구글지도 길안내)' },
+    { text: '이어폰·카메라' }
+  ]},
+  { title: '📄 서류·돈', items: [
+    { text: '여권', note: '유효기간 6개월 이상' },
+    { text: '한국 운전면허증 + 국제운전면허증', note: '운전할 사람 모두' },
+    { text: '예약자 본인 이름의 신용카드', note: 'Apex 렌터카 픽업 결제, 호텔 보증금' },
+    { text: '트래블월렛 + 현금 NZD 100 (동전 포함)' },
+    { text: '예약 확인서 캡처 (사진첩 저장)', note: '렌터카·숙소·헬리하이크·밀포드·번지·온천·노벨파킹' },
+    { text: '여행자 보험 증서·NZeTA 승인 메일' }
+  ]},
+  { title: '🎒 기타', items: [
+    { text: '당일용 작은 배낭', qty: '1개', note: '트레킹·헬리하이크·밀포드' },
+    { text: '물병', qty: '1개' },
+    { text: '장바구니', note: '뉴질랜드 마트는 비닐봉투를 안 줌' },
+    { text: '빨래집게·접이식 건조 줄' },
+    { text: '목베개·안대 (기내 11시간)' },
+    { text: '⚠️ 음식은 가져가면 입국 때 모두 신고', note: '육류·과일·꿀 등은 대부분 반입 불가, 신고 안 하면 벌금' }
   ]}
 ];
 
@@ -1562,6 +1648,37 @@ function updateChecklist() {
   $('check-bar').style.width = (boxes.length ? done / boxes.length * 100 : 0) + '%';
 }
 
+/* ---------- Packing ---------- */
+function renderPacking() {
+  state.pack = state.pack || {};
+  $('pack-list').innerHTML = PACKING.map((g, gi) =>
+    '<div class="check-group"><h3>' + esc(g.title) + '<span class="g-count" id="pc-' + gi + '"></span></h3>' +
+    g.items.map((it) =>
+      '<label class="check"><input type="checkbox" data-key="' + esc(it.text) + '" data-g="' + gi + '">' +
+      '<span class="mark"></span><span class="c-body"><span class="c-text">' + esc(it.text) +
+      (it.qty ? '<span class="qty">' + esc(it.qty) + '</span>' : '') + '</span>' +
+      (it.note ? '<span class="c-note">' + esc(it.note) + '</span>' : '') + '</span></label>').join('') + '</div>').join('');
+  document.querySelectorAll('#pack-list input[type=checkbox]').forEach((cb) => {
+    cb.checked = !!state.pack[cb.dataset.key];
+    cb.addEventListener('change', () => { state.pack[cb.dataset.key] = cb.checked; saveState(); updatePacking(); });
+  });
+  updatePacking();
+}
+function updatePacking() {
+  const boxes = document.querySelectorAll('#pack-list input[type=checkbox]'), per = {};
+  let done = 0;
+  boxes.forEach((cb) => {
+    const g = cb.dataset.g, row = cb.closest('.check');
+    per[g] = per[g] || [0, 0]; per[g][1]++;
+    row.classList.toggle('done', cb.checked);
+    row.querySelector('.mark').textContent = cb.checked ? '[x]' : '[ ]';
+    if (cb.checked) { done++; per[g][0]++; }
+  });
+  Object.keys(per).forEach((g) => { $('pc-' + g).textContent = per[g][0] + '/' + per[g][1]; });
+  $('pack-count').textContent = done + ' / ' + boxes.length;
+  $('pack-bar').style.width = (boxes.length ? done / boxes.length * 100 : 0) + '%';
+}
+
 /* ---------- Plan B / Notes ---------- */
 function renderMisc() {
   $('planb-list').innerHTML = PLAN_B.map((p) => '<div class="planb"><h3>' + esc(p.title) + '</h3><p>' + esc(p.text) + '</p></div>').join('');
@@ -1591,6 +1708,7 @@ renderDays(st.phase === 'during' ? st.day : 0);
 renderFlights();
 renderCosts();
 renderChecklist();
+renderPacking();
 renderMap();
 renderMisc();
 setupTabs();
