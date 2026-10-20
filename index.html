@@ -196,7 +196,9 @@
   .wx-title { font-weight: 700; font-size: 14px; color: var(--glacier); }
   .wx-fc { margin: 2px 0; }
   .wx-clim { font-size: 14px; color: var(--muted); }
-  .wx-tip { font-size: 14px; margin-top: 2px; }
+  .wx-wear { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); }
+  .wx-wear ul { margin: 4px 0 0; padding-left: 18px; font-size: 14px; }
+  .wx-wear li + li { margin-top: 2px; }
   .wx-warn { margin: 0 0 8px; padding: 8px 10px; border-radius: 10px; background: var(--warn-soft); color: var(--warn); font-weight: 700; font-size: 14px; }
   .wx-box .muted.small { margin-top: 8px; }
   .day-cost {
@@ -547,6 +549,7 @@ const FLIGHT_NOTES = [
    places : [[표시명, 구글맵 검색어(영문)], ...] */
 const DAYS = [
   { date: '2026-10-21', stay: '기내', items: [
+    { text: '👕 옷차림: 기내는 편한 옷 + 얇은 겉옷 (기내가 쌀쌀). 도착하는 오클랜드는 봄 날씨(15~18°)라 경량 패딩이나 바람막이를 기내 가방에' },
     { time: '15:00', text: '✅ 노벨파킹 입차 (예약 완료) — 인천광역시 영종구 공항서로 539. 직접 주차하고 노벨파킹 셔틀로 인천공항 T2 이동 (약 10~15분). 주차 요금 ₩105,000은 귀국 후 출차할 때 무인정산기에서 결제', places: [['노벨파킹', 'Incheon 공항서로 539 노벨파킹']] },
     { time: '~15:30', text: '인천 T2 도착 → 대한항공 체크인·수하물 위탁 → 출국심사' },
     { time: '18:00', text: '인천 T2 출발 (KE411, 비행 11시간 35분 · 뉴질랜드는 한국보다 4시간 빠름)', places: [['Incheon T2', 'Incheon International Airport Terminal 2']] }
@@ -667,17 +670,26 @@ const WEATHER_PLACES = {
   queenstown: { label: '퀸스타운',     lat: -45.0312, lon: 168.6626, clim: { hi: 15.0, lo: 6.3,  coldest: -1.6, rain: 54 } },
   auckland:   { label: '오클랜드',     lat: -37.0082, lon: 174.7850, clim: { hi: 18.0, lo: 12.8, coldest: 7.8,  rain: 45 } }
 };
-/* 날짜별 날씨 장소 — [주 장소, 함께 볼 장소?]. watch: 날씨에 민감한 일정 (비·바람 강하면 경고) */
+/* 날짜별 날씨 장소 — [주 장소, 함께 볼 장소?]. watch: 날씨에 민감한 일정 (비·바람 강하면 경고). wear: 그날 가는 곳에 맞춘 옷차림 (기온·비·바람 옷차림은 예보로 자동 계산) */
 const DAY_WEATHER = {
-  '2026-10-22': { at: ['arthurs'] },
-  '2026-10-23': { at: ['franz'] },
-  '2026-10-24': { at: ['franz'], watch: '헬리하이크' },
-  '2026-10-25': { at: ['wanaka', 'haast'] },
-  '2026-10-26': { at: ['cook'] },
-  '2026-10-27': { at: ['tekapo', 'cook'], watch: '별 관측' },
-  '2026-10-28': { at: ['queenstown'], watch: '밀포드 경비행기' },
-  '2026-10-29': { at: ['queenstown', 'auckland'] },
-  '2026-10-30': { at: ['auckland'] }
+  '2026-10-22': { at: ['arthurs'],
+    wear: ['캐슬힐 바위 사이는 바람이 강함 — 바람막이, 운동화', '긴 비행 후 바로 운전 — 편한 옷, 겉옷은 차 안에 꺼내두기'] },
+  '2026-10-23': { at: ['franz'],
+    wear: ['데빌스 펀치볼 폭포 앞은 물보라 — 방수 재킷', '호키티카 협곡·서해안은 샌드플라이(무는 날벌레) — 긴바지·얇은 긴팔 + 벌레 퇴치제', '빙하 계곡 트랙은 자갈길 — 운동화'] },
+  '2026-10-24': { at: ['franz'], watch: '헬리하이크',
+    wear: ['헬리하이크: 방수 재킷·바지·부츠·아이젠은 보통 업체가 빌려줌 (확인 메일 준비물 확인) — 안에 히트텍 + 플리스, 청바지·면 소재는 피하기', '빙하 위는 햇빛 반사가 강함 — 선글라스·선크림·장갑·비니', '매서슨 호수 저녁 — 샌드플라이 퇴치제, 해 지면 쌀쌀하니 경량 패딩'] },
+  '2026-10-25': { at: ['wanaka', 'haast'],
+    wear: ['블루풀스·팬테일 폭포는 샌드플라이가 많음 — 긴바지 + 퇴치제', '블루풀스 흔들다리·숲길 — 운동화', '와나카 트리 일몰은 호숫가 바람 — 겉옷 챙기기'] },
+  '2026-10-26': { at: ['cook'],
+    wear: ['후커밸리 트랙(3시간)은 바람이 매우 강함 — 방풍·방수 재킷, 비니·장갑, 운동화', '빙하호 근처는 체감온도가 더 낮음 — 경량 패딩을 가방에', '구름 있어도 자외선 강함 — 선크림·선글라스'] },
+  '2026-10-27': { at: ['tekapo', 'cook'], watch: '별 관측',
+    wear: ['06:30 타스만 빙하 전망대 일출 — 영하권 가능, 두꺼운 패딩·장갑·비니', '온천: 수영복 필수 (수건은 제공), 슬리퍼 있으면 편함', '22:30 별 관측은 밤 공기 0°C 안팎 — 온천 후 머리 말리고 패딩·비니로 완전 무장'] },
+  '2026-10-28': { at: ['queenstown'], watch: '밀포드 경비행기',
+    wear: ['번지: 끈 있는 운동화, 주머니 비우기, 치마·원피스는 피하기, 안경은 고정끈', '밀포드 경비행기·크루즈 갑판은 바람과 폭포 물보라 — 방수 재킷, 멀미약은 미리', '저녁 곤돌라 전망대는 쌀쌀 — 패딩'] },
+  '2026-10-29': { at: ['queenstown', 'auckland'],
+    wear: ['밥스 코브·글레노키 호숫가는 바람과 샌드플라이 — 겉옷 + 퇴치제', '애로우타운은 걷기 편한 신발', '오클랜드는 남섬보다 따뜻함 (최고 18° 안팎) — 저녁엔 얇은 겉옷이면 충분'] },
+  '2026-10-30': { at: ['auckland'],
+    wear: ['인천 도착 저녁은 10월 말 10°C 안팎 — 겉옷은 기내 가방에'] }
 };
 
 /* 액티비티 비용 — people: 기본 인원 (화면에서 1/2명 토글 가능). nzd는 2026-10-11에 확인한 1인 정가 (할인은 체크리스트에 표시) */
@@ -787,7 +799,7 @@ const CHECKLIST = [
     { text: '구글 지도 오프라인 지도 다운로드 (남섬 전체)', note: '서해안·해스트 패스·마운트쿡은 통신이 거의 안 됨' },
     { text: '이 페이지 홈 화면에 추가 + 한 번 열어두기' },
     { text: '소액 뉴질랜드 달러 현금 (선택)', note: '대부분 카드 가능. 소액만' },
-    { text: '짐: 방수 재킷, 경량 패딩, 레이어링 옷, 등산화, 장갑·모자', note: '아침 영하 근처, 낮 15도 안팎' },
+    { text: '짐: 방수 재킷(후드), 경량 패딩 + 두꺼운 패딩(테카포·마운트쿡 새벽·밤), 플리스, 히트텍, 운동화, 장갑·비니', note: '아침 영하 근처, 낮 15도 안팎. 수영복(테카포 온천), 선글라스·선크림(빙하), 벌레 퇴치제(서해안 샌드플라이), 멀미약(밀포드)도 챙기기. 날짜별 옷차림은 일정의 날씨 칸에' },
     { text: '짐: 선크림·선글라스 (자외선 매우 강함), 멀티 어댑터 (I 타입), 보조배터리' },
     { text: '등산화 흙 털어서 깨끗하게', note: '뉴질랜드 검역이 엄격함. 흙 묻은 신발은 검역 대상' }
   ]},
@@ -1245,6 +1257,23 @@ const r0 = (n) => Math.round(n);
 const hhmm = (iso) => (iso || '').slice(11, 16);
 function wxTime(ms) { const d = new Date(ms); return (d.getMonth() + 1) + '/' + d.getDate() + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); }
 
+// 옷차림 — 그날 들르는 곳 중 가장 추운 최저·가장 더운 최고 기온과 비·바람(예보, 없으면 평년)으로 계산 + 장소별 팁(wear)
+function wearHtml(conf, date, wx) {
+  const fs = conf.at.map((k) => ({ c: WEATHER_PLACES[k].clim, f: wx && wx.by && wx.by[k] && wx.by[k][date] }));
+  const fc = fs.every((x) => x.f);
+  const lo = Math.min(...fs.map((x) => x.f ? x.f.lo : x.c.lo)), hi = Math.max(...fs.map((x) => x.f ? x.f.hi : x.c.hi));
+  const frost = fs.some((x) => x.f ? x.f.lo <= 1 : x.c.coldest <= 0);
+  const rain = fs.some((x) => x.f ? isRainy(x.f) : x.c.rain >= 60), heavy = fs.some((x) => x.f && x.f.mm >= 10);
+  const wind = Math.max(0, ...fs.map((x) => (x.f && x.f.wind) || 0));
+  const tips = [];
+  tips.push(hi >= 18 ? '상의: 반팔·얇은 긴팔 + 가벼운 겉옷' : hi >= 13 ? '상의: 긴팔 + 플리스(또는 가디건)' : '상의: 히트텍 + 긴팔 + 플리스');
+  tips.push(lo <= 3 || frost ? '겉옷: 두꺼운 패딩 + 장갑·비니 (아침·밤 영하 가능)' : lo <= 8 ? '겉옷: 경량 패딩 (아침·저녁 쌀쌀)' : '겉옷: 바람막이 정도');
+  if (rain) tips.push(heavy ? '비: 많이 옴 — 후드 있는 방수 재킷 + 방수 신발 (우산보다 우비)' : fc ? '비: 조금 — 방수 재킷' : '비: 자주 오는 지역 — 방수 재킷 챙기기');
+  if (wind >= 30) tips.push('바람: 강함 (' + r0(wind) + 'km/h) — 방풍 재킷, 체감온도는 더 낮음');
+  return '<div class="wx-wear"><div class="wx-title">👕 옷차림 <span class="muted small">(' + (fc ? '예보' : '평년') + ' 기준 · 최저 ' + r0(lo) + '° 최고 ' + r0(hi) + '°)</span></div><ul>' +
+    tips.concat(conf.wear || []).map((t) => '<li>' + esc(t) + '</li>').join('') + '</ul></div>';
+}
+
 function renderWeather() {
   const wx = loadWx();
   DAYS.forEach((d, i) => {
@@ -1268,17 +1297,14 @@ function renderWeather() {
         head.classList.add('clim');
         head.classList.remove('rain');
       }
-      const tips = [];
-      if (c.coldest <= 0 || (f && f.lo <= 1)) tips.push('아침 영하 가능 — 패딩·장갑·모자');
-      if (f ? isRainy(f) : c.rain >= 60) tips.push(f ? '비 예보 — 방수 재킷·신발' : '비 올 확률 높음 — 방수 재킷·신발');
       return '<div class="wx-place"><div class="wx-title">' + (j ? '함께 보기 · ' : '') + esc(P.label) + '</div>' + fc +
         '<div class="wx-clim">평년(10월 말): 최고 ' + c.hi + '° · 최저 ' + c.lo + '° · 비 온 날 ' + c.rain + '% · 가장 추웠던 아침 ' + c.coldest + '°</div>' +
-        (tips.length ? '<div class="wx-tip">👕 ' + tips.join(' / ') + '</div>' : '') + '</div>';
+        '</div>';
     });
     const f0 = wx && wx.by && wx.by[conf.at[0]] && wx.by[conf.at[0]][d.date];
     const warn = conf.watch && f0 && ((f0.mm != null ? f0.mm >= 5 : f0.pop >= 60) || f0.wind >= 40) // 이슬비(5mm 미만)는 보통 운항하므로 경고 안 함
       ? '<div class="wx-warn">⚠️ ' + esc(conf.watch) + ' 일정이 날씨로 취소될 수 있어요 (' + (f0.mm != null ? '비 ' + r0(f0.mm) + 'mm' : '강수 ' + f0.pop + '%') + ', 바람 ' + r0(f0.wind) + 'km/h). Plan B를 확인하세요.</div>' : '';
-    box.innerHTML = '<div class="wx-h">🌦️ 날씨</div>' + warn + lines.join('') +
+    box.innerHTML = '<div class="wx-h">🌦️ 날씨</div>' + warn + lines.join('') + wearHtml(conf, d.date, wx) +
       '<div class="muted small">' + (wx && wx.at ? '예보 ' + wxTime(wx.at) + ' 업데이트 (16일 이내 날짜만)' : '예보는 16일 전부터 나와요') + ' · 날씨 데이터: Open-Meteo</div>';
   });
   $('wx-status').textContent = wx && wx.at
