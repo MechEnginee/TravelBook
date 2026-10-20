@@ -492,7 +492,7 @@
     <h2>🧳 캐리어 짐 <span class="count" id="pack-count"></span></h2>
     <div class="card" style="padding-top:12px;overflow:hidden">
       <div class="progress" style="margin-bottom:12px"><div id="pack-bar"></div></div>
-      <div class="pack-intro small">옷 개수는 <b>1인 기준</b> (2명이면 각자 챙기기). 9박 10일, 중간에 <b>2번 빨래</b> 기준 — 10/23 프란츠 조셉(2박), 10/28 퀸스타운. 아침·밤 0~3°, 낮 10~18°, 비 오는 날 있음 → 두꺼운 옷 몇 벌보다 <b>얇은 옷 여러 겹</b>. 🛫 표시는 비행기에 입고 타거나 기내 가방에.</div>
+      <div class="pack-intro small">옷 개수는 <b>1인 기준</b> (2명이면 각자 챙기기). 9박 10일, <b>빨래 안 하는</b> 기준 — 속옷·양말은 매일 새것, 겉옷·바지는 여러 번 입기. 혹시 빨래하게 되면 10/23 프란츠 조셉(2박, 셀프 세탁실)이 가장 좋아요. 아침·밤 0~3°, 낮 10~18°, 비 오는 날 있음 → 두꺼운 옷 몇 벌보다 <b>얇은 옷 여러 겹</b>. 🛫 표시는 비행기에 입고 타거나 기내 가방에.</div>
       <div id="pack-list"></div>
     </div>
   </section>
@@ -581,7 +581,7 @@ const DAYS = [
     { drive: '약 2시간', text: '09:00 출발 → ~11:00 호키티카 협곡 (에메랄드빛 강, 출렁다리 산책 40분) · 🅿️ 무료 주차', places: [['Hokitika Gorge', 'Hokitika Gorge']] },
     { drive: '35분', text: '~12:20 호키티카 (점심, 바닷가 마을)', places: [['Hokitika', 'Hokitika']] },
     { drive: '2시간', text: '13:30 출발 → 프란츠 조셉', places: [['Franz Josef', 'Franz Josef Glacier Village']] },
-    { checkin: true, time: '~15:30', text: 'Aspen Court Franz Josef 도착 · 체크인 · 🧺 셀프 세탁실 있음 — 2박이라 오늘 저녁 빨래 추천 (76 Cron St, 2박 — 짐 한 번만 풀기) · 🅿️ 숙소 무료 주차. 헬리하이크 출발지(Glacier Base)는 같은 길 150m', places: [['Aspen Court', 'Aspen Court Motel 76 Cron Street Franz Josef']] },
+    { checkin: true, time: '~15:30', text: 'Aspen Court Franz Josef 도착 · 체크인 · 🧺 셀프 세탁실 있음 (빨래가 필요하면 2박이라 여기가 가장 좋음) (76 Cron St, 2박 — 짐 한 번만 풀기) · 🅿️ 숙소 무료 주차. 헬리하이크 출발지(Glacier Base)는 같은 길 150m', places: [['Aspen Court', 'Aspen Court Motel 76 Cron Street Franz Josef']] },
     { time: '16:00', text: '프란츠 조셉 빙하 계곡 트랙 (왕복 1시간 30분) · 🅿️ 빙하 주차장 유료 (NZD 5/시간, 하루 최대 20)', places: [['Franz Josef Glacier Valley Walk', 'Franz Josef Glacier Valley Walk']] }
   ]},
   { date: '2026-10-24', stay: '프란츠 조셉 (Franz Josef) · 연박', stayQuery: 'Franz Josef', cost: '헬리하이크 1인 NZD 899', items: [
@@ -835,10 +835,10 @@ const CHECKLIST = [
 /* 캐리어 짐 — qty: 1인 개수(단위 포함). qty 없는 건 둘이 같이 챙기는 것. 체크 상태는 이 기기에 저장 */
 const PACKING = [
   { title: '👕 상의', items: [
-    { text: '히트텍(발열 내의) 상의', qty: '3벌', note: '마운트쿡·테카포·헬리하이크·밤 별 관측 날 안에 입기' },
-    { text: '긴팔 티셔츠', qty: '4벌', note: '빨리 마르는 기능성 소재면 빨래가 편함' },
-    { text: '반팔 티셔츠', qty: '2벌', note: '레이어 맨 안쪽, 오클랜드(18°)·차 안' },
-    { text: '플리스 또는 두꺼운 가디건', qty: '2벌', note: '매일 입는 중간층 — 1벌은 🛫 입고 타기' },
+    { text: '히트텍(발열 내의) 상의', qty: '4벌', note: '추운 날(10/24 헬리하이크, 10/26~29 마운트쿡·테카포·퀸스타운) 안에 입기 — 하루 입고 다음 날 또 입어도 괜찮아요' },
+    { text: '긴팔 티셔츠', qty: '6벌', note: '출국 날 입은 옷을 귀국 날 다시 입으면 1벌 줄일 수 있어요' },
+    { text: '반팔 티셔츠', qty: '3벌', note: '레이어 맨 안쪽, 오클랜드(18°)·차 안' },
+    { text: '플리스 또는 두꺼운 가디건', qty: '2벌', note: '매일 입는 중간층, 겉에 입는 거라 여러 번 입어도 됨 — 1벌은 🛫 입고 타기' },
     { text: '신혼여행 사진용 옷', qty: '1~2벌', note: '와나카 트리·테카포 호수·밀포드 사진' }
   ]},
   { title: '🧥 겉옷', items: [
@@ -847,15 +847,15 @@ const PACKING = [
     { text: '두꺼운 패딩', qty: '1벌', note: '10/27 새벽 타스만 전망대·밤 별 관측, 마운트쿡 (0° 안팎). 부피 크면 압축팩' }
   ]},
   { title: '👖 하의', items: [
-    { text: '트레킹 바지 (빨리 마르는 것)', qty: '2벌', note: '후커밸리·빙하 계곡·블루풀스. 헬리하이크에 청바지·면 바지는 피하기' },
+    { text: '트레킹 바지 (빨리 마르는 것)', qty: '3벌', note: '후커밸리·빙하 계곡·블루풀스. 바지는 2~3일씩 입어도 괜찮아요. 헬리하이크에 청바지·면 바지는 피하기' },
     { text: '편한 바지 (청바지·면바지)', qty: '1벌', note: '이동일·시내·저녁' },
-    { text: '히트텍(발열 내의) 하의', qty: '2벌', note: '추운 날 바지 안에' },
+    { text: '히트텍(발열 내의) 하의', qty: '3벌', note: '추운 날 바지 안에' },
     { text: '방수 오버바지 (선택)', qty: '0~1벌', note: '비 오는 날 후커밸리 걸을 거면. 헬리하이크는 업체가 빌려줌' }
   ]},
   { title: '🧦 속옷·잠옷·수영복', items: [
-    { text: '속옷', qty: '6벌', note: '빨래 2번 기준' },
-    { text: '양말', qty: '6켤레', note: '그중 3켤레는 두꺼운 등산 양말 (트레킹·헬리하이크)' },
-    { text: '잠옷', qty: '1벌' },
+    { text: '속옷', qty: '10벌', note: '매일 1벌' },
+    { text: '양말', qty: '10켤레', note: '그중 4켤레는 두꺼운 등산 양말 (트레킹·헬리하이크 날)' },
+    { text: '잠옷', qty: '2벌' },
     { text: '수영복', qty: '1벌', note: '10/27 테카포 온천 필수 (수건은 제공)' }
   ]},
   { title: '👟 신발', items: [
@@ -878,7 +878,8 @@ const PACKING = [
     { text: '멀미약', note: '10/28 밀포드 경비행기·크루즈 — 미리 먹기' },
     { text: '상비약 — 두통·소화·감기·밴드·근육통 파스' },
     { text: '세면도구·렌즈/안경 (+ 안경 고정끈: 번지)' },
-    { text: '빨래 세제 시트 몇 장 + 지퍼백·비닐봉지', note: '셀프 세탁실에 세제가 없는 곳 대비, 젖은 옷 분리' }
+    { text: '더러운 옷 담을 세탁망 또는 큰 지퍼백', note: '입은 옷은 따로 모으고, 비 오는 날 젖은 옷은 냄새 안 나게 분리' },
+    { text: '압축팩', note: '옷이 많아져서 캐리어 공간 절약. 짐 싼 뒤 무게 재기 (젯스타 위탁 수하물 무게 제한)' }
   ]},
   { title: '🔌 전자기기', items: [
     { text: '뉴질랜드 멀티 어댑터 (I타입, 230V)', qty: '1개', note: '한국 플러그 안 맞음' },
@@ -899,7 +900,6 @@ const PACKING = [
     { text: '당일용 작은 배낭', qty: '1개', note: '트레킹·헬리하이크·밀포드' },
     { text: '물병', qty: '1개' },
     { text: '장바구니', note: '뉴질랜드 마트는 비닐봉투를 안 줌' },
-    { text: '빨래집게·접이식 건조 줄' },
     { text: '목베개·안대 (기내 11시간)' },
     { text: '⚠️ 음식은 가져가면 입국 때 모두 신고', note: '육류·과일·꿀 등은 대부분 반입 불가, 신고 안 하면 벌금' }
   ]}
