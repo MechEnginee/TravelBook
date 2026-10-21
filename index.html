@@ -560,6 +560,7 @@ const FLIGHT_NOTES = [
    text   : 설명
    checkin: true면 숙소 도착 시각으로 표시 (🛏️)
    places : [[표시명, 구글맵 검색어(영문)], ...] */
+/* 🍽️ 식당은 2026-10 기준 검색 결과로 고른 곳 — 영업시간은 계절마다 바뀌니 전날 구글지도로 확인 */
 const DAYS = [
   { date: '2026-10-21', stay: '기내', items: [
     { text: '👕 옷차림: 기내는 편한 옷 + 얇은 겉옷 (기내가 쌀쌀). 도착하는 오클랜드는 봄 날씨(15~18°)라 경량 패딩이나 바람막이를 기내 가방에' },
@@ -569,73 +570,91 @@ const DAYS = [
   ]},
   { date: '2026-10-22', stay: "아서스 패스 (Arthur's Pass)", stayQuery: "Arthur's Pass Village", cost: '무료', items: [
     { time: '09:35', text: '오클랜드 도착 → 입국심사, 짐 찾기, 국내선 터미널로 이동 후 짐 다시 부치기', places: [['Auckland Airport', 'Auckland Airport']] },
+    { time: '점심', text: '🍽️ 오클랜드 공항 국내선 터미널 푸드코트·카페 (짐 다시 부친 뒤 환승 대기하면서)' },
     { time: '13:15', text: 'JQ233 출발 → 14:35 크라이스트처치 도착 (비행 1시간 20분)', places: [['Christchurch Airport', 'Christchurch Airport']] },
     { time: '~14:50', text: 'Apex 셔틀 부르기 — 짐 찾은 뒤 확인 메일의 "Ready to Collect" 버튼 누르거나 무료전화 0800 400 121 (+64 3 667 4238)로 "Apex 셔틀 기다린다"고 전화. 터미널 안을 지나 체크인 카운터를 넘어 1번 또는 2번 문으로 나가면 오른쪽, Air New Zealand 간판 아래가 셔틀 정류장. 짐은 직접 밴/트레일러에 싣고 기사에게 이름 말하고 예약 확인 보여주기 → Apex 사무실까지 차로 2분', places: [['Christchurch Airport', 'Christchurch Airport']] },
     { time: '15:30', text: '✅ Apex 렌터카 픽업 — 크라이스트처치 공항 근처 Apex 사무실 (18:29까지 영업). 예약자 본인 이름의 실물 신용카드(픽업 때 NZD 886.73 결제 — 트래블월렛 같은 충전식 선불카드는 안 받을 수 있음), 한국 면허증 + 국제운전면허증 지참. 출발 전 차 사방·앞유리 사진 찍기. 마을에 마트가 없으니 공항 근처에서 장보기', places: [['Apex 크라이스트처치', 'Apex Car Rentals Christchurch Airport']] },
+    { text: '🛒 장보기: 공항 근처 큰 마트(Woolworths·PAK\'nSAVE)에서 다음 날 아침거리·간식·물 — 아서스 패스 마을엔 마트가 없음', places: [['공항 근처 마트', 'supermarket near Christchurch Airport']] },
     { drive: '1시간 20분', text: '캐슬힐 (거석 바위군, 산책 40분)', places: [['Castle Hill', 'Castle Hill Conservation Area']] },
     { drive: '30분', text: '아서스 패스 빌리지', places: [["Arthur's Pass", "Arthur's Pass Village"]] },
+    { time: '~18:40', text: '🍽️ 저녁: The Bealey Hotel 레스토랑 (아서스 패스 마을 약 12km 전, 가는 길) 또는 마을 안 Wobbly Kea 카페&바 — 산골 식당은 일찍 닫으니 19시 전후 도착 목표, 늦으면 사 온 음식으로', places: [['The Bealey Hotel', 'The Bealey Hotel Arthur\'s Pass'], ['Wobbly Kea', 'Wobbly Kea Arthur\'s Pass']] },
     { checkin: true, time: '~19:00', text: 'The Nook 도착 · 체크인 · 🧺 세탁기 없음 (65 Brake Hill, 렌터카 수속·장보기·캐슬힐 산책 포함하면 19시 전후. 해 지기 전 도착 — 일몰 약 20:10) · 🅿️ 숙소 무료 주차', places: [['The Nook', "65 Brake Hill, Arthur's Pass"]] }
   ]},
   { date: '2026-10-23', stay: '프란츠 조셉 (Franz Josef)', stayQuery: 'Franz Josef', cost: '무료', items: [
+    { time: '아침', text: '🍽️ 숙소 주방에서 (전날 산 음식)' },
     { time: '08:00', text: '데빌스 펀치볼 폭포 트랙 (왕복 1시간)', places: [['Devils Punchbowl Falls', 'Devils Punchbowl Falls']] },
     { drive: '약 2시간', text: '09:00 출발 → ~11:00 호키티카 협곡 (에메랄드빛 강, 출렁다리 산책 40분) · 🅿️ 무료 주차', places: [['Hokitika Gorge', 'Hokitika Gorge']] },
-    { drive: '35분', text: '~12:20 호키티카 (점심, 바닷가 마을)', places: [['Hokitika', 'Hokitika']] },
+    { drive: '35분', text: '~12:20 호키티카 점심 — 🍽️ Fat Pipi Pizza 화이트베이트(뱅어) 피자: 서해안 명물, 10~11월이 화이트베이트 철 (점심 영업 요일은 전날 확인) / Hokitika Sandwich Company', places: [['Fat Pipi Pizza', 'Fat Pipi Pizza Hokitika'], ['Hokitika Sandwich Co', 'Hokitika Sandwich Company']] },
     { drive: '2시간', text: '13:30 출발 → 프란츠 조셉', places: [['Franz Josef', 'Franz Josef Glacier Village']] },
     { checkin: true, time: '~15:30', text: 'Aspen Court Franz Josef 도착 · 체크인 · 🧺 셀프 세탁실 있음 (빨래가 필요하면 2박이라 여기가 가장 좋음) (76 Cron St, 2박 — 짐 한 번만 풀기) · 🅿️ 숙소 무료 주차. 헬리하이크 출발지(Glacier Base)는 같은 길 150m', places: [['Aspen Court', 'Aspen Court Motel 76 Cron Street Franz Josef']] },
-    { time: '16:00', text: '프란츠 조셉 빙하 계곡 트랙 (왕복 1시간 30분) · 🅿️ 빙하 주차장 유료 (NZD 5/시간, 하루 최대 20)', places: [['Franz Josef Glacier Valley Walk', 'Franz Josef Glacier Valley Walk']] }
+    { time: '16:00', text: '프란츠 조셉 빙하 계곡 트랙 (왕복 1시간 30분) · 🅿️ 빙하 주차장 유료 (NZD 5/시간, 하루 최대 20)', places: [['Franz Josef Glacier Valley Walk', 'Franz Josef Glacier Valley Walk']] },
+    { time: '저녁', text: '🍽️ Alice May (30 Cron St, 숙소에서 걸어서 3분, 펍 음식) · 🛒 Four Square(마을 마트)에서 다음 날 아침거리 — 헬리하이크 07:45 체크인 전에 먹기', places: [['Alice May', 'Alice May Franz Josef'], ['Four Square', 'Four Square Franz Josef']] },
   ]},
   { date: '2026-10-24', stay: '프란츠 조셉 (Franz Josef) · 연박', stayQuery: 'Franz Josef', cost: '헬리하이크 1인 NZD 899', items: [
+    { time: '07:00', text: '🍽️ 아침: 숙소에서 든든하게 (빙하 위 2~3시간, 간식·물 챙기기)' },
     { time: '08:00', text: '✅ 프란츠 조셉 헬리하이크 예약 완료 — Franz Josef Glacier Guides (07:45 체크인, Glacier Base 63 Cron St — Aspen Court에서 걸어서). 빙하 위 최대 2.5시간, ~12:00 종료', places: [['Glacier Base', 'Franz Josef Glacier Guides 63 Cron Street']] },
-    { drive: '30분', text: '폭스 글레이셔 (점심)', places: [['Fox Glacier', 'Fox Glacier Village']] },
+    { drive: '30분', text: '폭스 글레이셔 → 🍽️ 점심: Matheson Café (매서슨 호수 입구, 마을에서 6km, 08:30~15:30) — 맑으면 창밖으로 마운트쿡', places: [['Matheson Café', 'Matheson Cafe Lake Matheson']] },
     { time: '오후', text: '폭스 빙하 전망 트랙', places: [['Fox Glacier Lookout', 'Fox Glacier South Side Walkway']] },
+    { time: '~17:30', text: '🍽️ 이른 저녁: 폭스 글레이셔 마을 The Last Kitchen (저녁 16:30~) — 매서슨 일몰 산책 끝나고 프란츠 조셉에 돌아가면 식당이 거의 닫아요', places: [['The Last Kitchen', 'The Last Kitchen Fox Glacier']] },
     { time: '18:45', text: '매서슨 호수 — 마운트쿡이 비치는 거울 호수 (둘레길 1시간 30분, 일몰 약 20:25)', places: [['Lake Matheson', 'Lake Matheson']] },
     { drive: '40분', text: '프란츠 조셉 숙소로 복귀 (밤길 커브 많음, 천천히)', places: [['Franz Josef', 'Franz Josef']] },
     { checkin: true, time: '~21:00', text: 'Aspen Court 도착 (연박이라 체크인 없음) · 🅿️ 숙소 무료 주차' }
   ]},
   { date: '2026-10-25', stay: '와나카 (Wanaka)', stayQuery: 'Wanaka', cost: '무료', items: [
+    { time: '아침', text: '🍽️ 숙소에서 · 🛒 점심 도시락거리도 챙기기 (해스트 패스 구간은 식당이 거의 없음)' },
     { drive: '2시간 30분', text: '08:00 프란츠 조셉 출발 → 폭스 글레이셔 경유 → 해스트', places: [['Haast', 'Haast']] },
     { text: '해스트 패스: 썬더크릭 폭포, 팬테일 폭포, 블루풀스 (왕복 1시간)', places: [['Thunder Creek Falls', 'Thunder Creek Falls'], ['Fantail Falls', 'Fantail Falls'], ['Blue Pools', 'Blue Pools Walk Haast Pass']] },
+    { time: '점심', text: '🍽️ 마카로라 (블루풀스에서 차로 5분) — Makarora Country Café 또는 옆 Wonderland Makarora Lodge 카페. 닫혀 있으면 싸 온 도시락', places: [['Makarora', 'Makarora Country Cafe']] },
     { drive: '1시간 30분', text: '와나카', places: [['Wanaka', 'Wanaka']] },
     { checkin: true, time: '~15:30', text: 'Edgewater Lake Wanaka 도착 · 체크인 · 🧺 셀프 세탁실 있음 (54 Sargood Dr, 시내에서 2km 호숫가 — 산책, 이른 저녁) · 🅿️ 숙소 무료 주차', places: [['Edgewater', 'Edgewater 54 Sargood Drive Wanaka']] },
+    { time: '~18:00', text: '🍽️ 저녁: 와나카 시내 (숙소에서 차로 5분) — Kika (인기, 예약 추천) 또는 호숫가 Big Fig. 일몰 20:30 전에 숙소로 돌아와 와나카 트리로', places: [['Kika', 'Kika Wanaka'], ['Big Fig', 'Big Fig Wanaka']] },
     { time: '일몰', text: '와나카 트리 (일몰 약 20:30, 숙소에서 호숫가 산책로로 걸어서 약 10분 — 차는 숙소에 두기)', places: [['That Wanaka Tree', 'That Wanaka Tree']] }
   ]},
   { date: '2026-10-26', stay: '마운트쿡 빌리지 (Aoraki/Mount Cook)', stayQuery: 'Aoraki Mount Cook Village', cost: '무료', items: [
-    { drive: '2시간 30분', text: '09:00 와나카 출발 → 린디스 패스 경유 마운트쿡 (트위젤에서 장보기 — 마을에 마트 없음)', places: [['Lindis Pass', 'Lindis Pass'], ['Mount Cook Village', 'Aoraki Mount Cook Village']] },
+    { time: '아침', text: '🍽️ 와나카 호숫가 카페 (Big Fig는 아침도 해요) 또는 숙소' },
+    { drive: '2시간 30분', text: '09:00 와나카 출발 → 린디스 패스 경유 마운트쿡 (트위젤에서 장보기 — 마을에 마트 없음. 🍽️ 점심 샌드위치도 여기서 사서 후커밸리 트랙에서 피크닉)', places: [['Lindis Pass', 'Lindis Pass'], ['Mount Cook Village', 'Aoraki Mount Cook Village']] },
     { time: '~12:30', text: '후커밸리 트랙 (왕복 3시간, 빙하호까지) · 🅿️ 화이트호스힐 주차장 유료 (NZD 5/시간, 하루 최대 25)', places: [['Hooker Valley Track', 'Hooker Valley Track']] },
     { checkin: true, time: '~16:00', text: 'Aoraki Alpine Lodge 도착 · 체크인 · 🧺 셀프 세탁실 있음 (101 Bowen Dr, 방문자 센터 옆. 마운트쿡이 구름에 가리면 다음 날 일출 때 다시 보기) · 🅿️ 숙소 앞 무료 주차', places: [['Aoraki Alpine Lodge', 'Aoraki Mount Cook Alpine Lodge 101 Bowen Drive']] },
-    { time: '저녁', text: '보름달(10/26)에 비친 설산 감상' }
+    { time: '저녁', text: '🍽️ 저녁: Old Mountaineers\' Café (연어 버거, 한가하면 일찍 닫으니 19시 전 도착) 또는 The Hermitage 호텔 뷔페 (예약 추천) → 보름달(10/26)에 비친 설산 감상', places: [['Old Mountaineers', 'Old Mountaineers Cafe Mount Cook'], ['The Hermitage', 'The Hermitage Hotel Mount Cook']] }
   ]},
   { date: '2026-10-27', stay: '테카포 (Lake Tekapo)', stayQuery: 'Lake Tekapo', cost: '온천+별관측 2인 NZD 358 (예약 완료)', items: [
     { time: '06:30', text: '일출: 타스만 빙하 전망대 (왕복 40분, 마을에서 차로 15분)', places: [['Tasman Glacier View', 'Tasman Glacier View Track']] },
-    { drive: '45분', text: '09:30 체크아웃 → 푸카키 호수 (연어샵)', places: [['Lake Pukaki', 'Mt Cook Alpine Salmon Shop Lake Pukaki']] },
-    { drive: '45분', text: '테카포 (점심)', places: [['Lake Tekapo', 'Lake Tekapo']] },
+    { time: '아침', text: '🍽️ 일출 보고 와서 숙소에서 (트위젤에서 산 음식)' },
+    { drive: '45분', text: '09:30 체크아웃 → 푸카키 호수 (연어샵 — 🍽️ 마운트쿡 연어회·연어 덮밥 포장, 호수 보며 간식)', places: [['Lake Pukaki', 'Mt Cook Alpine Salmon Shop Lake Pukaki']] },
+    { drive: '45분', text: '테카포 점심 — 🍽️ 호숫가 마을 중심 식당·카페 (선한목자교회 근처)', places: [['Lake Tekapo', 'Lake Tekapo']] },
     { time: '오후', text: '선한목자교회, 마운트 존 전망대', places: [['Church of the Good Shepherd', 'Church of the Good Shepherd Tekapo'], ['Mt John', 'Mt John Observatory']] },
     { checkin: true, time: '~15:30', text: 'Peppers Bluewater Resort 도착 · 체크인 · 🧺 셀프 세탁실 있음 (호수 서쪽, 저녁 전 휴식, 온천까지 차로 3분) · 🅿️ 객실 근처 무료 주차', places: [['Peppers Bluewater', 'Peppers Bluewater Resort Lake Tekapo']] },
+    { time: '~18:30', text: '🍽️ 저녁: Kohan (일식, 연어 벤토 — 인기라 예약 필수) 또는 Dark Sky Diner (호숫가 천문 센터 건물, 전망 좋음). 온천 전이라 과식은 피하기', places: [['Kohan', 'Kohan Restaurant Lake Tekapo'], ['Dark Sky Diner', 'Dark Sky Diner Lake Tekapo']] },
     { time: '22:30', text: '✅ 테카포 스프링스 온천 + 별 관측 예약 완료 (2인, 약 90분, 수건 포함, 흐리면 실내 VR). 10/26이 보름이라 이날 밤은 달이 밝아 은하수는 흐리게 보일 수 있음 — 대신 달빛 비친 호수·설산 — 6 Lakeside Drive, 숙소에서 차로 3분 · 🅿️ 온천 앞 주차장. 끝나면 자정 넘으니 다음 날 06:45 출발 대비해 짐은 미리 싸두기', places: [['Tekapo Springs', 'Tekapo Springs 6 Lakeside Drive Lake Tekapo']] }
   ]},
   { date: '2026-10-28', stay: '퀸스타운 (Queenstown)', stayQuery: 'Queenstown', cost: '번지 2인 NZD 640 (예약 완료) · 밀포드 1인 NZD 659 · 곤돌라 1인 NZD 69 (당일 구매)', items: [
+    { time: '아침', text: '🍽️ 전날 사둔 빵·과일·요거트를 차에서 (06:45엔 가게가 안 열어요)' },
     { drive: '약 3시간', text: '06:45 테카포 출발 (체크아웃·아침은 간단히) → 린디스 패스, 크롬웰 경유 → ~10:00 번지 센터 도착 (실제 운전 약 3시간 10분 — 전날 주유, 중간에 오래 쉬지 않기. 늦을 것 같으면 번지 센터에 전화)', places: [['Cromwell', 'Cromwell']] },
     { time: '10:30', text: '✅ 카와라우 번지 예약 완료 — Kawarau Bungy with Media (2인, 사진·영상 포함, AJ Hackett 공식 사이트). 43m, 세계 최초 상업 번지 — 15분 전 체크인, ~11:30 종료 · 🅿️ 번지 센터 무료 주차', places: [['Kawarau Bridge Bungy', 'Kawarau Bridge Bungy']] },
-    { drive: '15~20분', text: '~11:50 True South 사무실 (Frankton) 도착 · 근처에서 간단히 점심 → 비행 체크인 (확인 메일 시간)', places: [['True South 사무실', 'True South Flights 12 Hawthorne Drive Frankton']] },
+    { drive: '15~20분', text: '~11:50 True South 사무실 (Frankton) 도착 · 🍽️ 근처 Five Mile·Remarkables Park 쇼핑센터(차로 3~5분)에서 샌드위치 — 경비행기 타니 가볍게(멀미) → 비행 체크인 (확인 메일 시간)', places: [['True South 사무실', 'True South Flights 12 Hawthorne Drive Frankton']] },
     { time: '13:00', text: '✅ 밀포드 사운드 플라이-크루즈-플라이 예약 완료 — True South Flights (경비행기 왕복 + 2시간 크루즈, 약 4시간). 출발: True South 사무실, 12 Hawthorne Dr, Frankton (무료 주차). 체크인 시간은 확인 메일 참고', places: [['True South 사무실', 'True South Flights 12 Hawthorne Drive Frankton'], ['Milford Sound', 'Milford Sound']] },
     { checkin: true, time: '~17:00', text: 'Mi-pad Queenstown 도착 · 체크인 · 🧺 셀프 세탁실 있음 (밀포드 시간에 따라 바뀜) — 호텔 주차장 없음: Henry St 입구에서 짐만 내리고 Ballarat Street 주차장(호텔 바로 옆)에 주차. 18:00~08:00 무료, 그 외 시간당 요금(입구 결제기)', places: [['Mi-pad', 'mi-pad Queenstown 4 Henry Street'], ['🅿️ Ballarat St 주차장', 'Ballarat Street Car Park Queenstown'], ['🅿️ Boundary St 주차장', 'Boundary Street Car Park Queenstown']] },
+    { time: '~18:00', text: '🍽️ 저녁: Fergburger (퀸스타운 명물 버거, 숙소에서 걸어서 — 줄 길면 포장해서 호숫가에서) · 곤돌라 타면 산 위 Stratosfare 뷔페도', places: [['Fergburger', 'Fergburger Queenstown']] },
     { time: '저녁', text: '스카이라인 곤돌라 (선택 · 예약 안 함) — 밀포드에서 돌아온 시간과 컨디션 보고 당일 결정, 탑승장 매표소나 휴대폰으로 그날 구매. 퀸스타운 야경 + 산 위 저녁 (숙소에서 걸어서 약 5분, 차는 그대로 두기. 곤돌라 21:00까지, 루지는 18:00 마감이라 시간 되면)', places: [['Skyline Queenstown', 'Skyline Queenstown']] }
   ]},
   { date: '2026-10-29', stay: '오클랜드 시내 (Auckland CBD)', stayQuery: 'Auckland CBD', cost: '샷오버 제트 1인 NZD 199 (선택 · 밀포드 취소 시)', items: [
+    { time: '07:30', text: '🍽️ 아침: Fergbaker (퍼그버거 옆 빵집, 아침 일찍 열어요) 파이·빵 포장', places: [['Fergbaker', 'Fergbaker Queenstown']] },
     { time: '08:00', text: '주차장에서 차 빼기 (08:00 이후 유료) → 체크아웃', places: [['🅿️ Ballarat St 주차장', 'Ballarat Street Car Park Queenstown']] },
     { time: '(선택)', text: '샷오버 제트 — 미리 예약 안 함. 10/28 밀포드가 날씨로 취소되면 그때 예약 (그날 오후 빈 시간 또는 이날 오전, 보통 당일 예약도 가능). 밀포드를 탔으면 생략하고 아래 코스로', places: [['Shotover Jet', 'Shotover Jet Queenstown']] },
     { drive: '25분', text: '08:30 밥스 코브 (Bob\'s Cove) — 글레노키 가는 길, 에메랄드빛 작은 만. 왕복 30분 숲길 산책 · 🅿️ 도로변 무료 주차', places: [["Bob's Cove", "Bob's Cove Track"]] },
     { drive: '35분', text: '~09:45 글레노키 — 빨간 창고가 있는 부두 사진 + 글레노키 라군 산책로 (나무 데크, 30분~1시간, 설산이 호수에 비침) + 마을 카페에서 커피 · 🅿️ 부두 앞 무료 주차', places: [['Glenorchy 부두', 'Glenorchy Wharf'], ['Glenorchy Lagoon Walkway', 'Glenorchy Lagoon Walkway']] },
-    { drive: '1시간', text: '~12:30 애로우타운 (Arrowtown) — 금광 시대 거리가 남은 작은 마을. 버킹엄 스트리트에서 점심, 강가의 옛 중국인 금광촌 (산책 30분) · 🅿️ 마을 무료 주차장. 공항까지 20분이라 마지막 코스로 딱 맞음', places: [['Arrowtown', 'Buckingham Street Arrowtown'], ['Chinese Settlement', 'Arrowtown Chinese Settlement']] },
+    { drive: '1시간', text: '~12:30 애로우타운 (Arrowtown) — 금광 시대 거리가 남은 작은 마을. 🍽️ 버킹엄 스트리트에서 점심 (The Fork and Tap 펍, 마을 빵집 미트파이), 강가의 옛 중국인 금광촌 (산책 30분) · 🅿️ 마을 무료 주차장. 공항까지 20분이라 마지막 코스로 딱 맞음', places: [['Arrowtown', 'Buckingham Street Arrowtown'], ['Chinese Settlement', 'Arrowtown Chinese Settlement']] },
     { drive: '20분', text: '~15:30 프랭크턴에서 주유 (가득) → 렌터카 반납 장소로', places: [['Frankton 주유소', 'Z Frankton Queenstown']] },
     { time: '16:00', text: '✅ Apex 렌터카 반납 — 32 Lucas Place, Queenstown (공항 터미널 아님, 공항 바로 옆). 반납 전 주유해서 가득 채우기 (안 채우면 리터당 주유 서비스 요금). 반납 후 Apex 무료 셔틀로 공항 터미널 이동 → JQ298 체크인', places: [['Apex 반납 (32 Lucas Pl)', '32 Lucas Place Queenstown'], ['Queenstown Airport', 'Queenstown Airport']] },
     { time: '17:30', text: 'JQ298 출발 → 19:20 오클랜드 도착 (비행 1시간 50분)', places: [['Auckland Airport', 'Auckland Airport']] },
+    { text: '🍽️ 저녁: 퀸스타운 공항에서 간단히 먹고 타거나, 오클랜드 숙소 근처(Lorne St·Queen St)는 늦게까지 여는 아시아 식당이 많아요' },
     { drive: '약 30~40분', text: '오클랜드 공항 국내선 → 시내 (택시·우버 또는 공항 버스). 렌터카는 퀸스타운에서 반납했으니 주차 걱정 없음', places: [['Auckland Airport', 'Auckland Airport Domestic Terminal']] },
     { checkin: true, time: '~20:30', text: 'Radisson RED Auckland 도착 · 체크인 · 🧺 세탁실 + 유료 세탁 서비스 (33 Lorne St, 시내 중심, 앨버트 파크 옆) — 저녁에 바이어덕트 항구·스카이타워 산책', places: [['Radisson RED', 'Radisson RED Auckland 33 Lorne Street']] }
   ]},
   { date: '2026-10-30', stay: '–', items: [
     { time: '08:15', text: 'Radisson RED 체크아웃 → 공항 국제선으로 (택시·우버 약 30~40분, 출근 시간이라 여유 있게)', places: [['Auckland Airport', 'Auckland Airport International Terminal']] },
     { time: '09:15', text: '오클랜드 공항 국제선 도착 · 대한항공 체크인 (출발 2시간 30분 전)' },
+    { time: '아침', text: '🍽️ 오클랜드 공항 국제선 (체크인·출국심사 후 탑승구 쪽 카페)' },
     { time: '11:45', text: 'KE412 오클랜드 출발 → 19:40 인천 T2 도착 (비행 11시간 55분)', places: [['Auckland Airport', 'Auckland Airport International Terminal']] },
     { time: '~20:10', text: '수하물 모두 찾은 뒤 노벨파킹 고객센터 1588-8440 (내선 2번)에 전화 → T2 3층 7번 출구에서 셔틀 탑승 (T1은 3층 5번 출구)', places: [['Incheon T2', 'Incheon International Airport Terminal 2']] },
     { time: '~20:20', text: '노벨파킹 출차 — 무인정산기에서 주차 요금 ₩105,000 결제 → 집으로 (예약 출차 시각 20:20, 입국이 늦어지면 고객센터에 미리 연락)', places: [['노벨파킹', 'Incheon 공항서로 539 노벨파킹']] }
