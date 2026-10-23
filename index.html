@@ -617,11 +617,11 @@ const DAYS = [
     { checkin: true, time: '~16:00', text: 'Aoraki Alpine Lodge 도착 · 체크인 · 🧺 셀프 세탁실 있음 (101 Bowen Dr, 방문자 센터 옆. 마운트쿡이 구름에 가리면 다음 날 일출 때 다시 보기) · 🅿️ 숙소 앞 무료 주차', places: [['Aoraki Alpine Lodge', 'Aoraki Mount Cook Alpine Lodge 101 Bowen Drive']] },
     { time: '저녁', text: '🍽️ 저녁: Old Mountaineers\' Café (연어 버거, 한가하면 일찍 닫으니 19시 전 도착) 또는 The Hermitage 호텔 뷔페 (예약 추천) → 보름달(10/26)에 비친 설산 감상', places: [['Old Mountaineers', 'Old Mountaineers Cafe Mount Cook'], ['The Hermitage', 'The Hermitage Hotel Mount Cook']] }
   ]},
-  { date: '2026-10-27', stay: '테카포 (Lake Tekapo)', stayQuery: 'Lake Tekapo', cost: '타스만 빙하 헬리하이크 2인 (예약 완료) · 온천+별관측 2인 NZD 358 (예약 완료)', items: [
+  { date: '2026-10-27', stay: '테카포 (Lake Tekapo)', stayQuery: 'Lake Tekapo', cost: '타스만 빙하 헬리하이크 2인 NZD 1,990 (예약 완료, 잔액 결제 확인) · 온천+별관측 2인 NZD 358 (예약 완료)', items: [
     { time: '06:30', text: '일출: 타스만 빙하 전망대 (왕복 40분, 마을에서 차로 15분)', places: [['Tasman Glacier View', 'Tasman Glacier View Track']] },
     { time: '아침', text: '🍽️ 일출 보고 와서 숙소에서 (트위젤에서 산 음식)' },
-    { time: '~08:40', text: '아침 먹고 짐 싸서 체크아웃 → Mount Cook Airport (마을에서 차로 약 5분, 공항 건물 2층에서 체크인). 15분쯤 일찍 도착', places: [['Mount Cook Airport', 'Mount Cook Airport']] },
-    { time: '09:00', text: '✅ 타스만 빙하 헬리하이크 예약 완료 — Alpine Guides (헬기는 The Helicopter Line). 헬기로 타스만 빙하에 내려 아이젠 신고 약 2시간 얼음 위 걷기 (빙하 상태에 따라 얼음 동굴·빙하수), 전체 약 3시간 → ~12:00 종료. 장비·준비물과 날씨 취소 시 환불은 확인 메일 참고', places: [['Alpine Guides', 'Alpine Guides Mount Cook Airport']] },
+    { time: '~08:40', text: '아침 먹고 짐 싸서 체크아웃 → Mount Cook Airport (마을에서 차로 약 5분, 공항 건물 2층 First Floor에서 체크인). 15분쯤 일찍 도착', places: [['Mount Cook Airport', 'Mount Cook Airport']] },
+    { time: '09:00', text: '✅ 타스만 빙하 헬리하이크 예약 완료 — Alpine Guides (헬기는 The Helicopter Line). 헬기로 타스만 빙하에 내려 아이젠 신고 약 2시간 얼음 위 걷기 (빙하 상태에 따라 얼음 동굴·빙하수), 전체 약 3시간 → ~12:00 종료. 2인 NZD 1,990 (1인 995, GST 포함) — 확인서에 잔액(Balance) 1,990으로 나와 있어 결제 시점 확인 필요. 문의 +64 3 435 1834 / mtcook@alpineguides.co.nz. 장비·준비물과 날씨 취소 시 환불은 확인 메일 참고', places: [['Alpine Guides', 'Alpine Guides Mount Cook Airport']] },
     { drive: '45분', text: '~12:15 출발 → 푸카키 호수 (연어샵 — 🍽️ 점심: 마운트쿡 연어회·연어 덮밥, 호수 보며)', places: [['Lake Pukaki', 'Mt Cook Alpine Salmon Shop Lake Pukaki']] },
     { drive: '45분', text: '~14:00 테카포 — ☕ 호숫가 마을 중심 카페', places: [['Lake Tekapo', 'Lake Tekapo']] },
     { time: '~14:15', text: '선한목자교회, 마운트 존 전망대 (피곤하면 마운트 존은 생략)', places: [['Church of the Good Shepherd', 'Church of the Good Shepherd Tekapo'], ['Mt John', 'Mt John Observatory']] },
@@ -729,7 +729,7 @@ const DAY_WEATHER = {
 /* 액티비티 비용 — people: 기본 인원 (화면에서 1/2명 토글 가능). nzd는 2026-10-11에 확인한 1인 정가 (할인은 체크리스트에 표시) */
 const ACTIVITIES = [
   { id: 'heli',   name: '프란츠 조셉 헬리하이크 ❌ 날씨 취소 (환불 요청)', day: 4, nzd: 0, people: 2 },
-  { id: 'tasman', name: '타스만 빙하 헬리하이크 ✅ 예약 완료 (Alpine Guides, 1인 NZD 945 추정 — 실제 금액으로 수정)', day: 7, nzd: 945, people: 2 },
+  { id: 'tasman', name: '타스만 빙하 헬리하이크 ✅ 예약 완료 (Alpine Guides, 1인 NZD 995)', day: 7, nzd: 995, people: 2 },
   { id: 'tekapo', name: '테카포 온천 + 별 관측 ✅ 예약 완료', day: 7, nzd: 179, people: 2 },
   { id: 'bungy',  name: '카와라우 번지 (사진·영상 포함) ✅ 예약 완료', day: 8, nzd: 320, people: 2 },
   { id: 'milford',name: '밀포드 플라이-크루즈-플라이 ✅ 예약 완료', day: 8, nzd: 659, people: 2 },
@@ -810,7 +810,7 @@ const CHECKLIST = [
     { text: '숙소: 마운트쿡 10/26 — Aoraki Alpine Lodge (1박) ₩406,696 · 아고다', done: true, stay: 'cook' },
     { text: '숙소: 테카포 10/27 — Peppers Bluewater Resort (1박) ₩473,522 · 아고다', done: true, stay: 'tekapo' },
     { text: '헬리하이크: 10/24 08:00 — Franz Josef Glacier Guides (2인) NZD 1,798 · 공식 사이트', note: '❌ 구름·비로 취소, 10/26까지 대체 일정 없음 → 전액 환불 요청', done: true },
-    { text: '타스만 빙하 헬리하이크: 10/27 09:00 — Alpine Guides (2인)', note: 'Mount Cook Airport 2층 체크인, 전체 약 3시간 (얼음 위 약 2시간). 10/26 저녁에 운항 연락 확인. 날씨 취소 시 환불', done: true },
+    { text: '타스만 빙하 헬리하이크: 10/27 09:00 — Alpine Guides (2인) NZD 1,990', note: '확인서상 잔액 NZD 1,990 — 아직 결제 전이면 언제·어떻게 내는지 업체에 확인. Mount Cook Airport 2층 체크인, 전체 약 3시간 (얼음 위 약 2시간). 10/26 저녁에 운항 연락 확인. 날씨 취소 시 환불', done: true },
     { text: '밀포드 플라이-크루즈-플라이: 10/28 13:00 — True South Flights (2인) NZD 1,318 · Bookme', note: '할인가 1인 659로 예약. 출발: True South 사무실(Frankton). 날씨로 취소되면 운영사가 일정 변경 또는 전액 환불 — 10/29 오전 가능 여부 문의', done: true },
     { text: '카와라우 번지: 10/28 10:30 — AJ Hackett Kawarau Bungy with Media (2인) NZD 640 · 공식 사이트', note: '사진·영상 포함. 직접 운전해서 가므로 15분 전 체크인 (06:45 테카포 출발, 전날 미리 주유). 몸무게 35~235kg, 둘이 같이(탠덤)는 몸무게 차이 30kg 이내. 예약 확인 메일 보관', done: true },
     { text: '테카포 온천 + 별 관측: 10/27 22:30 — Tekapo Springs (2인) NZD 358 · Bookme', note: '6 Lakeside Drive, Lake Tekapo. 문의 0800 2 353 8283 / reception@tekaposprings.co.nz. 예약 확인 메일 보관', done: true },
