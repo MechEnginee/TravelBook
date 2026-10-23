@@ -590,9 +590,9 @@ const DAYS = [
     { time: '16:00', text: '프란츠 조셉 빙하 계곡 트랙 (Kā Roimata o Hine Hukatere Walk, 왕복 1시간 30분) — 마을에서 Glacier Access Road로 남쪽 5km, 길 끝 빙하 주차장에서 시작 · 🅿️ 빙하 주차장 유료 (NZD 5/시간, 하루 최대 20)', places: [['빙하 주차장 (트랙 시작점)', '-43.4223,170.1693'], ['빙하 전망 지점', '-43.4251,170.1688']] },
     { time: '저녁', text: '🍽️ Alice May (30 Cron St, 숙소에서 걸어서 3분, 펍 음식) · 🛒 Four Square(마을 마트)에서 다음 날 아침거리 — 헬리하이크 07:45 체크인 전에 먹기', places: [['Alice May', 'Alice May Franz Josef'], ['Four Square', 'Four Square Franz Josef']] },
   ]},
-  { date: '2026-10-24', stay: '프란츠 조셉 (Franz Josef) · 연박', stayQuery: 'Franz Josef', cost: '헬리하이크 1인 NZD 899', items: [
+  { date: '2026-10-24', stay: '프란츠 조셉 (Franz Josef) · 연박', stayQuery: 'Franz Josef', cost: '헬리하이크 날씨 취소 (환불 요청)', items: [
     { time: '07:00', text: '🍽️ 아침: 숙소에서 든든하게 (빙하 위 2~3시간, 간식·물 챙기기)' },
-    { time: '08:00', text: '✅ 프란츠 조셉 헬리하이크 예약 완료 — Franz Josef Glacier Guides (07:45 체크인, Glacier Base 63 Cron St — Aspen Court에서 걸어서). 빙하 위 최대 2.5시간, ~12:00 종료', places: [['Glacier Base', 'Franz Josef Glacier Guides 63 Cron Street']] },
+    { time: '08:00', text: '❌ 프란츠 조셉 헬리하이크 — 구름·이슬비로 취소 (10/26까지 대체 일정 없음). Franz Josef Glacier Guides에 전액 환불 요청. 대신 10/27 10:30 마운트쿡에서 헬기 빙하 착륙 예약', places: [['Glacier Base', 'Franz Josef Glacier Guides 63 Cron Street']] },
     { drive: '30분', text: '폭스 글레이셔 → 🍽️ 점심: Matheson Café (매서슨 호수 입구, 마을에서 6km, 08:30~15:30) — 맑으면 창밖으로 마운트쿡', places: [['Matheson Café', 'Matheson Cafe Lake Matheson']] },
     { time: '오후', text: '폭스 빙하 전망 트랙', places: [['Fox Glacier Lookout', 'Fox Glacier South Side Walkway']] },
     { time: '~17:30', text: '🍽️ 이른 저녁: 폭스 글레이셔 마을 The Last Kitchen (저녁 16:30~) — 매서슨 일몰 산책 끝나고 프란츠 조셉에 돌아가면 식당이 거의 닫아요', places: [['The Last Kitchen', 'The Last Kitchen Fox Glacier']] },
@@ -617,13 +617,15 @@ const DAYS = [
     { checkin: true, time: '~16:00', text: 'Aoraki Alpine Lodge 도착 · 체크인 · 🧺 셀프 세탁실 있음 (101 Bowen Dr, 방문자 센터 옆. 마운트쿡이 구름에 가리면 다음 날 일출 때 다시 보기) · 🅿️ 숙소 앞 무료 주차', places: [['Aoraki Alpine Lodge', 'Aoraki Mount Cook Alpine Lodge 101 Bowen Drive']] },
     { time: '저녁', text: '🍽️ 저녁: Old Mountaineers\' Café (연어 버거, 한가하면 일찍 닫으니 19시 전 도착) 또는 The Hermitage 호텔 뷔페 (예약 추천) → 보름달(10/26)에 비친 설산 감상', places: [['Old Mountaineers', 'Old Mountaineers Cafe Mount Cook'], ['The Hermitage', 'The Hermitage Hotel Mount Cook']] }
   ]},
-  { date: '2026-10-27', stay: '테카포 (Lake Tekapo)', stayQuery: 'Lake Tekapo', cost: '온천+별관측 2인 NZD 358 (예약 완료)', items: [
+  { date: '2026-10-27', stay: '테카포 (Lake Tekapo)', stayQuery: 'Lake Tekapo', cost: '헬기 빙하 착륙 (예약 완료) · 온천+별관측 2인 NZD 358 (예약 완료)', items: [
     { time: '06:30', text: '일출: 타스만 빙하 전망대 (왕복 40분, 마을에서 차로 15분)', places: [['Tasman Glacier View', 'Tasman Glacier View Track']] },
     { time: '아침', text: '🍽️ 일출 보고 와서 숙소에서 (트위젤에서 산 음식)' },
-    { drive: '45분', text: '09:30 체크아웃 → 푸카키 호수 (연어샵 — 🍽️ 마운트쿡 연어회·연어 덮밥 포장, 호수 보며 간식)', places: [['Lake Pukaki', 'Mt Cook Alpine Salmon Shop Lake Pukaki']] },
-    { drive: '45분', text: '테카포 점심 — 🍽️ 호숫가 마을 중심 식당·카페 (선한목자교회 근처)', places: [['Lake Tekapo', 'Lake Tekapo']] },
-    { time: '오후', text: '선한목자교회, 마운트 존 전망대', places: [['Church of the Good Shepherd', 'Church of the Good Shepherd Tekapo'], ['Mt John', 'Mt John Observatory']] },
-    { checkin: true, time: '~15:30', text: 'Peppers Bluewater Resort 도착 · 체크인 · 🧺 셀프 세탁실 있음 (호수 서쪽, 저녁 전 휴식, 온천까지 차로 3분) · 🅿️ 객실 근처 무료 주차', places: [['Peppers Bluewater', 'Peppers Bluewater Resort Lake Tekapo']] },
+    { time: '~09:45', text: '체크아웃 → Mount Cook Airport (마을에서 차로 약 5분). 체크인 시간·집합 장소는 확인 메일 참고', places: [['Mount Cook Airport', 'Mount Cook Airport']] },
+    { time: '10:30', text: '✅ 헬기 빙하 착륙 예약 완료 — Southern Lakes Helicopters, Tasman Glacier Explorer (약 40분, 뉴질랜드에서 가장 긴 타스만 빙하 위 눈밭에 착륙). 날씨로 취소되면 환불 확인. 연락처 +64 3 435 1460 / mtcook@slheli.co.nz', places: [['Southern Lakes Helicopters', 'Southern Lakes Helicopters Mount Cook']] },
+    { drive: '45분', text: '~11:30 출발 → 푸카키 호수 (연어샵 — 🍽️ 점심: 마운트쿡 연어회·연어 덮밥, 호수 보며)', places: [['Lake Pukaki', 'Mt Cook Alpine Salmon Shop Lake Pukaki']] },
+    { drive: '45분', text: '~13:00 테카포 — ☕ 호숫가 마을 중심 카페 (점심은 연어샵에서 먹었으면 간단히)', places: [['Lake Tekapo', 'Lake Tekapo']] },
+    { time: '~13:30', text: '선한목자교회, 마운트 존 전망대 (피곤하면 마운트 존은 생략)', places: [['Church of the Good Shepherd', 'Church of the Good Shepherd Tekapo'], ['Mt John', 'Mt John Observatory']] },
+    { checkin: true, time: '~15:30~16:00', text: 'Peppers Bluewater Resort 도착 · 체크인 · 🧺 셀프 세탁실 있음 (호수 서쪽, 저녁 전 휴식, 온천까지 차로 3분) · 🅿️ 객실 근처 무료 주차', places: [['Peppers Bluewater', 'Peppers Bluewater Resort Lake Tekapo']] },
     { time: '~18:30', text: '🍽️ 저녁: Kohan (일식, 연어 벤토 — 인기라 예약 필수) 또는 Dark Sky Diner (호숫가 천문 센터 건물, 전망 좋음). 온천 전이라 과식은 피하기', places: [['Kohan', 'Kohan Restaurant Lake Tekapo'], ['Dark Sky Diner', 'Dark Sky Diner Lake Tekapo']] },
     { time: '22:30', text: '✅ 테카포 스프링스 온천 + 별 관측 예약 완료 (2인, 약 90분, 수건 포함, 흐리면 실내 VR). 10/26이 보름이라 이날 밤은 달이 밝아 은하수는 흐리게 보일 수 있음 — 대신 달빛 비친 호수·설산 — 6 Lakeside Drive, 숙소에서 차로 3분 · 🅿️ 온천 앞 주차장. 끝나면 자정 넘으니 다음 날 06:45 출발 대비해 짐은 미리 싸두기', places: [['Tekapo Springs', 'Tekapo Springs 6 Lakeside Drive Lake Tekapo']] }
   ]},
@@ -708,14 +710,14 @@ const DAY_WEATHER = {
     wear: ['캐슬힐 바위 사이는 바람이 강함 — 바람막이, 운동화', '긴 비행 후 바로 운전 — 편한 옷, 겉옷은 차 안에 꺼내두기'] },
   '2026-10-23': { at: ['franz'],
     wear: ['데빌스 펀치볼 폭포 앞은 물보라 — 방수 재킷', '호키티카 협곡·서해안은 샌드플라이(무는 날벌레) — 긴바지·얇은 긴팔 + 벌레 퇴치제', '빙하 계곡 트랙은 자갈길 — 운동화'] },
-  '2026-10-24': { at: ['franz'], watch: '헬리하이크',
-    wear: ['헬리하이크: 방수 재킷·바지·부츠·아이젠은 보통 업체가 빌려줌 (확인 메일 준비물 확인) — 안에 히트텍 + 플리스, 청바지·면 소재는 피하기', '빙하 위는 햇빛 반사가 강함 — 선글라스·선크림·장갑·비니', '매서슨 호수 저녁 — 샌드플라이 퇴치제, 해 지면 쌀쌀하니 경량 패딩'] },
+  '2026-10-24': { at: ['franz'],
+    wear: ['빙하 위는 햇빛 반사가 강함 — 선글라스·선크림·장갑·비니', '매서슨 호수 저녁 — 샌드플라이 퇴치제, 해 지면 쌀쌀하니 경량 패딩'] },
   '2026-10-25': { at: ['wanaka', 'haast'],
     wear: ['블루풀스·팬테일 폭포는 샌드플라이가 많음 — 긴바지 + 퇴치제', '블루풀스 흔들다리·숲길 — 운동화', '와나카 트리 일몰은 호숫가 바람 — 겉옷 챙기기'] },
   '2026-10-26': { at: ['cook'],
     wear: ['후커밸리 트랙(3시간)은 바람이 매우 강함 — 방풍·방수 재킷, 비니·장갑, 운동화', '빙하호 근처는 체감온도가 더 낮음 — 경량 패딩을 가방에', '구름 있어도 자외선 강함 — 선크림·선글라스'] },
-  '2026-10-27': { at: ['tekapo', 'cook'], watch: '별 관측',
-    wear: ['06:30 타스만 빙하 전망대 일출 — 영하권 가능, 두꺼운 패딩·장갑·비니', '온천: 수영복 필수 (수건은 제공), 슬리퍼 있으면 편함', '22:30 별 관측은 밤 공기 0°C 안팎 — 온천 후 머리 말리고 패딩·비니로 완전 무장'] },
+  '2026-10-27': { at: ['cook', 'tekapo'], watch: '헬기 빙하 착륙',
+    wear: ['06:30 타스만 빙하 전망대 일출 — 영하권 가능, 두꺼운 패딩·장갑·비니', '10:30 헬기 빙하 착륙: 빙하 위 눈밭은 체감 0° 안팎 — 패딩·장갑·비니·선글라스(눈 반사), 미끄럽지 않은 운동화', '온천: 수영복 필수 (수건은 제공), 슬리퍼 있으면 편함', '22:30 별 관측은 밤 공기 0°C 안팎 — 온천 후 머리 말리고 패딩·비니로 완전 무장'] },
   '2026-10-28': { at: ['queenstown'], watch: '밀포드 경비행기',
     wear: ['번지: 끈 있는 운동화, 주머니 비우기, 치마·원피스는 피하기, 안경은 고정끈', '밀포드 경비행기·크루즈 갑판은 바람과 폭포 물보라 — 방수 재킷, 멀미약은 미리', '저녁 곤돌라 전망대는 쌀쌀 — 패딩'] },
   '2026-10-29': { at: ['queenstown', 'auckland'],
@@ -726,7 +728,8 @@ const DAY_WEATHER = {
 
 /* 액티비티 비용 — people: 기본 인원 (화면에서 1/2명 토글 가능). nzd는 2026-10-11에 확인한 1인 정가 (할인은 체크리스트에 표시) */
 const ACTIVITIES = [
-  { id: 'heli',   name: '프란츠 조셉 헬리하이크 ✅ 예약 완료', day: 4, nzd: 899, people: 2 },
+  { id: 'heli',   name: '프란츠 조셉 헬리하이크 ❌ 날씨 취소 (환불 요청)', day: 4, nzd: 0, people: 2 },
+  { id: 'tasman', name: '타스만 빙하 헬기 착륙 ✅ 예약 완료 (Southern Lakes, 1인 NZD 635~ 추정 — 실제 금액으로 수정)', day: 7, nzd: 635, people: 2 },
   { id: 'tekapo', name: '테카포 온천 + 별 관측 ✅ 예약 완료', day: 7, nzd: 179, people: 2 },
   { id: 'bungy',  name: '카와라우 번지 (사진·영상 포함) ✅ 예약 완료', day: 8, nzd: 320, people: 2 },
   { id: 'milford',name: '밀포드 플라이-크루즈-플라이 ✅ 예약 완료', day: 8, nzd: 659, people: 2 },
@@ -806,7 +809,8 @@ const CHECKLIST = [
     { text: '숙소: 와나카 10/25 — Edgewater Lake Wanaka (1박) ₩277,817 · 호텔스닷컴', done: true, stay: 'wanaka' },
     { text: '숙소: 마운트쿡 10/26 — Aoraki Alpine Lodge (1박) ₩406,696 · 아고다', done: true, stay: 'cook' },
     { text: '숙소: 테카포 10/27 — Peppers Bluewater Resort (1박) ₩473,522 · 아고다', done: true, stay: 'tekapo' },
-    { text: '헬리하이크: 10/24 08:00 — Franz Josef Glacier Guides (2인) NZD 1,798 · 공식 사이트', note: '07:45 Glacier Base(63 Cron St) 체크인. 예약 확인 메일 보관. 날씨 취소 시 10/25 아침 또는 폭스 빙하(8:50)로', done: true },
+    { text: '헬리하이크: 10/24 08:00 — Franz Josef Glacier Guides (2인) NZD 1,798 · 공식 사이트', note: '❌ 구름·비로 취소, 10/26까지 대체 일정 없음 → 전액 환불 요청', done: true },
+    { text: '헬기 빙하 착륙: 10/27 10:30 — Southern Lakes Helicopters, Tasman Glacier Explorer (2인)', note: 'Mount Cook Airport (마을에서 5분). 체크인 시간은 확인 메일. 날씨 취소 시 환불', done: true },
     { text: '밀포드 플라이-크루즈-플라이: 10/28 13:00 — True South Flights (2인) NZD 1,318 · Bookme', note: '할인가 1인 659로 예약. 출발: True South 사무실(Frankton). 날씨로 취소되면 운영사가 일정 변경 또는 전액 환불 — 10/29 오전 가능 여부 문의', done: true },
     { text: '카와라우 번지: 10/28 10:30 — AJ Hackett Kawarau Bungy with Media (2인) NZD 640 · 공식 사이트', note: '사진·영상 포함. 직접 운전해서 가므로 15분 전 체크인 (06:45 테카포 출발, 전날 미리 주유). 몸무게 35~235kg, 둘이 같이(탠덤)는 몸무게 차이 30kg 이내. 예약 확인 메일 보관', done: true },
     { text: '테카포 온천 + 별 관측: 10/27 22:30 — Tekapo Springs (2인) NZD 358 · Bookme', note: '6 Lakeside Drive, Lake Tekapo. 문의 0800 2 353 8283 / reception@tekaposprings.co.nz. 예약 확인 메일 보관', done: true },
@@ -847,6 +851,7 @@ const CHECKLIST = [
     { text: '이동 전 도로 정보 확인', link: ['NZTA 도로 정보', 'https://www.journeys.nzta.govt.nz/'] },
     { text: '10/28 밀포드가 날씨로 취소되면 → 샷오버 제트 예약 (선택) — 1인 NZD 199', note: '그날 오후 빈 시간이나 다음 날 오전으로. 보통 당일 예약도 가능. 더 싼 대안: KJet Bookme 1인 149. 밀포드를 탔으면 예약 안 함', link: ['Shotover Jet 예약', 'https://www.shotoverjet.com/prices/'] },
     { text: '10/28 저녁 스카이라인 곤돌라 — 당일 컨디션 보고 결정 (선택)', note: '미리 예약 안 함. 탑승권은 매표소나 온라인에서 당일 구매. 산 위 뷔페(Stratosfare)까지 먹고 싶으면 그날 낮에 자리 있는지 확인', link: ['Skyline Queenstown', 'https://queenstown.skyline.co.nz/'] },
+    { text: 'Franz Josef Glacier Guides 헬리하이크 환불 들어왔는지 카드 내역 확인', note: '날씨 취소 — 환불 안 되면 업체 메일로 문의' },
     { text: '외진 구간 들어가기 전 주유 (해스트 패스, 린디스 패스)', note: '남섬 산간은 주유소 간격이 김' }
   ]}
 ];
@@ -925,7 +930,7 @@ const PACKING = [
 ];
 
 const PLAN_B = [
-  { title: '헬리하이크 취소 (4일차)', text: '5일차 아침 프란츠 조셉에서 재시도 (같은 숙소라 짐 그대로), 와나카 도착을 늦춤' },
+  { title: '헬기 빙하 착륙 취소 (7일차)', text: '10/24 프란츠 조셉 헬리하이크는 날씨로 취소됨 → 10/27 마운트쿡 헬기로 대체. 이것도 취소되면 환불받고, 10/28 밀포드 경비행기에서 남알프스·빙하를 위에서 보기' },
   { title: '밀포드 비행 취소 (8일차)', text: '9일차 오전으로 이동, 대신 글레노키·애로우타운 생략. 비게 된 8일차 오후에는 샷오버 제트 (당일 예약)' },
   { title: 'KE411 지연', text: '오클랜드 환승 여유 3시간 40분. 별도 발권이라 젯스타 놓치면 보상 없음 → 지연 시 젯스타에 즉시 연락' },
   { title: '밀포드 로드/산악도로 통제', text: '출발 전날 NZTA 도로 정보 확인' }
