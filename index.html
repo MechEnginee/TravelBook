@@ -600,15 +600,17 @@ const DAYS = [
     { checkin: true, time: '~19:00~21:00', text: 'Aspen Court 도착 (연박이라 체크인 없음) · 🅿️ 숙소 무료 주차' }
   ]},
   { date: '2026-10-25', stay: '와나카 (Wanaka)', stayQuery: 'Wanaka', cost: '무료', items: [
-    { time: '아침', text: '🍽️ 숙소에서 · 🛒 점심 도시락거리도 챙기기 (해스트 패스 구간은 식당이 거의 없음)' },
-    { drive: '2시간 30분', text: '08:00 프란츠 조셉 출발 → 폭스 글레이셔 경유 → 해스트', places: [['Haast', 'Haast']] },
-    { text: '해스트 패스: 썬더크릭 폭포, 팬테일 폭포, 블루풀스 (왕복 1시간)', places: [['Thunder Creek Falls', 'Thunder Creek Falls'], ['Fantail Falls', 'Fantail Falls'], ['Blue Pools', 'Blue Pools Walk Haast Pass']] },
-    { time: '점심', text: '🍽️ 마카로라 (블루풀스에서 차로 5분) — Makarora Country Café 또는 옆 Wonderland Makarora Lodge 카페. 닫혀 있으면 싸 온 도시락', places: [['Makarora', 'Makarora Country Cafe']] },
-    { drive: '약 15분', text: '~14:00 📸 와나카 호수 뷰포인트 — 바운더리 크리크 캠핑장 근처 (마카로라에서 남쪽으로, 6번 국도 호숫가). 차 세우고 10~15분 사진', places: [['뷰포인트 (Boundary Creek 근처)', 'Boundary Creek Campsite Lake Wanaka']] },
+    { time: '아침', text: '🍽️ 숙소에서 · 🥪 점심은 포장해서 출발 (해스트 패스 구간은 식당이 거의 없음)' },
+    { drive: '약 2시간', text: '10:30 프란츠 조셉 출발 → 폭스 글레이셔 경유 → 해안 도로', places: [['Fox Glacier', 'Fox Glacier Village']] },
+    { time: '~12:15', text: '🥪 점심 피크닉: Knights Point 전망대 (바다 절벽 전망) 또는 Ship Creek (바닷가 산책로·전망대, 화장실 있음) — 포장해 온 점심', places: [['Knights Point', 'Knights Point Lookout'], ['Ship Creek', 'Ship Creek Haast']] },
+    { drive: '30분', text: '~13:15 해스트 — ⛽ 주유소 (와나카 전 마지막 큰 주유, 남은 기름 확인)', places: [['Haast', 'Haast']] },
+    { time: '~14:00', text: '해스트 패스: 썬더크릭 폭포, 팬테일 폭포 (각 5분), 블루풀스 (왕복 1시간) — 15:30쯤 블루풀스 출발', places: [['Thunder Creek Falls', 'Thunder Creek Falls'], ['Fantail Falls', 'Fantail Falls'], ['Blue Pools', 'Blue Pools Walk Haast Pass']] },
+    { time: '(선택)', text: '☕ 마카로라 카페에서 커피·화장실 (블루풀스에서 차로 5분)', places: [['Makarora', 'Makarora Country Cafe']] },
+    { drive: '약 15분', text: '~16:00 📸 와나카 호수 뷰포인트 — 바운더리 크리크 캠핑장 근처 (6번 국도 호숫가). 차 세우고 10~15분 사진', places: [['뷰포인트 (Boundary Creek 근처)', 'Boundary Creek Campsite Lake Wanaka']] },
     { text: '(가는 길, 선택) The Neck · Lake Hawea Lookout — 와나카·하웨아 두 호수 사이 언덕 전망, 시간 되면 잠깐', places: [['The Neck', 'The Neck Lake Hawea'], ['Lake Hawea Lookout', 'Lake Hawea Lookout']] },
     { drive: '약 1시간', text: '와나카', places: [['Wanaka', 'Wanaka']] },
-    { checkin: true, time: '~15:30~16:00', text: 'Edgewater Lake Wanaka 도착 · 체크인 · 🧺 셀프 세탁실 있음 (54 Sargood Dr, 시내에서 2km 호숫가 — 산책, 이른 저녁) · 🅿️ 숙소 무료 주차', places: [['Edgewater', 'Edgewater 54 Sargood Drive Wanaka']] },
-    { time: '~18:00', text: '🍽️ 저녁: 와나카 시내 (숙소에서 차로 5분) — Kika (인기, 예약 추천) 또는 호숫가 Big Fig. 일몰 20:30 전에 숙소로 돌아와 와나카 트리로', places: [['Kika', 'Kika Wanaka'], ['Big Fig', 'Big Fig Wanaka']] },
+    { checkin: true, time: '~17:15', text: 'Edgewater Lake Wanaka 도착 · 체크인 · 🧺 셀프 세탁실 있음 (54 Sargood Dr, 시내에서 2km 호숫가 — 산책, 이른 저녁) · 🅿️ 숙소 무료 주차', places: [['Edgewater', 'Edgewater 54 Sargood Drive Wanaka']] },
+    { time: '~18:15', text: '🍽️ 저녁: 와나카 시내 (숙소에서 차로 5분) — Kika (인기, 예약 추천) 또는 호숫가 Big Fig. 일몰 20:30 전에 숙소로 돌아와 와나카 트리로', places: [['Kika', 'Kika Wanaka'], ['Big Fig', 'Big Fig Wanaka']] },
     { time: '일몰', text: '와나카 트리 (일몰 약 20:30, 숙소에서 호숫가 산책로로 걸어서 약 10분 — 차는 숙소에 두기)', places: [['That Wanaka Tree', 'That Wanaka Tree']] }
   ]},
   { date: '2026-10-26', stay: '마운트쿡 빌리지 (Aoraki/Mount Cook)', stayQuery: 'Aoraki Mount Cook Village', cost: '무료', items: [
